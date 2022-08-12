@@ -14,12 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDeviceTypes: 0100000002000000
   allowOptional3DofHeadTracking: 0
-  handTrackingSupport: 1
-<<<<<<< HEAD:Oculus Hand Motion/Assets/Oculus/OculusProjectConfig.asset
-  handTrackingFrequency: 0
-=======
-  handTrackingFrequency: 1
->>>>>>> 926ee9ac85a782cb1e49f15de905cb11865b80e5:Project Leap Motion/Assets/Oculus/OculusProjectConfig.asset
+  handTrackingSupport: 2
+  handTrackingFrequency: 2
   handTrackingVersion: 2
   anchorSupport: 0
   renderModelSupport: 0
