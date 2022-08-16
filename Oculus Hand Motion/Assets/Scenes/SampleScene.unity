@@ -278,7 +278,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 773190229}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -405,7 +405,7 @@ PrefabInstance:
     - target: {fileID: 120454152424661204, guid: 0c9bd3562840e8641af0aa4844e83803,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 120454152424661204, guid: 0c9bd3562840e8641af0aa4844e83803,
         type: 3}
@@ -451,6 +451,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OculusInteractionSampleRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 2676301269562425592, guid: 0c9bd3562840e8641af0aa4844e83803,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418697577365817630, guid: 0c9bd3562840e8641af0aa4844e83803,
+        type: 3}
+      propertyPath: _trackingOriginType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c9bd3562840e8641af0aa4844e83803, type: 3}
