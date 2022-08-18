@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        debug.text = obj.name;
     }
 
     void Update()
     {
-        
+        Debug.Log(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand));
+
     }
 }

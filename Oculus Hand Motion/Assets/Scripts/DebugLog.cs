@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIButton : MonoBehaviour
+public class DebugLog : MonoBehaviour
 {
     void Start()
     {
-        
+        Debug.Log(gameObject.name);
     }
-
-    void Update()
-    {
-        
-    }
-
 
 }
