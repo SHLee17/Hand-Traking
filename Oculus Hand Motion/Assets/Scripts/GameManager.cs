@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Debug.Log(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand));
-        Debug.Log(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand));
+        //Debug.Log(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand));
 
     }
 }
