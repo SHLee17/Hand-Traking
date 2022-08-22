@@ -11,4 +11,9 @@
 ##### - Pinch 집게 손가락
 ##### - Palm 손바닥 
 
+![유니티 이벤트](https://user-images.githubusercontent.com/62954002/185845634-f8fc3ed4-6719-406a-b1c3-7af66008d413.png)
+
+#### 1. 유니티 이벤트
+
+
 </details>
