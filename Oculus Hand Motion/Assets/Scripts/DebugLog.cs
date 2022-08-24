@@ -6,10 +6,7 @@ public class DebugLog : MonoBehaviour
 {
     void Start()
     {
-        UnityEngine.UI.Button asd;
-
-        asd.
-        Debug.Log(gameObject.name);
+      
     }
 
 }
