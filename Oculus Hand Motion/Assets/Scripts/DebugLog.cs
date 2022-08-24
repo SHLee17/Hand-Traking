@@ -6,7 +6,7 @@ public class DebugLog : MonoBehaviour
 {
     void Start()
     {
-        Debug.Log(gameObject.name);
+      
     }
 
 }
