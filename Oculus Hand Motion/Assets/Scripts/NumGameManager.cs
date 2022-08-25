@@ -38,19 +38,17 @@ public class NumGameManager : MonoBehaviour
     }
     public void CheckCount()
     {
-        leftCount = 0;
-        rightCount = 0;
         foreach (Pose item in poseList)
         {
             if(item.dir == Direction.Left)
             {
                 if(item.select)
-                    leftCount += 1;
+                    leftCount = item.num;
             }
             else
             {
                 if (item.select)
-                    rightCount += 1;
+                    rightCount = item.num;
             }
         }
         txtDirection[0].text = leftCount.ToString();
