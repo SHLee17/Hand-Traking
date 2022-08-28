@@ -53,7 +53,7 @@ namespace Oculus.Interaction
             Assert.IsNotNull(Selector);
             this.EndStart(ref _started);
         }
-        
+
         protected virtual void OnEnable()
         {
             if (_started)

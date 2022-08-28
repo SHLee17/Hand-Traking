@@ -397,6 +397,7 @@ MonoBehaviour:
   - {fileID: 166295862}
   _pointTransform: {fileID: 1623399642}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2
@@ -1319,6 +1320,7 @@ MonoBehaviour:
   - {fileID: 776989083}
   _pointTransform: {fileID: 201012653}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2
@@ -1478,6 +1480,7 @@ MonoBehaviour:
   - {fileID: 911611346}
   _pointTransform: {fileID: 1379376513}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2
@@ -1697,6 +1700,7 @@ MonoBehaviour:
   - {fileID: 1491895148}
   _pointTransform: {fileID: 2062198822}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2

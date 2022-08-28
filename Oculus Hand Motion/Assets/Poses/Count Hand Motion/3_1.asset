@@ -14,15 +14,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeName: 
   _thumbFeatureConfigs:
-    _value: []
-  _indexFeatureConfigs:
-    _value: []
-  _middleFeatureConfigs:
-    _value: []
-  _ringFeatureConfigs:
-    _value: []
-  _pinkyFeatureConfigs:
     _value:
+    - _mode: 1
+      _feature: 0
+      _state: 0
+    - _mode: 1
+      _feature: 1
+      _state: 3
+  _indexFeatureConfigs:
+    _value:
+    - _mode: 0
+      _feature: 0
+      _state: 0
     - _mode: 0
       _feature: 1
       _state: 3
+    - _mode: 0
+      _feature: 2
+      _state: 8
+  _middleFeatureConfigs:
+    _value:
+    - _mode: 0
+      _feature: 0
+      _state: 0
+    - _mode: 0
+      _feature: 1
+      _state: 3
+    - _mode: 0
+      _feature: 2
+      _state: 8
+  _ringFeatureConfigs:
+    _value:
+    - _mode: 0
+      _feature: 0
+      _state: 0
+    - _mode: 0
+      _feature: 1
+      _state: 3
+  _pinkyFeatureConfigs:
+    _value:
+    - _mode: 1
+      _feature: 1
+      _state: 3
+    - _mode: 1
+      _feature: 0
+      _state: 0

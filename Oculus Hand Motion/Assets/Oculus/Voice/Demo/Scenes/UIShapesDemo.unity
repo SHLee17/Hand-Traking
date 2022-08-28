@@ -638,6 +638,7 @@ MonoBehaviour:
     alwaysRecord: 0
     preferredActivationOffset: -0.5
   usePlatformServices: 0
+  enableConsoleLogging: 0
 --- !u!4 &737401906
 Transform:
   m_ObjectHideFlags: 0
@@ -838,11 +839,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2483b9bd782f9449a5972b61b7d51a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CameraFloorOffsetObject: {fileID: 1520928353}
+  m_CameraFloorOffsetObject: {fileID: 0}
   m_RequestedTrackingMode: 0
   m_TrackingOriginMode: 1
   m_TrackingSpace: 0
-  m_CameraYOffset: 1.9
+  m_CameraYOffset: 1.36144
 --- !u!4 &927544878
 Transform:
   m_ObjectHideFlags: 0

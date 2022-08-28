@@ -1951,7 +1951,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1335849532}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.Light, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 0
         m_Arguments:
@@ -2298,7 +2298,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1335849532}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.Light, UnityEngine
         m_MethodName: set_spotAngle
         m_Mode: 0
         m_Arguments:
@@ -2697,7 +2697,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1335849532}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.Light, UnityEngine
         m_MethodName: set_intensity
         m_Mode: 0
         m_Arguments:
