@@ -36,21 +36,7 @@ public class NumGameManager : MonoBehaviour
             }
         }
     }
-    public class Example
-    {
-        public Dictionary<Order, int> values;
-        public Sign sign;
-        public bool isCorrect;
-        public int playerAnswer; 
 
-        public void SetExample(Order order, int value)
-        {
-            if (ReferenceEquals(values, null))
-                values = new Dictionary<Order, int>();
-
-            values.Add(order, value);
-        } 
-    }
 
     [Header("Arrays")]
     public Transform[] fingerPoses;
@@ -79,11 +65,9 @@ public class NumGameManager : MonoBehaviour
     bool isSetExamQuestions;
     Dictionary<Order, Number> answerDict;
 
-    List<Example> exampleList;
 
     void Start()
     {
-        exampleList = new List<Example>();
         answerDict = new Dictionary<Order, Number>();
         answerDict.Add(Order.First, nums[0]);
         answerDict.Add(Order.Second, nums[1]);
@@ -133,12 +117,7 @@ public class NumGameManager : MonoBehaviour
         }
         else
         {
-            Example example = new Example();
 
-            for (Order i = Order.First; i <= Order.Third; i++)
-                //example.SetExample(i, NumGet(i));
-
-            exampleList.Add(example);
         }
 
     }
@@ -248,7 +227,7 @@ public class NumGameManager : MonoBehaviour
 
         answerDict[blankOrder].txtNum.text = (leftCount + rightCount).ToString();
 
-        answerDict[blankOrder].txtNum.color = Color.red;
+        answerDict[blankOrder].txtNum.color = Color.green;
 
         return leftCount + rightCount;
     }
