@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResultBoard : MonoBehaviour
 {
-
+    [System.Serializable]
     public class Result
     {
         public NumGameManager.Order blankOrder;
@@ -19,6 +19,7 @@ public class ResultBoard : MonoBehaviour
             for (int i = 0; i < nums.Length; i++)
                 resultDic.Add((NumGameManager.Order)i, nums[i]);
 
+            blankOrder = blank;
             this.sign = sign;
             this.playerAnswer = playerAnswer;
         }
@@ -41,7 +42,11 @@ public class ResultBoard : MonoBehaviour
     }
     public void CallResultBoard()
     {
-        //if(resultList.Count > 0)
+        
+        if(resultList.Count > 0)
+        {
+
+        }
 
     }
 }

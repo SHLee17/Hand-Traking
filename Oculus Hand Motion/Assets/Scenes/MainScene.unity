@@ -2169,7 +2169,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 92d5abf534dc27d4a9c09797b59768b4,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5039687269024256309, guid: 92d5abf534dc27d4a9c09797b59768b4,
         type: 3}
@@ -3939,7 +3939,7 @@ PrefabInstance:
     - target: {fileID: 2052054578146283213, guid: e858de184e131eb43ae283e2e7ac3214,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -90
+      value: -215
       objectReference: {fileID: 0}
     - target: {fileID: 2052054578146283213, guid: e858de184e131eb43ae283e2e7ac3214,
         type: 3}
@@ -4898,7 +4898,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b53eec56bf9821047ae747463bcf85bb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6289776048922875581, guid: b53eec56bf9821047ae747463bcf85bb,
         type: 3}
@@ -7419,6 +7419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultPartitionParent: {fileID: 916637705}
+  resultList: []
 --- !u!1 &944082317274852692
 GameObject:
   m_ObjectHideFlags: 0
@@ -7440,7 +7441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &944082317274852693
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -78,7 +78,7 @@ public class NumGameManager : MonoBehaviour
         answerDict.Add(Order.Second, nums[1]);
         answerDict.Add(Order.Third, nums[2]);
 
-        timer = 30;
+        timer = 5;
 
         foreach (Transform item in fingerPoses)
         {
@@ -115,7 +115,7 @@ public class NumGameManager : MonoBehaviour
         }
         if (timer > 0)
         {
-            //timer -= Time.deltaTime;
+            timer -= Time.deltaTime;
             txtTimer.text = timer.ToString("N1");
 
             playerAnswer = CheckCount(blankOrder);
@@ -130,12 +130,21 @@ public class NumGameManager : MonoBehaviour
 
             string[] result = System.Array.ConvertAll(tempArr, x => x.ToString());
 
+            
             resultBoard.resultList.Add(new ResultBoard.Result(result, blankOrder, sign, playerAnswer));
+
+            resultBoard.CallResultBoard();
+
+            isSetExamQuestions = false;
+            timer = 5;
         }
 
     }
     void ExampleQuestion(Sign sign, Order blankOrder)
     {
+        foreach (KeyValuePair<Order, Number> item in answerDict)
+            item.Value.txtNum.color = Color.black;
+
         void NumSet(Order order, int Num) => answerDict[order].Num = Num;
         int NumGet(Order order) { return answerDict[order].Num; }
 
