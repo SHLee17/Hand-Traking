@@ -997,7 +997,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1866978905}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: OVRTrackedKeyboard, Oculus.VR
         m_MethodName: set_ConnectionRequired
         m_Mode: 0
         m_Arguments:
@@ -2407,7 +2407,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1866978905}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: OVRTrackedKeyboard, Oculus.VR
         m_MethodName: set_ShowUntracked
         m_Mode: 0
         m_Arguments:
@@ -3391,7 +3391,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1866978905}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: OVRTrackedKeyboard, Oculus.VR
         m_MethodName: set_RemoteKeyboard
         m_Mode: 0
         m_Arguments:
@@ -5000,7 +5000,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1866978905}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: OVRTrackedKeyboard, Oculus.VR
         m_MethodName: set_TrackingEnabled
         m_Mode: 0
         m_Arguments:

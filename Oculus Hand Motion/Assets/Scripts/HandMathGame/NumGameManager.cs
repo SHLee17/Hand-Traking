@@ -58,13 +58,18 @@ public class NumGameManager : MonoBehaviour
     [Header("Data Type")]
     int leftCount, rightCount;
     float timer;
+    int playerAnswer;
+    Dictionary<Order, Number> answerDict;
     [SerializeField]
     int answer;
-    int playerAnswer;
     [SerializeField]
     bool isSetExamQuestions;
-    Dictionary<Order, Number> answerDict;
 
+    [Header("Class")]
+    [SerializeField]
+    ResultBoard resultBoard;
+    [SerializeField]
+    NumberManager numberManager;
 
     void Start()
     {
@@ -110,14 +115,22 @@ public class NumGameManager : MonoBehaviour
         }
         if (timer > 0)
         {
-            timer -= Time.deltaTime;
+            //timer -= Time.deltaTime;
             txtTimer.text = timer.ToString("N1");
 
             playerAnswer = CheckCount(blankOrder);
         }
         else
         {
+            
+            int[] tempArr = 
+                { answerDict[Order.First].Num,
+                  answerDict[Order.Second].Num,
+                  answerDict[Order.Third].Num   };
 
+            string[] result = System.Array.ConvertAll(tempArr, x => x.ToString());
+
+            resultBoard.resultList.Add(new ResultBoard.Result(result, blankOrder, sign, playerAnswer));
         }
 
     }
@@ -222,12 +235,21 @@ public class NumGameManager : MonoBehaviour
                     rightCount = item.num;
             }
         }
-        txtDirections[0].text = leftCount.ToString();
-        txtDirections[1].text = rightCount.ToString();
+        //txtDirections[0].text = leftCount.ToString();
+        //txtDirections[1].text = rightCount.ToString();
 
         answerDict[blankOrder].txtNum.text = (leftCount + rightCount).ToString();
 
         answerDict[blankOrder].txtNum.color = Color.green;
+
+        foreach (GameObject item in numberManager.leftHandNumList)
+            item.gameObject.SetActive(false);
+        foreach (GameObject item in numberManager.rightHandNumList)
+            item.gameObject.SetActive(false);
+
+        numberManager.leftHandNumList[leftCount].SetActive(true);
+        numberManager.rightHandNumList[rightCount].SetActive(true);
+
 
         return leftCount + rightCount;
     }
