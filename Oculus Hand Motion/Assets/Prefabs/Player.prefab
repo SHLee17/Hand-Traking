@@ -6086,6 +6086,7 @@ MonoBehaviour:
   _interactableFilters: []
   _pointTransform: {fileID: 6224025509721125388}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2
@@ -6977,6 +6978,7 @@ MonoBehaviour:
   _interactableFilters: []
   _pointTransform: {fileID: 2857485485760842004}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2
@@ -12011,6 +12013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4690921945789069074}
+  - component: {fileID: 1787041873}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -12035,6 +12038,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1787041873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690921945789069075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fa31c8485801c468e1c6bef8e059ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4950218165187741437
 GameObject:
   m_ObjectHideFlags: 0
@@ -12409,6 +12424,7 @@ MonoBehaviour:
   _interactableFilters: []
   _pointTransform: {fileID: 3521753047171980523}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2
@@ -15703,6 +15719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8053517620544173848}
   - component: {fileID: 8035787863297448078}
+  - component: {fileID: 646718467}
   m_Layer: 0
   m_Name: RightEyeAnchor
   m_TagString: Untagged
@@ -15768,6 +15785,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &646718467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053517620544400184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &8053517620544400186
 GameObject:
   m_ObjectHideFlags: 0
@@ -15779,6 +15829,7 @@ GameObject:
   - component: {fileID: 8053517620544173850}
   - component: {fileID: 8053517620539815224}
   - component: {fileID: 8053517620545812672}
+  - component: {fileID: 607361061}
   m_Layer: 0
   m_Name: CenterEyeAnchor
   m_TagString: MainCamera
@@ -15852,6 +15903,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &607361061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053517620544400186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &8053517620544400188
 GameObject:
   m_ObjectHideFlags: 0
@@ -15879,7 +15963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8053517620544400188}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15989,6 +16073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8053517620544173854}
   - component: {fileID: 8035787865303582484}
+  - component: {fileID: 2078001466}
   m_Layer: 0
   m_Name: LeftEyeAnchor
   m_TagString: MainCamera
@@ -16054,6 +16139,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2078001466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8053517620544400190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &8053517620544406142
 GameObject:
   m_ObjectHideFlags: 0
@@ -16930,6 +17048,7 @@ MonoBehaviour:
   _interactableFilters: []
   _pointTransform: {fileID: 8752129140185384653}
   _touchReleaseThreshold: 0.002
+  _zThreshold: 0.001
   _dragStartCurve:
     _animationCurve:
       serializedVersion: 2

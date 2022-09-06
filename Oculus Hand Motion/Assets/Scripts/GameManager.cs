@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Oculus.Interaction.Input;
 
 public class GameManager : MonoBehaviour
 {
     static GameManager instance;
+    public OVRCameraRig cameraRig;
 
     public static GameManager Instance 
     {
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand));
+        Debug.Log(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand));
         //Debug.Log(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand));
     }
 
