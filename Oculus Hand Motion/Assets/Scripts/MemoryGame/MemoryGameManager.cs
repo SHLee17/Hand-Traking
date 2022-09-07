@@ -8,7 +8,6 @@ public class MemoryGameManager : MonoBehaviour
     public struct Matrix
     {
         public int i, j;
-
         public Matrix(int i, int j)
         {
             this.i = i;
@@ -31,11 +30,11 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     List<PadButton> padButtonList;
 
-
     int count;
     float timer;
     float timerReset;
     float padLightSpeed;
+
     void Start()
     {
         playerPadList = new List<Matrix>();
@@ -44,17 +43,22 @@ public class MemoryGameManager : MonoBehaviour
         timer = timerReset = 1.5f;
         count = 5;
         padLightSpeed = 0.5f;
-
-
+        SetLevel();
     }
     void Update()
     {
         timer -= Time.deltaTime;
 
+        Vector3 cameraPos = GameManager.Instance.player.cameraRig.centerEyeAnchor.transform.position + 
+            new Vector3(-0.1f, -0.2f, 0.65f);
+
+        transform.position = cameraPos;
+
         if (count > 0)
         {
             if (timer < 0)
             {
+
                 int lineIndex = Random.Range(0, gameLevel);
                 int padIndex = Random.Range(0, gameLevel);
 
@@ -77,30 +81,24 @@ public class MemoryGameManager : MonoBehaviour
         playerPadList.Add(new Matrix(i, j));
     }
 
-    
-    void SetLevelText()
+    int ConvertArrayIndex(int i, int j)
     {
-        int index = 0;
-
-        for (int i = 0; i < padLineList.Count; i++)
+        return (i * 5) + (j % 5);
+    }
+    void SetLevel()
+    {
+        for (int i = 0; i < 5; i++)
         {
-            if (i < gameLevel)
+            if (i >= gameLevel) continue;
+            for (int j = 0; j < 5; j++)
             {
-                for (int j = 0; j < padLineList[i].padList.Count; j++)
+                if (j < gameLevel)
                 {
-                    if (j < gameLevel)
-                    {
-                        index++;
-                        padLineList[i].padList[j].txtNumber.text = index.ToString();
-                    }
-                    else
-                        continue;
-
+                    padButtonList[ConvertArrayIndex(i, j)].gameObject.SetActive(true);
                 }
             }
-            else
-                continue;
         }
+
     }
 
 }
