@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     static GameManager instance;
     public Player player;
+
     public static GameManager Instance 
     {
         get
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        //OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
+
         //Debug.Log(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand));
         //Debug.Log(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand));
     }

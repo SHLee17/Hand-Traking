@@ -32,11 +32,5 @@ public class Pad : MonoBehaviour
         btnImage.sprite = sprites[0];
     }
 
-    public void SetTextNumber()
-    {
-        int xOffset = 20;
 
-
-        txtNumber.rectTransform.offsetMin = new Vector2(xOffset, txtNumber.rectTransform.offsetMin.y);
-    }
 }
