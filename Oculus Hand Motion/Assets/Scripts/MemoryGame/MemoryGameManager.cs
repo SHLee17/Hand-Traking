@@ -1,23 +1,9 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MemoryGameManager : MonoBehaviour
 {
 
-    //static MemoryGameManager instance;
-
-    //public static MemoryGameManager Instance
-    //{
-    //    get
-    //    {
-    //        if (ReferenceEquals(instance, null))
-    //            return null;
-
-    //        return instance;
-    //    }
-    //}
     enum State
     {
         PlayExample,
@@ -31,56 +17,42 @@ public class MemoryGameManager : MonoBehaviour
         End
     }
 
-    [System.Serializable]
-    public struct Matrix
-    {
-        public int i, j;
-        public Matrix(int i, int j)
-        {
-            this.i = i;
-            this.j = j;
-        }
-    }
 
     public int gameLevel;
 
 
     [Header("Arrays")]
     [SerializeField]
-    public List<Matrix> playerClickList;
-    [SerializeField]
     List<Pad> clickHistroyList;
     [SerializeField]
-    List<Matrix> exampleClickList;
-    [SerializeField]
     List<PadButton> padButtonList;
+
+    Stack<int> exampleStack;
+    Stack<int> playerStack;
+
     [SerializeField]
     GameObject[] objPanel;
 
+
+    [Header("ETC")]
+    [SerializeField]
+    EventCanvas eventCanvas;
     int count;
     float timer;
     float timerReset;
+    [SerializeField]
     State state;
+    [SerializeField]
     Phase phase;
-
-    //private void Awake()
-    //{
-    //    if (ReferenceEquals(instance, null))
-    //    {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject);
-    //    }
-    //    else
-    //        Destroy(gameObject);
-    //}
 
     void Start()
     {
-        playerClickList = new List<Matrix>();
-        exampleClickList = new List<Matrix>();
+        exampleStack = new Stack<int>();
+        playerStack = new Stack<int>();
+
         gameLevel = 3;
         timer = timerReset = 1.5f;
-        count = 5;
+        count = 7;
 
         SetLevel();
 
@@ -90,14 +62,9 @@ public class MemoryGameManager : MonoBehaviour
     }
     void Update()
     {
-
-
         timer -= Time.deltaTime;
 
-        Vector3 cameraPos = GameManager.Instance.player.cameraRig.centerEyeAnchor.transform.position + 
-            new Vector3(-0.1f, -0.2f, 0.65f);
-
-        transform.position = cameraPos;
+        GameManager.Instance.player.cameraRig.transform.LookAt(transform);
 
         switch (state)
         {
@@ -105,7 +72,7 @@ public class MemoryGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        //PadInteractle(false);
+                        PadInteractle(false);
                         StateChange(state, Phase.Start);
                         break;
                     case Phase.Start:
@@ -114,23 +81,32 @@ public class MemoryGameManager : MonoBehaviour
                             if (timer < 0)
                             {
                                 System.Random rand = new System.Random();
-                                
+
                                 int randLine = rand.Next(0, gameLevel);
                                 int randButton = rand.Next(0, gameLevel);
 
                                 padButtonList[ConvertArrayIndex(randLine, randButton)].Click();
 
-                                exampleClickList.Add(new Matrix(randLine, randButton));
+                                exampleStack.Push(padButtonList[ConvertArrayIndex(randLine, randButton)].Index);
 
                                 timer = timerReset;
                                 count -= 1;
                             }
                         }
                         else
+                        {
+                            if (timer < 0)
+                            {
+                                eventCanvas.gameObject.SetActive(true);
+                                StateChange(state, Phase.End);
+                            }
+                        }
+                        break;
+
+                    case Phase.End:
+                        if (eventCanvas.isEventOver)
                             StateChange(State.PlayGame, Phase.Ready);
                         break;
-                        
-
                 }
                 break;
             case State.PlayGame:
@@ -141,6 +117,17 @@ public class MemoryGameManager : MonoBehaviour
                         StateChange(state, Phase.Start);
                         break;
                     case Phase.Start:
+                        foreach (PadButton item in padButtonList)
+                        {
+                            if (item.isClick)
+                            {
+                                playerStack.Push(item.Index);
+                                clickHistroyList[playerStack.Count - 1].gameObject.SetActive(true);
+                                clickHistroyList[playerStack.Count - 1].txtNumber.text = item.Index.ToString();
+                                item.isClick = false;
+                                break;
+                            }
+                        }
 
                         break;
                     case Phase.End:
@@ -166,23 +153,6 @@ public class MemoryGameManager : MonoBehaviour
                 button.InteractableActive(isActive);
         }
     }
-    public void PadOnClick()
-    {
-  
-
-        if (state == State.PlayGame && phase == Phase.Start)
-        {
-            //int i = temp / gameLevel;
-            //int j = temp % gameLevel;
-            ////playerClickStack.Push(new Matrix(i, j));
-            //clickHistroyList[temp].txtNumber.text = temp.ToString();
-        }
-    }
-    public void RemoveOnClick()
-    {
-
-    }
-
     public int ConvertArrayIndex(int i, int j)
     {
         return (i * 5) + (j % 5);

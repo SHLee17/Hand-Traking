@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 9104256984745693901}
   - component: {fileID: 41183698002377003}
   - component: {fileID: 891888028}
+  - component: {fileID: 1186274436290559522}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -534,6 +535,19 @@ MonoBehaviour:
   _hoverColor: {r: 0, g: 0, b: 1, a: 1}
   _selectColor: {r: 0, g: 1, b: 0, a: 1}
   _disabledColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1186274436290559522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710161018957968107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f86a84fb95c81488d3a98d74b9051d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 7903771606508362105}
 --- !u!1 &1864130467071994443
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,21 +857,33 @@ MonoBehaviour:
   _whenSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1342813890568074322}
         m_TargetAssemblyTypeName: PadButton, Assembly-CSharp
-        m_MethodName: PadOnClick
-        m_Mode: 1
+        m_MethodName: OnClick
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   _whenUnselect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1342813890568074322}
+        m_TargetAssemblyTypeName: PadButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _whenInteractorViewAdded:
     m_PersistentCalls:
       m_Calls: []
@@ -1086,9 +1112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb817fc05d753d42aa91f98fdfd235c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isClick: 0
   index: 0
   txtIndex: {fileID: 1823353741}
   poke: {fileID: 6692930152448629756}
-  debugVisual: {fileID: 0}
   cube: {fileID: 710161018957968107}
   animator: {fileID: 41183698002377003}

@@ -6,16 +6,16 @@ using Oculus.Interaction;
 
 public class PadButton : MonoBehaviour
 {
+    public bool isClick;
+
     [SerializeField]
     int index;
+
     [SerializeField]
     TMP_Text txtIndex;
 
     [SerializeField]
     PokeInteractable poke;
-
-    [SerializeField]
-    MeshRenderer cube;
 
     [SerializeField]
     Animator animator;
@@ -33,7 +33,6 @@ public class PadButton : MonoBehaviour
     public void InteractableActive(bool isActive)
     {
         poke.enabled = isActive;
-        //debugVisual.enabled = isActive;
     }
     public void Click()
     {
@@ -41,15 +40,6 @@ public class PadButton : MonoBehaviour
         
     }
 
-    public void OnClick()
-    {
-        //int temp = index - 1;
-        //int i = temp / MemoryGameManager.Instance.gameLevel;
-        //int j = temp % MemoryGameManager.Instance.gameLevel;
-        //MemoryGameManager.Instance.playerClickList.Add(new MemoryGameManager.Matrix(i, j));
-
-        //Debug.Log(MemoryGameManager.Instance.playerClickList.Count);
-
-    }
+    public void OnClick(bool isClick) => this.isClick = isClick;
 
 }
