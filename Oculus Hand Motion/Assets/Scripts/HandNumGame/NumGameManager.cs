@@ -82,7 +82,7 @@ public class NumGameManager : MonoBehaviour
         answerDict.Add(Order.Second, nums[1]);
         answerDict.Add(Order.Third, nums[2]);
 
-        exampleCount = 1;
+        exampleCount = 5;
         resetTimer = 5;
         timer = resetTimer;
 
@@ -91,6 +91,8 @@ public class NumGameManager : MonoBehaviour
             foreach (Transform child in item)
                 poseList.Add(child.GetComponent<Pose>());
         }
+
+        transform.position = new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.transform.position.y + 0.4f, transform.position.z);
     }
 
     void Update()

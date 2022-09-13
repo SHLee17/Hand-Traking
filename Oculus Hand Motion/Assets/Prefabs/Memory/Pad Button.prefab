@@ -1116,5 +1116,4 @@ MonoBehaviour:
   index: 0
   txtIndex: {fileID: 1823353741}
   poke: {fileID: 6692930152448629756}
-  cube: {fileID: 710161018957968107}
   animator: {fileID: 41183698002377003}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MemoryGameManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class MemoryGameManager : MonoBehaviour
     {
         PlayExample,
         PlayGame,
+        EndGame,
         Pause
     }
     enum Phase
@@ -37,6 +39,12 @@ public class MemoryGameManager : MonoBehaviour
     [Header("ETC")]
     [SerializeField]
     EventCanvas eventCanvas;
+    [SerializeField]
+    TMP_Text txtHistory;
+    [SerializeField]
+    GameObject objEraser;
+    [SerializeField]
+    GameObject objCompleted;
     int count;
     float timer;
     float timerReset;
@@ -52,19 +60,18 @@ public class MemoryGameManager : MonoBehaviour
 
         gameLevel = 3;
         timer = timerReset = 1.5f;
-        count = 7;
+        count = 5;
 
         SetLevel();
 
         state = State.PlayExample;
         phase = Phase.Ready;
 
+        transform.position = new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.transform.position.y + 0.4f, transform.position.z);
     }
     void Update()
     {
         timer -= Time.deltaTime;
-
-        GameManager.Instance.player.cameraRig.transform.LookAt(transform);
 
         switch (state)
         {
@@ -98,6 +105,7 @@ public class MemoryGameManager : MonoBehaviour
                             if (timer < 0)
                             {
                                 eventCanvas.gameObject.SetActive(true);
+                                eventCanvas.CountDown();
                                 StateChange(state, Phase.End);
                             }
                         }
@@ -117,28 +125,82 @@ public class MemoryGameManager : MonoBehaviour
                         StateChange(state, Phase.Start);
                         break;
                     case Phase.Start:
-                        foreach (PadButton item in padButtonList)
+                        if (exampleStack.Count > playerStack.Count)
                         {
-                            if (item.isClick)
+                            foreach (PadButton item in padButtonList)
                             {
-                                playerStack.Push(item.Index);
-                                clickHistroyList[playerStack.Count - 1].gameObject.SetActive(true);
-                                clickHistroyList[playerStack.Count - 1].txtNumber.text = item.Index.ToString();
-                                item.isClick = false;
-                                break;
+                                if (item.isClick)
+                                {
+                                    playerStack.Push(item.Index);
+                                    clickHistroyList[playerStack.Count - 1].gameObject.SetActive(true);
+                                    clickHistroyList[playerStack.Count - 1].txtNumber.text = item.Index.ToString();
+                                    item.isClick = false;
+                                    break;
+                                }
+                            }
+
+                            txtHistory.gameObject.SetActive(true);
+                            txtHistory.text = exampleStack.Count + " / <color=red>" + playerStack.Count + "</color>";
+                            objCompleted.SetActive(false);
+                            if(playerStack.Count > 0)
+                            objEraser.SetActive(true);
+                        }
+                        else
+                        {
+                            txtHistory.text = exampleStack.Count + " / <color=green>" + playerStack.Count + "</color>";
+                            objCompleted.SetActive(true);
+                        }
+                        break;
+                    case Phase.End:
+
+                        objEraser.SetActive(false);
+                        objCompleted.SetActive(false);
+                        txtHistory.gameObject.SetActive(false);
+
+                        StateChange(State.EndGame, Phase.Ready);
+                        break;
+                }
+                break;
+            case State.EndGame:
+                switch (phase)
+                {
+                    case Phase.Ready:
+                        break;
+                    case Phase.Start:
+                        for (int i = 0; i < playerStack.Count; i++)
+                        {
+                            if (playerStack.Pop() != exampleStack.Pop())
+                            {
+                                eventCanvas.gameObject.SetActive(true);
+                                eventCanvas.txtWording.text = "<color=red>틀렸습니다.</color>";
+                                goto wrong;
                             }
                         }
-
+                        eventCanvas.txtWording.text = "<color=green>맞았습니다..</color>";
+                    wrong:
                         break;
                     case Phase.End:
                         break;
                 }
                 break;
+
             case State.Pause:
                 break;
         }
 
 
+    }
+    public void OnInputCompleted()
+    {
+        StateChange(State.PlayGame, Phase.End);
+    }
+    public void EraserStack()
+    {
+        if (playerStack.Count > 0)
+        {
+            clickHistroyList[playerStack.Count - 1].gameObject.SetActive(false);
+            playerStack.Pop();
+        }
     }
     void StateChange(State state, Phase phase)
     {
@@ -159,6 +221,9 @@ public class MemoryGameManager : MonoBehaviour
     }
     void SetLevel()
     {
+        foreach (GameObject item in objPanel)
+            item.SetActive(false);
+
         objPanel[gameLevel - 3].SetActive(true);
 
         foreach (Pad item in clickHistroyList)

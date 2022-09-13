@@ -7,22 +7,22 @@ using UnityEngine;
 public class EventCanvas : MonoBehaviour
 {
     [SerializeField]
-    TMP_Text txtWording;
+    public TMP_Text txtWording;
     public bool isEventOver;
 
     string[] countDown = 
-        {"1 2 3 4 <color=red>5</color>",
-                    "1 2 3 <color=orange>4</color>",
-                     "1 2 <color=yellow>3</color>",
-                    "1 <color=green>2</color>",
-                    "<color=blue>1</color>"};
+        {"1 2 3 4 <size=150><color=red>5</color></size>",
+                    "1 2 3 <size=150><color=orange>4</color></size> 5",
+                     "1 2 <size=150><color=yellow>3</color></size> 4 5",
+                    "1 <size=150><color=green>2</color></size> 3 4 5",
+                    "<size=150><color=blue>1</color></size> 2 3 4 5"};
 
-    
-    private void OnEnable()
+    public void CountDown()
     {
         isEventOver = false;
         StartCoroutine(StartCount());
     }
+
     IEnumerator StartCount()
     {
         yield return new WaitForSeconds(3);
@@ -32,12 +32,14 @@ public class EventCanvas : MonoBehaviour
         {
             yield return wf;
             txtWording.text = countDown[count];
+            txtWording.fontSize = 100;
 
             count++;
         }
 
         yield return wf;
         isEventOver = true;
+        txtWording.fontSize = 50;
         gameObject.SetActive(false);
     }
 }

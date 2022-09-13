@@ -20,6 +20,11 @@ public class PadButton : MonoBehaviour
     [SerializeField]
     Animator animator;
 
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
     public int Index { get => index;
         set 
         {
@@ -28,8 +33,6 @@ public class PadButton : MonoBehaviour
 
         }  
     }
-
-
     public void InteractableActive(bool isActive)
     {
         poke.enabled = isActive;
