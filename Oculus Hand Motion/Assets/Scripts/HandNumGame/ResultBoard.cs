@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using NumGameEnum;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public class ResultBoard : MonoBehaviour
 {
@@ -26,43 +26,83 @@ public class ResultBoard : MonoBehaviour
         }
     }
     [SerializeField]
-    Transform resultPartitionParent;
+    Transform[] resultPageList;
 
-    List<ResultPartition> resultPartitionList;
+    [SerializeField]
+    List<List<ResultPartition>> resultPartitionList;
+
+
+
+    [SerializeField]
+    TMP_Text txtPage;
+
+    [SerializeField]
+    GameObject objResultBoardCanvas;
+
+    [SerializeField]
+    GameObject objFinalSelect;
+
+    [SerializeField]
+    GameObject objSelectPage;
 
     public List<Result> resultList;
-    public GameObject resultBoardCanvas;
+
+    int page;
 
     void Start()
     {
-        resultBoardCanvas.gameObject.SetActive(false);
+        Debug.Log(5 / 10);
+
+        ResetBoard();
 
         resultList = new List<Result>();
-        resultPartitionList = new List<ResultPartition>();
 
-        foreach (Transform item in resultPartitionParent)
-            resultPartitionList.Add(item.GetComponent<ResultPartition>());
+        resultPartitionList = new List<List<ResultPartition>>();
+
+        foreach (Transform item in resultPageList)
+        {
+            List<ResultPartition> tempList = new List<ResultPartition>();
+
+            foreach (Transform parent in item)
+                tempList.Add(parent.GetComponent<ResultPartition>());
+
+            resultPartitionList.Add(tempList);
+        }
     }
+    public void ResetBoard()
+    {
+        resultList.Clear();
+        page = 0;
+        txtPage.text = $"{page + 1} / 1";
+        objResultBoardCanvas.gameObject.SetActive(false);
+        objSelectPage.gameObject.SetActive(false);
+        objFinalSelect.gameObject.SetActive(false);
+    }
+
     public void CallResultBoard()
     {
-        resultBoardCanvas.gameObject.SetActive(true);
+        objResultBoardCanvas.gameObject.SetActive(true);
+        objSelectPage.gameObject.SetActive(true);
+
         if (resultList.Count > 0)
         {
             for (int i = 0; i < resultList.Count; i++)
             {
-                resultPartitionList[i].txtExample.text = $"{i + 1}.";
+                int pageIndex = i / 10;
+                int index = i % 10;
+                resultPartitionList[pageIndex][index].txtExample.text = $"{i + 1}.  ";
                 for (Order j = Order.First; j <= Order.Third; j++)
                 {
-                    if(j != resultList[i].blankOrder)
+                    if (j != resultList[i].blankOrder)
                     {
-                        resultPartitionList[i].txtExample.text += $" {resultList[i].resultDic[j]} ";
+                        resultPartitionList[pageIndex][index].txtExample.text += $" {resultList[i].resultDic[j]} ";
                     }
                     else
                     {
-                        if(int.Parse(resultList[i].resultDic[j]) == resultList[i].answer)
-                            resultPartitionList[i].txtExample.text += $" <color=green>{resultList[i].resultDic[j]}</color> ";
+                        if (int.Parse(resultList[i].resultDic[j]) == resultList[i].answer)
+                            resultPartitionList[pageIndex][index].txtExample.text += $" <color=#006400>{resultList[i].resultDic[j]}</color> ";
                         else
-                            resultPartitionList[i].txtExample.text += $" <color=red>{resultList[i].resultDic[j]}</color> ";
+                            resultPartitionList[pageIndex][index].txtExample.text += $" <color=red>{resultList[i].resultDic[j]}</color> ";
 
                     }
 
@@ -71,27 +111,71 @@ public class ResultBoard : MonoBehaviour
                         switch (resultList[i].sign)
                         {
                             case Sign.Add:
-                                resultPartitionList[i].txtExample.text += "+";
+                                resultPartitionList[pageIndex][index].txtExample.text += "+";
                                 break;
                             case Sign.Subtract:
-                                resultPartitionList[i].txtExample.text += "-";
+                                resultPartitionList[pageIndex][index].txtExample.text += "-";
                                 break;
                             case Sign.Divide:
-                                resultPartitionList[i].txtExample.text += "¡À";
+                                resultPartitionList[pageIndex][index].txtExample.text += "¡À";
                                 break;
                             case Sign.Multiply:
-                                resultPartitionList[i].txtExample.text += "x";
+                                resultPartitionList[pageIndex][index].txtExample.text += "x";
                                 break;
                         }
                     }
                     else if (j == Order.Second)
-                        resultPartitionList[i].txtExample.text += "=";
+                        resultPartitionList[pageIndex][index].txtExample.text += "=";
                 }
 
-                resultPartitionList[i].txtPlayerAnswer.text = resultList[i].answer.ToString();
-                resultPartitionList[i].holder.gameObject.SetActive(true);
+                resultPartitionList[pageIndex][index].txtPlayerAnswer.text = $"<color=orange>{resultList[i].answer}</color>";
+                resultPartitionList[pageIndex][index].holder.gameObject.SetActive(true);
+
+               
             }
         }
+        maxPage = (resultList.Count -1) / 10;
+    }
+    int maxPage;
+    public void NextPage()
+    {
 
+        if (page < maxPage)
+            page++;
+        else
+            return;
+
+        foreach (Transform item in resultPageList)
+            item.gameObject.SetActive(false);
+
+        resultPageList[page].gameObject.SetActive(true);
+        txtPage.text = $"{page + 1} / {maxPage + 1}";
+
+    }
+    public void PreviousPage()
+    {
+
+        if (page > 0)
+            page--;
+        else
+            return;
+
+        foreach (Transform item in resultPageList)
+            item.gameObject.SetActive(false);
+
+        resultPageList[page].gameObject.SetActive(true);
+        txtPage.text = $"{page + 1} / {maxPage + 1}";
+    }
+
+    public void OnRestart()
+    {
+        objFinalSelect.SetActive(true);
+        objSelectPage.SetActive(false);
+    }
+
+    public void FinalCompletedNo()
+    {
+        objFinalSelect.SetActive(false);
+        objSelectPage.SetActive(true);
     }
 }

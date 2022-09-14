@@ -39,10 +39,17 @@ public class MemoryGameManager : MonoBehaviour
     EventCanvas eventCanvas;
     [SerializeField]
     TMP_Text txtHistory;
+
+    [Header("GameObjects")]
     [SerializeField]
     GameObject objEraser;
     [SerializeField]
     GameObject objCompleted;
+    [SerializeField]
+    GameObject objRightAnwer;
+    [SerializeField]
+    GameObject objWrowngAnwer;
+
     int count;
     float timer;
     float timerReset;
@@ -65,7 +72,7 @@ public class MemoryGameManager : MonoBehaviour
         state = State.PlayExample;
         phase = Phase.Ready;
 
-        transform.position = new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.transform.position.y + 0.4f, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.transform.position.y + 0.4f, transform.position.z);
     }
     void Update()
     {
@@ -163,19 +170,25 @@ public class MemoryGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        break;
-                    case Phase.Start:
+
                         for (int i = 0; i < playerStack.Count; i++)
                         {
                             if (playerStack.Pop() != exampleStack.Pop())
                             {
-                                eventCanvas.gameObject.SetActive(true);
                                 eventCanvas.txtWording.text = "<color=red>틀렸습니다.</color>";
+                                eventCanvas.gameObject.SetActive(true);
+
                                 goto wrong;
                             }
                         }
-                        eventCanvas.txtWording.text = "<color=green>맞았습니다..</color>";
+                        eventCanvas.txtWording.text = "<color=#006400>맞았습니다..</color>";
+                        eventCanvas.gameObject.SetActive(true);
+
                     wrong:
+                        ChangeState(state, Phase.Start);
+                        break;
+                    case Phase.Start:
+
                         break;
                     case Phase.End:
                         break;
@@ -190,7 +203,7 @@ public class MemoryGameManager : MonoBehaviour
     }
     public void OnInputCompleted()
     {
-        ChangeState(State.PlayGame, Phase.End);
+        ChangeState(State.EndGame, Phase.Ready);
     }
     public void EraserStack()
     {

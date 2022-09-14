@@ -25,6 +25,7 @@ public class ArrowMenu : MonoBehaviour
         set 
         { 
             this.value = value;
+            if(txtValue != null)
             txtValue.text = value.ToString();
         }
     }
@@ -32,7 +33,7 @@ public class ArrowMenu : MonoBehaviour
 
     private void Start()
     {
-        txtValue.text = min.ToString();
+        Value = min;
     }
 
     public void Plus()

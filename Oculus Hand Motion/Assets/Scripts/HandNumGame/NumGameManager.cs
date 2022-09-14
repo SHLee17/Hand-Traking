@@ -61,8 +61,12 @@ public class NumGameManager : MonoBehaviour
     Dictionary<Order, Number> answerDict;
 
     [Header("Texts")]
-    public TMP_Text txtTimer;
-    public TMP_Text txtSign;
+    [SerializeField]
+    TMP_Text txtTimer;
+    [SerializeField]
+    TMP_Text txtSign;
+    [SerializeField]
+    TMP_Text txtExampleCount;
 
     [Header("Enums")]
     [SerializeField]
@@ -96,6 +100,12 @@ public class NumGameManager : MonoBehaviour
     [Header("GameObjects")]
     [SerializeField]
     GameObject mainGame;
+    [SerializeField]
+    GameObject checkButton;
+    [SerializeField]
+    GameObject objWrongAnswer;
+    [SerializeField]
+    GameObject objRightAnswer;
 
 
     void Start()
@@ -106,7 +116,7 @@ public class NumGameManager : MonoBehaviour
         answerDict.Add(Order.Second, nums[1]);
         answerDict.Add(Order.Third, nums[2]);
 
-        exampleCount = 5;
+        //exampleCount = 5;
         resetTimer = 10;
         timer = resetTimer;
 
@@ -129,24 +139,34 @@ public class NumGameManager : MonoBehaviour
                 {
                     case Phase.Ready:
                         mainGame.SetActive(false);
-                        numGameOption.gameObject.SetActive(true);
-                        exampleCount = numGameOption.exampleMaxCount.Value;
-                        level = numGameOption.levelSelect.Value;
 
-                        if(numGameOption.isOptionCompleted)
+                        txtExampleCount.text = $"<color=red>0</color> / {exampleCount}";
+
+                        if (numGameOption.isOptionCompleted)
                         {
                             numGameOption.isOptionCompleted = false;
                             numGameOption.gameObject.SetActive(false);
+                            mainGame.SetActive(true);
                             ChangeState(State.PlayGame, Phase.Ready);
+                            numGameOption.isOptionCompleted = false;
+                            checkButton.SetActive(true);
+
+                            exampleCount = numGameOption.exampleMaxCount.Value;
+                            level = numGameOption.levelSelect.Value;
+
+                            txtExampleCount.text = $"<color=red>0</color> / {exampleCount}";
                         }
                         break;
+                    case Phase.Start:
 
+                        break;
                 }
                 break;
             case State.PlayGame:
                 switch (phase)
                 {
                     case Phase.Ready:
+                        timer = resetTimer;
                         blankOrder = RandomEnum<Order>(1);
                         sign = RandomEnum<Sign>();
                         switch (sign)
@@ -166,8 +186,12 @@ public class NumGameManager : MonoBehaviour
                         }
 
                         ExampleQuestion(sign, blankOrder);
+                        ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
+                        if (exampleCount <= 0)
+                            ChangeState(state, Phase.End);
+
                         if (timer > 0)
                         {
                             timer -= Time.deltaTime;
@@ -177,23 +201,22 @@ public class NumGameManager : MonoBehaviour
                         }
                         else
                         {
-                            int[] tempArr =
-                                {   answerDict[Order.First].Num,
-                                    answerDict[Order.Second].Num,
-                                    answerDict[Order.Third].Num   };
-
-                            string[] result = System.Array.ConvertAll(tempArr, x => x.ToString());
-
-                            resultBoard.resultList.Add(new ResultBoard.Result(result, blankOrder, sign, answer));
-
-                            exampleCount -= 1;
-                            timer = resetTimer;
+                            CheckAnswer();
+                            ChangeState(State.PlayGame, Phase.End);
                         }
-                        if (exampleCount == 0)
-                            ChangeState(state, Phase.End);
+
                         break;
                     case Phase.End:
-                        resultBoard.CallResultBoard();
+                        if (exampleCount <= 0)
+                        {
+                            txtExampleCount.text = $"<color=#006400>{numGameOption.exampleMaxCount.Value}</color> / {numGameOption.exampleMaxCount.Value}";
+                            ChangeState(State.Result, Phase.Ready);
+                        }
+                        else
+                        {
+                            txtExampleCount.text = $"<color=red>{numGameOption.exampleMaxCount.Value - exampleCount}</color> / {numGameOption.exampleMaxCount.Value}";
+                            ChangeState(state, Phase.Ready);
+                        }
                         break;
                 }
                 break;
@@ -201,8 +224,9 @@ public class NumGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        break;
-                    case Phase.Start:
+                        checkButton.gameObject.SetActive(false);
+                        resultBoard.CallResultBoard();
+                        ChangeState(state, Phase.End);
                         break;
                     case Phase.End:
                         break;
@@ -240,15 +264,23 @@ public class NumGameManager : MonoBehaviour
             case Sign.Subtract:
                 if (blankOrder == Order.Second)
                 {
-                    NumSet(Order.First, RandRange(1, 100));
-                    answer = RandRange(2, 10);
-                    NumSet(Order.Third, NumGet(Order.First) - answer);
+                    do
+                    {
+                        NumSet(Order.First, RandRange(1, 100));
+                        answer = RandRange(2, 10);
+                        NumSet(Order.Third, NumGet(Order.First) - answer);
+                    }
+                    while (NumGet(Order.Third) <= 0);
                 }
                 else
                 {
-                    answer = RandRange(2, 10);
-                    NumSet(Order.First, RandRange(1, 100));
-                    NumSet(Order.Second, NumGet(Order.First) - answer);
+                    do
+                    {
+                        answer = RandRange(2, 10);
+                        NumSet(Order.First, RandRange(1, 100));
+                        NumSet(Order.Second, NumGet(Order.First) - answer);
+                    }
+                    while (NumGet(Order.Second) <= 0);
                 }
                 break;
             case Sign.Divide:
@@ -289,13 +321,11 @@ public class NumGameManager : MonoBehaviour
                 break;
         }
     }
-
     private void ChangeState(State state, Phase phase)
     {
         this.state = state;
         this.phase = phase;
     }
-
     T RandomEnum<T>(int min = 0)
     {
         System.Array values = System.Enum.GetValues(typeof(T));
@@ -335,7 +365,51 @@ public class NumGameManager : MonoBehaviour
 
     }
 
-    //public void Option
+    public void CheckAnswer()
+    {
+        
+        int[] tempArr =
+                               {   answerDict[Order.First].Num,
+                                    answerDict[Order.Second].Num,
+                                    answerDict[Order.Third].Num   };
 
+        string[] result = System.Array.ConvertAll(tempArr, x => x.ToString());
+
+        resultBoard.resultList.Add(new ResultBoard.Result(result, blankOrder, sign, answer));
+
+        exampleCount -= 1;
+        timer = resetTimer;
+
+        
+    }
+
+    public void Puase(bool isBool)
+    {
+        if (isBool)
+        {
+            Time.timeScale = 0;
+
+            if (answerDict[blankOrder].Num == answer)
+                objRightAnswer.SetActive(true);
+            else
+                objWrongAnswer.SetActive(true);
+        }
+        else
+        {
+            objRightAnswer.SetActive(false);
+            objWrongAnswer.SetActive(false);
+
+            Time.timeScale = 1;
+            ChangeState(State.PlayGame, Phase.End);
+        }
+    }
+
+    public void ResetGame()
+    {
+        numGameOption.gameObject.SetActive(true);
+        ChangeState(State.LevelSelect, Phase.Ready);
+        numGameOption.ResetObject();
+        resultBoard.ResetBoard();
+    }
 
 }
