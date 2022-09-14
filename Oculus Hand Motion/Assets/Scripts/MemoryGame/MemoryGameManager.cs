@@ -19,9 +19,7 @@ public class MemoryGameManager : MonoBehaviour
         End
     }
 
-
     public int gameLevel;
-
 
     [Header("Arrays")]
     [SerializeField]
@@ -80,7 +78,7 @@ public class MemoryGameManager : MonoBehaviour
                 {
                     case Phase.Ready:
                         PadInteractle(false);
-                        StateChange(state, Phase.Start);
+                        ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
                         if (count > 0)
@@ -106,14 +104,14 @@ public class MemoryGameManager : MonoBehaviour
                             {
                                 eventCanvas.gameObject.SetActive(true);
                                 eventCanvas.CountDown();
-                                StateChange(state, Phase.End);
+                                ChangeState(state, Phase.End);
                             }
                         }
                         break;
 
                     case Phase.End:
                         if (eventCanvas.isEventOver)
-                            StateChange(State.PlayGame, Phase.Ready);
+                            ChangeState(State.PlayGame, Phase.Ready);
                         break;
                 }
                 break;
@@ -122,7 +120,7 @@ public class MemoryGameManager : MonoBehaviour
                 {
                     case Phase.Ready:
                         PadInteractle(true);
-                        StateChange(state, Phase.Start);
+                        ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
                         if (exampleStack.Count > playerStack.Count)
@@ -157,7 +155,7 @@ public class MemoryGameManager : MonoBehaviour
                         objCompleted.SetActive(false);
                         txtHistory.gameObject.SetActive(false);
 
-                        StateChange(State.EndGame, Phase.Ready);
+                        ChangeState(State.EndGame, Phase.Ready);
                         break;
                 }
                 break;
@@ -192,7 +190,7 @@ public class MemoryGameManager : MonoBehaviour
     }
     public void OnInputCompleted()
     {
-        StateChange(State.PlayGame, Phase.End);
+        ChangeState(State.PlayGame, Phase.End);
     }
     public void EraserStack()
     {
@@ -202,7 +200,7 @@ public class MemoryGameManager : MonoBehaviour
             playerStack.Pop();
         }
     }
-    void StateChange(State state, Phase phase)
+    void ChangeState(State state, Phase phase)
     {
         this.state = state;
         this.phase = phase;

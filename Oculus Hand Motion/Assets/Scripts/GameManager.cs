@@ -37,12 +37,4 @@ public class GameManager : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    void Update()
-    {
-        //OVRInput.GetLocalControllerPosition(OVRInput.Controller.LHand);
-
-        //Debug.Log(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand));
-        //Debug.Log(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand));
-    }
-
 }

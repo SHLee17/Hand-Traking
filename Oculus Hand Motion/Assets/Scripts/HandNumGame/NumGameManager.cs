@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using Oculus.Interaction;
 using NumGameEnum;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 namespace NumGameEnum
 {
@@ -19,6 +17,19 @@ namespace NumGameEnum
         Subtract,
         Divide,
         Multiply
+    }
+
+    public enum State
+    {
+        LevelSelect,
+        PlayGame,
+        Result
+    }
+    public enum Phase
+    {
+        Ready,
+        Start,
+        End
     }
 }
 
@@ -64,26 +75,39 @@ public class NumGameManager : MonoBehaviour
     float timer;
     float resetTimer;
     int exampleCount;
+    int level;
+    [SerializeField]
+    State state;
+    [SerializeField]
+    Phase phase;
+
     [SerializeField]
     int answer;
-    [SerializeField]
-    bool isSetExamQuestions;
 
     [Header("Class")]
     [SerializeField]
     ResultBoard resultBoard;
     [SerializeField]
     NumberManager numberManager;
+    [SerializeField]
+    NumGameOption numGameOption;
+
+
+    [Header("GameObjects")]
+    [SerializeField]
+    GameObject mainGame;
+
 
     void Start()
     {
+
         answerDict = new Dictionary<Order, Number>();
         answerDict.Add(Order.First, nums[0]);
         answerDict.Add(Order.Second, nums[1]);
         answerDict.Add(Order.Third, nums[2]);
 
         exampleCount = 5;
-        resetTimer = 5;
+        resetTimer = 10;
         timer = resetTimer;
 
         foreach (Transform item in fingerPoses)
@@ -92,61 +116,98 @@ public class NumGameManager : MonoBehaviour
                 poseList.Add(child.GetComponent<Pose>());
         }
 
-        transform.position = new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.transform.position.y + 0.4f, transform.position.z);
+        transform.position =
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.transform.position.y + 1.5f, transform.position.z);
     }
 
     void Update()
     {
-        if (!isSetExamQuestions)
+        switch (state)
         {
-            blankOrder = RandomEnum<Order>(1);
-            sign = RandomEnum<Sign>();
+            case State.LevelSelect:
+                switch (phase)
+                {
+                    case Phase.Ready:
+                        mainGame.SetActive(false);
+                        numGameOption.gameObject.SetActive(true);
+                        exampleCount = numGameOption.exampleMaxCount.Value;
+                        level = numGameOption.levelSelect.Value;
 
-            switch (sign)
-            {
-                case Sign.Add:
-                    txtSign.text = "+";
-                    break;
-                case Sign.Subtract:
-                    txtSign.text = "-";
-                    break;
-                case Sign.Divide:
-                    txtSign.text = "¡À";
-                    break;
-                case Sign.Multiply:
-                    txtSign.text = "x";
-                    break;
-            }
+                        if(numGameOption.isOptionCompleted)
+                        {
+                            numGameOption.isOptionCompleted = false;
+                            numGameOption.gameObject.SetActive(false);
+                            ChangeState(State.PlayGame, Phase.Ready);
+                        }
+                        break;
 
-            ExampleQuestion(sign, blankOrder);
-            isSetExamQuestions = true;
-        }
-        if (exampleCount > 0)
-        {
-            if (timer > 0)
-            {
-                timer -= Time.deltaTime;
-                txtTimer.text = timer.ToString("N1");
+                }
+                break;
+            case State.PlayGame:
+                switch (phase)
+                {
+                    case Phase.Ready:
+                        blankOrder = RandomEnum<Order>(1);
+                        sign = RandomEnum<Sign>();
+                        switch (sign)
+                        {
+                            case Sign.Add:
+                                txtSign.text = "+";
+                                break;
+                            case Sign.Subtract:
+                                txtSign.text = "-";
+                                break;
+                            case Sign.Divide:
+                                txtSign.text = "¡À";
+                                break;
+                            case Sign.Multiply:
+                                txtSign.text = "x";
+                                break;
+                        }
 
-                CheckCount(blankOrder);
-            }
-            else
-            {
-                int[] tempArr =
-                    { answerDict[Order.First].Num,
-                  answerDict[Order.Second].Num,
-                  answerDict[Order.Third].Num   };
+                        ExampleQuestion(sign, blankOrder);
+                        break;
+                    case Phase.Start:
+                        if (timer > 0)
+                        {
+                            timer -= Time.deltaTime;
+                            txtTimer.text = timer.ToString("N1");
 
-                string[] result = System.Array.ConvertAll(tempArr, x => x.ToString());
+                            CheckCount(blankOrder);
+                        }
+                        else
+                        {
+                            int[] tempArr =
+                                {   answerDict[Order.First].Num,
+                                    answerDict[Order.Second].Num,
+                                    answerDict[Order.Third].Num   };
 
-                resultBoard.resultList.Add(new ResultBoard.Result(result, blankOrder, sign, answer));
+                            string[] result = System.Array.ConvertAll(tempArr, x => x.ToString());
 
-                exampleCount -= 1;
-                timer = resetTimer;
-                isSetExamQuestions = false;
-            }
-            if(exampleCount == 0)
-                resultBoard.CallResultBoard();
+                            resultBoard.resultList.Add(new ResultBoard.Result(result, blankOrder, sign, answer));
+
+                            exampleCount -= 1;
+                            timer = resetTimer;
+                        }
+                        if (exampleCount == 0)
+                            ChangeState(state, Phase.End);
+                        break;
+                    case Phase.End:
+                        resultBoard.CallResultBoard();
+                        break;
+                }
+                break;
+            case State.Result:
+                switch (phase)
+                {
+                    case Phase.Ready:
+                        break;
+                    case Phase.Start:
+                        break;
+                    case Phase.End:
+                        break;
+                }
+                break;
         }
 
     }
@@ -193,7 +254,7 @@ public class NumGameManager : MonoBehaviour
             case Sign.Divide:
                 if (blankOrder == Order.Second)
                 {
-                    NumSet(Order.Third, RandRange(2, 19));
+                    NumSet(Order.Third, RandRange(2, level));
                     answer = RandRange(2, 10);
                     NumSet(Order.First, NumGet(Order.Third) * answer);
 
@@ -209,7 +270,7 @@ public class NumGameManager : MonoBehaviour
                 if (blankOrder == Order.Second)
                 {
                     answer = RandRange(2, 10);
-                    NumSet(Order.First, RandRange(2, 19));
+                    NumSet(Order.First, RandRange(2, level));
                     NumSet(Order.Third, answer * NumGet(Order.First));
                 }
                 else
@@ -227,9 +288,14 @@ public class NumGameManager : MonoBehaviour
                 }
                 break;
         }
-
-
     }
+
+    private void ChangeState(State state, Phase phase)
+    {
+        this.state = state;
+        this.phase = phase;
+    }
+
     T RandomEnum<T>(int min = 0)
     {
         System.Array values = System.Enum.GetValues(typeof(T));
@@ -255,7 +321,7 @@ public class NumGameManager : MonoBehaviour
             }
         }
 
-        answerDict[blankOrder].txtNum.text = (leftCount + rightCount).ToString();
+        answerDict[blankOrder].Num = (leftCount + rightCount);
 
         answerDict[blankOrder].txtNum.color = Color.green;
 
@@ -269,6 +335,7 @@ public class NumGameManager : MonoBehaviour
 
     }
 
+    //public void Option
 
 
 }
