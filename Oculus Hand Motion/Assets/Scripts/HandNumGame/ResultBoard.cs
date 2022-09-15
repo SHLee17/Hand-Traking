@@ -51,8 +51,6 @@ public class ResultBoard : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(5 / 10);
-
         ResetBoard();
 
         resultList = new List<Result>();
@@ -135,6 +133,8 @@ public class ResultBoard : MonoBehaviour
             }
         }
         maxPage = (resultList.Count -1) / 10;
+
+        txtPage.text = $"{page + 1} / {maxPage + 1}";
     }
     int maxPage;
     public void NextPage()
