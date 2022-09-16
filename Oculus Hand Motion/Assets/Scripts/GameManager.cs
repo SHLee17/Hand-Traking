@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Oculus.Interaction.Input;
 
 public class GameManager : MonoBehaviour
 {
     static GameManager instance;
+    public Player player;
 
     public static GameManager Instance 
     {
@@ -31,18 +33,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        if (ReferenceEquals(player, null))
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
-
-    void Update()
-    {
-        //Debug.Log(OVRInput.GetLocalControllerPosition(OVRInput.Controller.RHand));
-        //Debug.Log(OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RHand));
-    }
-
-
-
-
-
 
 }

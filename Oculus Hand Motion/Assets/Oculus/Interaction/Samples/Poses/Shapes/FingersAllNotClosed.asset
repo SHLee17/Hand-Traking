@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeName: All Fingers Not Closed
   _thumbFeatureConfigs:
-    _value:
-    - _mode: 0
-      _feature: 1
-      _state: 3
-    - _mode: 0
-      _feature: 2
-      _state: 8
+    _value: []
   _indexFeatureConfigs:
     _value:
     - _mode: 1
@@ -53,3 +47,8 @@ MonoBehaviour:
     - _mode: 0
       _feature: 1
       _state: 3
+  _thumbFeatureStates: 
+  _indexFeatureStates: 
+  _middleFeatureStates: 
+  _ringFeatureStates: 
+  _pinkyFeatureStates: 

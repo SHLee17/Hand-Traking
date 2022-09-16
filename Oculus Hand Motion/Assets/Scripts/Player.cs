@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public OVRCameraRig cameraRig;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-
     }
 }
