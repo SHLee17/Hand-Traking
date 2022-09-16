@@ -14,6 +14,7 @@ public class NumGameOption : MonoBehaviour
     private void Start()
     {
 
+        GameManager.Instance.gameObject.SetActive(true);
         ResetObject();
     }
     public void ResetObject()
