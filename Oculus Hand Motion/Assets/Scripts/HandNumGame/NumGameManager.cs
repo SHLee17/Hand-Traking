@@ -145,7 +145,7 @@ public class NumGameManager : MonoBehaviour
     {
 
         transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y + 0.3f, transform.position.z);
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y + 0.35f, transform.position.z);
 
         switch (state)
         {

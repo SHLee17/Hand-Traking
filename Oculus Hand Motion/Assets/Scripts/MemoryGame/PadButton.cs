@@ -37,10 +37,10 @@ public class PadButton : MonoBehaviour
     {
         poke.enabled = isActive;
     }
-    public void Click()
+    public void Click(float speed)
     {
         animator.SetTrigger("Click");
-        
+        animator.speed = speed;
     }
 
     public void OnClick(bool isClick) => this.isClick = isClick;

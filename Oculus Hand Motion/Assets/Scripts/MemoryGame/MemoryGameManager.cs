@@ -19,17 +19,14 @@ public class MemoryGameManager : MonoBehaviour
         End
     }
 
-    public int gameLevel;
 
     [Header("Arrays")]
     [SerializeField]
     List<Pad> clickHistroyList;
     [SerializeField]
     List<PadButton> padButtonList;
-
     Stack<int> exampleStack;
     Stack<int> playerStack;
-
     [SerializeField]
     GameObject[] objPanel;
 
@@ -50,6 +47,10 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     GameObject objWrowngAnwer;
 
+    [Header("Data Type")]
+    [SerializeField]
+    int gameLevel;
+    [SerializeField]
     int count;
     float timer;
     float timerReset;
@@ -57,22 +58,18 @@ public class MemoryGameManager : MonoBehaviour
     State state;
     [SerializeField]
     Phase phase;
+    float speed;
 
     void Start()
     {
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
-
-        gameLevel = 3;
-        timer = timerReset = 1.5f;
-        count = 5;
-
+        timer = timerReset = 1f;
+        speed = 1;
         SetLevel();
 
         state = State.PlayExample;
         phase = Phase.Ready;
-
-        //transform.position = new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.transform.position.y + 0.4f, transform.position.z);
     }
     void Update()
     {
@@ -84,7 +81,7 @@ public class MemoryGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        PadInteractle(false);
+                        PadInteractable(false);
                         ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
@@ -97,7 +94,7 @@ public class MemoryGameManager : MonoBehaviour
                                 int randLine = rand.Next(0, gameLevel);
                                 int randButton = rand.Next(0, gameLevel);
 
-                                padButtonList[ConvertArrayIndex(randLine, randButton)].Click();
+                                padButtonList[ConvertArrayIndex(randLine, randButton)].Click(speed);
 
                                 exampleStack.Push(padButtonList[ConvertArrayIndex(randLine, randButton)].Index);
 
@@ -126,7 +123,7 @@ public class MemoryGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        PadInteractle(true);
+                        PadInteractable(true);
                         ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
@@ -218,7 +215,7 @@ public class MemoryGameManager : MonoBehaviour
         this.state = state;
         this.phase = phase;
     }
-    public void PadInteractle(bool isActive)
+    public void PadInteractable(bool isActive)
     {
         foreach (PadButton button in padButtonList)
         {
