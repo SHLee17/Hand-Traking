@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Oculus.Interaction.Input;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Player player;
     [SerializeField]
     GameObject objOption;
+    [SerializeField]
+    GameObject objGM;
 
     public static GameManager Instance 
     {
@@ -40,12 +43,17 @@ public class GameManager : MonoBehaviour
 
         objOption.transform.position = new Vector3(
             transform.position.x, 
-            player.cameraRig.centerEyeAnchor.transform.position.y + 1,
+            player.cameraRig.centerEyeAnchor.transform.position.y + 0.5f,
             player.cameraRig.centerEyeAnchor.transform.position.z + 0.3f);
     }
 
     public void OnOption()
     {
         objOption.SetActive(!objOption.activeSelf);
+
+        if(objGM == null)
+            objGM = GameObject.FindGameObjectWithTag("GameManager");
+        else
+            objGM.SetActive(!objGM.activeSelf);
     }
 }

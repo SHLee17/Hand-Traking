@@ -28,8 +28,7 @@ public class MemoryGameManager : MonoBehaviour
     Stack<int> exampleStack;
     Stack<int> playerStack;
     [SerializeField]
-    GameObject[] objPanel;
-
+    Transform[] buttonHolders;
 
     [Header("ETC")]
     [SerializeField]
@@ -42,10 +41,7 @@ public class MemoryGameManager : MonoBehaviour
     GameObject objEraser;
     [SerializeField]
     GameObject objCompleted;
-    [SerializeField]
-    GameObject objRightAnwer;
-    [SerializeField]
-    GameObject objWrowngAnwer;
+
 
     [Header("Data Type")]
     [SerializeField]
@@ -59,11 +55,19 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     Phase phase;
     float speed;
+    int maxGameLevel;
 
     void Start()
     {
+        foreach (Transform holder in buttonHolders)
+        {
+            foreach (Transform button in holder)
+                padButtonList.Add(button.GetComponent<PadButton>());
+        }
+
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
+        maxGameLevel = 4;
         timer = timerReset = 1f;
         speed = 1;
         SetLevel();
@@ -73,6 +77,11 @@ public class MemoryGameManager : MonoBehaviour
     }
     void Update()
     {
+
+        transform.position =
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y-.2f, transform.position.z);
+
+
         timer -= Time.deltaTime;
 
         switch (state)
@@ -174,7 +183,6 @@ public class MemoryGameManager : MonoBehaviour
                             {
                                 eventCanvas.txtWording.text = "<color=red>Æ²·È½À´Ï´Ù.</color>";
                                 eventCanvas.gameObject.SetActive(true);
-
                                 goto wrong;
                             }
                         }
@@ -204,10 +212,13 @@ public class MemoryGameManager : MonoBehaviour
     }
     public void EraserStack()
     {
-        if (playerStack.Count > 0)
+        if (state != State.EndGame)
         {
-            clickHistroyList[playerStack.Count - 1].gameObject.SetActive(false);
-            playerStack.Pop();
+            if (playerStack.Count > 0)
+            {
+                clickHistroyList[playerStack.Count - 1].gameObject.SetActive(false);
+                playerStack.Pop();
+            }
         }
     }
     void ChangeState(State state, Phase phase)
@@ -225,24 +236,20 @@ public class MemoryGameManager : MonoBehaviour
     }
     public int ConvertArrayIndex(int i, int j)
     {
-        return (i * 5) + (j % 5);
+        return (i * maxGameLevel) + (j % maxGameLevel);
     }
     void SetLevel()
     {
-        foreach (GameObject item in objPanel)
-            item.SetActive(false);
-
-        objPanel[gameLevel - 3].SetActive(true);
 
         foreach (Pad item in clickHistroyList)
             item.gameObject.SetActive(false);
 
 
         int index = 1;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < maxGameLevel; i++)
         {
             if (i >= gameLevel) continue;
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < maxGameLevel; j++)
             {
                 if (j < gameLevel)
                 {
