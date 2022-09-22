@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using Oculus.Interaction.Input;
-using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {

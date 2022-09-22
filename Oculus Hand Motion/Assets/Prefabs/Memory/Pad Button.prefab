@@ -1117,3 +1117,4 @@ MonoBehaviour:
   txtIndex: {fileID: 1823353741}
   poke: {fileID: 6692930152448629756}
   animator: {fileID: 41183698002377003}
+  colorVisual: {fileID: 891888028}
