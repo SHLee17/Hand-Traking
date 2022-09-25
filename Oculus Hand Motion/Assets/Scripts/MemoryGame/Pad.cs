@@ -7,7 +7,7 @@ using MemoryGame;
 public class Pad : MonoBehaviour
 {
     public PadColor color;
-    public TMP_Text txtNumber;
+    public TMP_Text txtName;
 
     [SerializeField]
     Shadow shadow;

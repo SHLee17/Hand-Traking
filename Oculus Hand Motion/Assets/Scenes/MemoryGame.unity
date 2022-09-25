@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 208127588}
   - component: {fileID: 208127590}
   - component: {fileID: 208127589}
+  - component: {fileID: 208127591}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -545,9 +546,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Yellow
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 045fd67ca211f374e9a48d21d60170e1, type: 2}
-  m_sharedMaterial: {fileID: -2999390080586911472, guid: 045fd67ca211f374e9a48d21d60170e1,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -571,8 +571,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -621,6 +621,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208127587}
   m_CullTransparentMesh: 1
+--- !u!114 &208127591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208127587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 4, y: -4}
+  m_UseGraphicAlpha: 1
 --- !u!1001 &211925928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1217,11 +1232,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pad Button (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6692930153142527666, guid: 5453934f8c5f89f498a25cefa0976031,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692930153142527676, guid: 5453934f8c5f89f498a25cefa0976031,
         type: 3}
@@ -5808,11 +5818,12 @@ MonoBehaviour:
   txtExampleColor: {fileID: 208127589}
   objEraser: {fileID: 1576339449724086185}
   objCompleted: {fileID: 1576339449274835216}
+  objColorExample: {fileID: 1604230522}
   gameLevel: 3
   count: 5
   state: 0
   phase: 0
-  type: 1
+  type: 2
 --- !u!4 &2091197922
 Transform:
   m_ObjectHideFlags: 0
@@ -6191,10 +6202,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 227588298}
     m_Modifications:
-    - target: {fileID: 1205356552, guid: 6ee9d1122d0852d41ae4a9c0c3e6a4e9, type: 3}
-      propertyPath: m_text
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2520836042942561778, guid: 6ee9d1122d0852d41ae4a9c0c3e6a4e9,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6239,16 +6246,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2520836042942561778, guid: 6ee9d1122d0852d41ae4a9c0c3e6a4e9,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2520836042942561778, guid: 6ee9d1122d0852d41ae4a9c0c3e6a4e9,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2520836042942561778, guid: 6ee9d1122d0852d41ae4a9c0c3e6a4e9,
         type: 3}

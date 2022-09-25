@@ -462,7 +462,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f2be44f14dc6cff4fae0fdf90a08e327, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isClick: 0
   index: 0
-  txtIndex: {fileID: 1823353741}
   poke: {fileID: 6692930152448629756}
   animator: {fileID: 41183698002377003}
   colorVisual: {fileID: 891888028}
+  txtName: {fileID: 1823353741}

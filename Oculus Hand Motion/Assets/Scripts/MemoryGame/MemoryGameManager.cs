@@ -13,7 +13,8 @@ namespace MemoryGame
         Green,
         Yellow,
         Orange,
-        Purple
+        Purple,
+        White
     }
 
 
@@ -50,6 +51,7 @@ public class MemoryGameManager : MonoBehaviour
     Stack<int> playerStack;
     [SerializeField]
     Transform[] buttonHolders;
+    Dictionary<Type, int> gameCountDict;
 
     [Header("ETC")]
     [SerializeField]
@@ -66,7 +68,8 @@ public class MemoryGameManager : MonoBehaviour
     GameObject objEraser;
     [SerializeField]
     GameObject objCompleted;
-
+    [SerializeField]
+    GameObject objColorExample;
 
     [Header("Data Type")]
     [SerializeField]
@@ -97,6 +100,7 @@ public class MemoryGameManager : MonoBehaviour
                 padButtonList.Add(button.GetComponent<PadButton>());
         }
 
+        gameCountDict = new Dictionary<Type, int>();
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
         maxGameLevel = 4;
@@ -122,8 +126,6 @@ public class MemoryGameManager : MonoBehaviour
                         SetLevel(type);
                         PadInteractable(false);
                         ChangeState(state, Phase.Start);
-                        if (type == Type.Color)
-                            StartCoroutine(ShowExampleColor(2));
                         break;
                     case Phase.Start:
 
@@ -231,10 +233,17 @@ public class MemoryGameManager : MonoBehaviour
         foreach (Pad item in clickHistroyList)
             item.gameObject.SetActive(false);
 
+        foreach (PadButton item in padButtonList)
+        {
+            item.gameObject.SetActive(false);
+            item.PadColor = PadColor.White;
+        }
+
+        objColorExample.SetActive(false);
         switch (type)
         {
             case Type.Number:
-
+                
                 int index = 1;
                 for (int i = 0; i < maxGameLevel; i++)
                 {
@@ -245,6 +254,7 @@ public class MemoryGameManager : MonoBehaviour
                         {
                             padButtonList[ConvertArrayIndex(i, j)].gameObject.SetActive(true);
                             padButtonList[ConvertArrayIndex(i, j)].Index = index;
+                            padButtonList[ConvertArrayIndex(i, j)].txtName.text = index.ToString();
 
                             index++;
                         }
@@ -253,16 +263,29 @@ public class MemoryGameManager : MonoBehaviour
                 break;
             case Type.Color:
 
+                objColorExample.SetActive(true);
                 SetColorButton(ConvertArrayIndex(0, 0), true, PadColor.Red, 1);
                 SetColorButton(ConvertArrayIndex(0, 3), true, PadColor.Blue, 2);
                 SetColorButton(ConvertArrayIndex(1, 0), true, PadColor.Green, 3);
                 SetColorButton(ConvertArrayIndex(1, 3), true, PadColor.Yellow, 4);
                 SetColorButton(ConvertArrayIndex(0, 1), true, PadColor.Orange, 5);
                 SetColorButton(ConvertArrayIndex(0, 2), true, PadColor.Purple, 6);
-
-
+                StartCoroutine(ShowExampleColor(2));
                 break;
             case Type.Typing:
+                for (int i = 0; i < 8; i++)
+                {
+                    padButtonList[i].gameObject.SetActive(true);
+                    padButtonList[i].Index = i + 1;
+                }
+                padButtonList[0].txtName.text = "A";
+                padButtonList[1].txtName.text = "S";
+                padButtonList[2].txtName.text = "D";
+                padButtonList[3].txtName.text = "F";
+                padButtonList[4].txtName.text = "Q";
+                padButtonList[5].txtName.text = "W";
+                padButtonList[6].txtName.text = "E";
+                padButtonList[7].txtName.text = "R";
                 break;
         }
 
@@ -273,11 +296,12 @@ public class MemoryGameManager : MonoBehaviour
         padButtonList[buttonIndex].gameObject.SetActive(isActive);
         padButtonList[buttonIndex].Index = index;
         padButtonList[buttonIndex].PadColor = padColor;
+        padButtonList[buttonIndex].txtName.text = padColor.ToString();
     }
     void PlayExample(Type type)
     {
         timer -= Time.deltaTime;
-
+        System.Random rand = new System.Random();
         switch (type)
         {
 
@@ -286,8 +310,6 @@ public class MemoryGameManager : MonoBehaviour
                 {
                     if (timer < 0)
                     {
-
-                        System.Random rand = new System.Random();
 
                         int randLine = rand.Next(0, gameLevel);
                         int randButton = rand.Next(0, gameLevel);
@@ -316,6 +338,13 @@ public class MemoryGameManager : MonoBehaviour
             case Type.Color:
                 break;
             case Type.Typing:
+                int randIndex = rand.Next(1, 9);
+
+                for (int i = 0; i < 5; i++)
+                {
+                    clickHistroyList[i].txtName.text = padButtonList[randIndex].txtName.text;
+                    clickHistroyList[i].gameObject.SetActive(true);
+                }
 
                 break;
         }
@@ -351,7 +380,7 @@ public class MemoryGameManager : MonoBehaviour
                         {
                             playerStack.Push(item.Index);
                             clickHistroyList[playerStack.Count - 1].gameObject.SetActive(true);
-                            clickHistroyList[playerStack.Count - 1].txtNumber.text = item.Index.ToString();
+                            clickHistroyList[playerStack.Count - 1].txtName.text = item.Index.ToString();
                             item.isClick = false;
                             break;
                         }
@@ -374,7 +403,6 @@ public class MemoryGameManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-
             System.Random rand = new System.Random();
 
             int randIndex = rand.Next(1, 7);
@@ -402,5 +430,8 @@ public class MemoryGameManager : MonoBehaviour
             yield return wfs2;
 
         }
+        eventCanvas.gameObject.SetActive(true);
+        eventCanvas.CountDown();
+        ChangeState(state, Phase.End);
     }
 }

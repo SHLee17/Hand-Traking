@@ -6,13 +6,11 @@ using MemoryGame;
 public class PadButton : MonoBehaviour
 {
     public bool isClick;
-    private PadColor color;
+    private PadColor padColor;
 
     [SerializeField]
     int index;
 
-    [SerializeField]
-    TMP_Text txtIndex;
 
     [SerializeField]
     PokeInteractable poke;
@@ -20,7 +18,11 @@ public class PadButton : MonoBehaviour
     [SerializeField]
     Animator animator;
 
+    string buttonKey;
+
     public InteractableDebugVisual colorVisual;
+    public TMP_Text txtName;
+
 
     private void Awake()
     {
@@ -31,68 +33,58 @@ public class PadButton : MonoBehaviour
         get => index;
         set 
         {
-            txtIndex.fontSize = 80;
+            txtName.fontSize = 80;
             index = value;
-            txtIndex.text = index.ToString();
+            //txtIndex.text = index.ToString();
         }  
     }
 
     public PadColor PadColor { 
-        get => color;
+        get => padColor;
         set 
-        { 
-            color = value;
-            txtIndex.fontSize = 25;
-
+        {
+            padColor = value;
+            txtName.fontSize = 25;
+            Color color = Color.white;
             switch (value)
             {
                 case PadColor.Red:
-                    colorVisual.NormalColor = Color.red;
-                    colorVisual.DisabledColor = Color.red;
-                    txtIndex.text = value.ToString();
+                    color = Color.red;
                     break;
-
                 case PadColor.Blue:
-                    colorVisual.NormalColor = Color.blue;
-                    colorVisual.DisabledColor = Color.blue;
-                    txtIndex.text = value.ToString();
+                    color = Color.blue;
                     break;
-
                 case PadColor.Green:
-                    colorVisual.NormalColor = Color.green;
-                    colorVisual.DisabledColor = Color.green;
-                    txtIndex.text = value.ToString();
+                    color = Color.green;
                     break;
-
                 case PadColor.Yellow:
-                    Color color = new Color(254f / 255f, 190f / 255f, 0, 1);
-                    colorVisual.NormalColor = color;
-                    colorVisual.DisabledColor = color;
-                    txtIndex.text = value.ToString();
+                    color = new Color(254f / 255f, 190f / 255f, 0, 1);
                     break;
-
                 case PadColor.Orange:
-                     color = new Color(205f / 255f, 127 / 255f, 50 / 255f, 1);
-                    colorVisual.NormalColor = color;
-                    colorVisual.DisabledColor = color;
-                    txtIndex.text = value.ToString();
+                    color = new Color(255f / 255f, 127f / 255f, 0, 1);
                     break;
-
                 case PadColor.Purple:
                     color = new Color(128f / 255f, 0, 128f / 255f, 1);
-                    colorVisual.NormalColor = color;
-                    colorVisual.DisabledColor = color;
-                    txtIndex.text = value.ToString();
+                    break;
+                case PadColor.White:
+                    color = Color.white;
                     break;
             }
-
+            colorVisual.NormalColor = color;
+            colorVisual.DisabledColor = color;
+            //txtIndex.text = value.ToString();
         }
     }
 
-    public void InteractableActive(bool isActive)
-    {
-        poke.enabled = isActive;
+    public string ButtonKey { 
+        get => buttonKey; 
+        set 
+        {
+            buttonKey = value;
+        }
     }
+
+    public void InteractableActive(bool isActive) => poke.enabled = isActive;
     public void Click(float speed)
     {
         animator.SetTrigger("Click");
