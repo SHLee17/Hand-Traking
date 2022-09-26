@@ -11,7 +11,6 @@ public class PadButton : MonoBehaviour
     [SerializeField]
     int index;
 
-
     [SerializeField]
     PokeInteractable poke;
 
@@ -22,7 +21,6 @@ public class PadButton : MonoBehaviour
 
     public InteractableDebugVisual colorVisual;
     public TMP_Text txtName;
-
 
     private void Awake()
     {
@@ -35,7 +33,6 @@ public class PadButton : MonoBehaviour
         {
             txtName.fontSize = 80;
             index = value;
-            //txtIndex.text = index.ToString();
         }  
     }
 
@@ -72,7 +69,6 @@ public class PadButton : MonoBehaviour
             }
             colorVisual.NormalColor = color;
             colorVisual.DisabledColor = color;
-            //txtIndex.text = value.ToString();
         }
     }
 
@@ -92,7 +88,4 @@ public class PadButton : MonoBehaviour
     }
 
     public void OnClick(bool isClick) => this.isClick = isClick;
-
-    //public void ColorChange(Color color) => colorVisual.NormalColor = color;
-
 }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 namespace MemoryGame
 {
@@ -51,7 +53,7 @@ public class MemoryGameManager : MonoBehaviour
     Stack<int> playerStack;
     [SerializeField]
     Transform[] buttonHolders;
-    Dictionary<Type, int> gameCountDict;
+    Dictionary<Type, int> gameLevelDict;
 
     [Header("ETC")]
     [SerializeField]
@@ -76,6 +78,8 @@ public class MemoryGameManager : MonoBehaviour
     int gameLevel;
     [SerializeField]
     int count;
+    [SerializeField]
+    ProgressBar progressBar;
 
     float timer;
     float timerReset;
@@ -90,7 +94,6 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     Type type;
 
-    PadColor randColor;
 
     void Start()
     {
@@ -100,7 +103,7 @@ public class MemoryGameManager : MonoBehaviour
                 padButtonList.Add(button.GetComponent<PadButton>());
         }
 
-        gameCountDict = new Dictionary<Type, int>();
+        gameLevelDict = new Dictionary<Type, int>();
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
         maxGameLevel = 4;
@@ -113,6 +116,7 @@ public class MemoryGameManager : MonoBehaviour
     }
     void Update()
     {
+
 
         transform.position =
             new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
@@ -128,6 +132,7 @@ public class MemoryGameManager : MonoBehaviour
                         ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
+                        timer -= Time.deltaTime;
 
                         PlayExample(type);
 
@@ -143,12 +148,41 @@ public class MemoryGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
+
                         PadInteractable(true);
+                        timer = timerReset = 30f;
                         ChangeState(state, Phase.Start);
+
                         break;
                     case Phase.Start:
+                        timer -= Time.deltaTime;
+                        progressBar.gameObject.SetActive(true);
+
+                        if (playerStack.Count > 0)
+                            objEraser.SetActive(true);
+                        else
+                            objEraser.SetActive(false);
+
+                        if (exampleStack.Count > playerStack.Count)
+                        {
+                            txtHistory.gameObject.SetActive(true);
+                            txtHistory.text = $"<color=red>{playerStack.Count}</color> / {exampleStack.Count}";
+                            objCompleted.SetActive(false);
+                        }
+                        else
+                        {
+                            txtHistory.text = $"<color=green>{playerStack.Count}</color> / {exampleStack.Count}";
+                            objCompleted.SetActive(true);
+                        }
+                        progressBar.Init(timer, timerReset);
 
                         PlayGame(type);
+
+                        if (timer < 0)
+                            ChangeState(state, Phase.End);
+
+                        if (count > 0)
+                            ChangeState(state, Phase.Ready);
 
                         break;
                     case Phase.End:
@@ -228,6 +262,7 @@ public class MemoryGameManager : MonoBehaviour
     }
     void SetLevel(Type type)
     {
+        progressBar.gameObject.SetActive(false);
 
         txtHistory.text = $"<color=red>{exampleStack.Count}</color> / {count}";
         foreach (Pad item in clickHistroyList)
@@ -261,8 +296,8 @@ public class MemoryGameManager : MonoBehaviour
                     }
                 }
                 break;
-            case Type.Color:
 
+            case Type.Color:
                 objColorExample.SetActive(true);
                 SetColorButton(ConvertArrayIndex(0, 0), true, PadColor.Red, 1);
                 SetColorButton(ConvertArrayIndex(0, 3), true, PadColor.Blue, 2);
@@ -272,12 +307,9 @@ public class MemoryGameManager : MonoBehaviour
                 SetColorButton(ConvertArrayIndex(0, 2), true, PadColor.Purple, 6);
                 StartCoroutine(ShowExampleColor(2));
                 break;
+
             case Type.Typing:
-                for (int i = 0; i < 8; i++)
-                {
-                    padButtonList[i].gameObject.SetActive(true);
-                    padButtonList[i].Index = i + 1;
-                }
+
                 padButtonList[0].txtName.text = "A";
                 padButtonList[1].txtName.text = "S";
                 padButtonList[2].txtName.text = "D";
@@ -286,6 +318,24 @@ public class MemoryGameManager : MonoBehaviour
                 padButtonList[5].txtName.text = "W";
                 padButtonList[6].txtName.text = "E";
                 padButtonList[7].txtName.text = "R";
+
+                for (int i = 0; i < 8; i++)
+                {
+                    padButtonList[i].gameObject.SetActive(true);
+                    padButtonList[i].Index = i + 1;
+                }
+
+                System.Random rand = new System.Random();
+
+
+                for (int i = 0; i < 5; i++)
+                {
+                    int randIndex = rand.Next(1, 8);
+                    clickHistroyList[i].txtName.text = padButtonList[randIndex].txtName.text;
+                    clickHistroyList[i].gameObject.SetActive(true);
+                }
+
+                timer = timerReset = 10f;
                 break;
         }
 
@@ -300,17 +350,15 @@ public class MemoryGameManager : MonoBehaviour
     }
     void PlayExample(Type type)
     {
-        timer -= Time.deltaTime;
+
         System.Random rand = new System.Random();
         switch (type)
         {
-
             case Type.Number:
                 if (count > 0)
                 {
                     if (timer < 0)
                     {
-
                         int randLine = rand.Next(0, gameLevel);
                         int randButton = rand.Next(0, gameLevel);
 
@@ -328,46 +376,23 @@ public class MemoryGameManager : MonoBehaviour
                 {
                     txtHistory.text = $"<color=green>{exampleStack.Count}</color> / {maxCount}";
                     if (timer < 0)
-                    {
-                        eventCanvas.gameObject.SetActive(true);
-                        eventCanvas.CountDown();
-                        ChangeState(state, Phase.End);
-                    }
+                        CallEventCanvas();
                 }
                 break;
             case Type.Color:
                 break;
             case Type.Typing:
-                int randIndex = rand.Next(1, 9);
+                progressBar.gameObject.SetActive(true);
+                progressBar.Init(timer, timerReset);
 
-                for (int i = 0; i < 5; i++)
-                {
-                    clickHistroyList[i].txtName.text = padButtonList[randIndex].txtName.text;
-                    clickHistroyList[i].gameObject.SetActive(true);
-                }
-
+                if (timer < 0)
+                    CallEventCanvas();
                 break;
         }
     }
 
     void PlayGame(Type type)
     {
-        if (playerStack.Count > 0)
-            objEraser.SetActive(true);
-        else
-            objEraser.SetActive(false);
-
-        if (exampleStack.Count > playerStack.Count)
-        {
-            txtHistory.gameObject.SetActive(true);
-            txtHistory.text = $"<color=red>{playerStack.Count}</color> / {exampleStack.Count}";
-            objCompleted.SetActive(false);
-        }
-        else
-        {
-            txtHistory.text = $"<color=green>{playerStack.Count}</color> / {exampleStack.Count}";
-            objCompleted.SetActive(true);
-        }
 
         switch (type)
         {
@@ -379,6 +404,7 @@ public class MemoryGameManager : MonoBehaviour
                         if (item.isClick)
                         {
                             playerStack.Push(item.Index);
+                            clickHistroyList[playerStack.Count - 1].image.sprite = clickHistroyList[playerStack.Count - 1].sprites[0];
                             clickHistroyList[playerStack.Count - 1].gameObject.SetActive(true);
                             clickHistroyList[playerStack.Count - 1].txtName.text = item.Index.ToString();
                             item.isClick = false;
@@ -389,9 +415,39 @@ public class MemoryGameManager : MonoBehaviour
                 break;
             case Type.Color:
 
+                if(exampleStack.Count > playerStack.Count)
+                {
+                    foreach (PadButton item in padButtonList)
+                    {
+                        if (item.isClick)
+                        {
+                            playerStack.Push(item.Index);
+                            clickHistroyList[playerStack.Count - 1].image.sprite = clickHistroyList[playerStack.Count - 1].sprites[1];
+                            clickHistroyList[playerStack.Count - 1].gameObject.SetActive(true);
+                            clickHistroyList[playerStack.Count - 1].txtName.text = item.PadColor.ToString();
+                            item.isClick = false;
+                            break;
+                        }
+                    }
+                }
+
                 break;
             case Type.Typing:
-
+                if (exampleStack.Count > playerStack.Count)
+                {
+                    foreach (PadButton item in padButtonList)
+                    {
+                        if (item.isClick)
+                        {
+                            playerStack.Push(item.Index);
+                            clickHistroyList[playerStack.Count - 1].image.sprite = clickHistroyList[playerStack.Count - 1].sprites[0];
+                            clickHistroyList[playerStack.Count - 1].gameObject.SetActive(true);
+                            clickHistroyList[playerStack.Count - 1].txtName.text = item.ButtonKey;
+                            item.isClick = false;
+                            break;
+                        }
+                    }
+                }
                 break;
         }
     }
@@ -430,6 +486,11 @@ public class MemoryGameManager : MonoBehaviour
             yield return wfs2;
 
         }
+        CallEventCanvas();
+    }
+
+    void CallEventCanvas()
+    {
         eventCanvas.gameObject.SetActive(true);
         eventCanvas.CountDown();
         ChangeState(state, Phase.End);

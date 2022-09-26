@@ -198,14 +198,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 19c925daffe37f34bbee12c80a79ee4f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a2f9a10eb2d70524aa374ec5bd1fc9d0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -244,5 +244,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 0
   txtName: {fileID: 1205356552}
+  image: {fileID: 2520836042942561777}
+  sprites:
+  - {fileID: 21300000, guid: a2f9a10eb2d70524aa374ec5bd1fc9d0, type: 3}
+  - {fileID: 21300000, guid: 1f040466d664f6d4698a177ddcf0608c, type: 3}
   shadow: {fileID: 2520836042942561791}
   btnImage: {fileID: 2520836042942561777}
