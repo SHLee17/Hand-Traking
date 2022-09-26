@@ -243,8 +243,13 @@ public class MemoryGameManager : MonoBehaviour
                         {
                             playerStack.Clear();
                             exampleStack.Clear();
-                            count = maxCount;
+                            Type temp = type;
+
+                            while(temp == type)
                             type = GameManager.Instance.RandomEnum<Type>();
+
+
+
                             ChangeState(State.PlayExample, Phase.Ready);
                         }
                         break;
