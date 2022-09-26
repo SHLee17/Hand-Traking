@@ -52,17 +52,22 @@ public class ProgressBar : MonoBehaviour
         }
     }
 
-    public void Init(float current, float max)
+    public void Set(float current, float max)
     {
         this.current = current;
         this.max = max;
-        if (!isStart)
+    }
+
+    public void StartProtress()
+    {
+        foreach (ProgressBarCube item in cubeList)
         {
-            foreach (ProgressBarCube item in cubeList)
-                item.gameObject.SetActive(true);
-            isStart = true;
-            cubeCount = cubeList.Count;
+            item.gameObject.SetActive(true);
+            item.barRenderer.material.color = Color.blue;
         }
+        cubeCount = cubeList.Count;
+
+        isStart = true;
     }
 
     public void SetColor(Color color)

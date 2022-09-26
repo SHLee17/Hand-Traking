@@ -52,4 +52,10 @@ public class GameManager : MonoBehaviour
         else
             objGM.SetActive(!objGM.activeSelf);
     }
+
+    public T RandomEnum<T>(int min = 0)
+    {
+        System.Array values = System.Enum.GetValues(typeof(T));
+        return (T)values.GetValue(new System.Random().Next(min, values.Length));
+    }
 }

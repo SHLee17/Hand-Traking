@@ -196,8 +196,8 @@ public class NumGameManager : MonoBehaviour
                     case Phase.Ready:
                         StartCoroutine(CheckButtonEnable());
                         timer = resetTimer;
-                        blankOrder = RandomEnum<Order>(1);
-                        sign = RandomEnum<Sign>();
+                        blankOrder = GameManager.Instance.RandomEnum<Order>(1);
+                        sign = GameManager.Instance.RandomEnum<Sign>();
                         switch (sign)
                         {
                             case Sign.Add:
@@ -370,11 +370,7 @@ public class NumGameManager : MonoBehaviour
         this.state = state;
         this.phase = phase;
     }
-    T RandomEnum<T>(int min = 0)
-    {
-        System.Array values = System.Enum.GetValues(typeof(T));
-        return (T)values.GetValue(new System.Random().Next(min, values.Length));
-    }
+
     int RandRange(int min, int max)
     {
         return Random.Range(min, max + 1);

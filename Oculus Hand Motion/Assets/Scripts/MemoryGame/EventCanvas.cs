@@ -10,19 +10,18 @@ public class EventCanvas : MonoBehaviour
     public TMP_Text txtWording;
     public bool isEventOver;
 
-    public void CountDown()
-    {
-        isEventOver = false;
-        StartCoroutine(StartCount());
-    }
+    public void CountDown() => StartCoroutine(StartCount());
+    public void EndEvent() => StartCoroutine(eventCanvasDeactive());
 
     IEnumerator StartCount()
     {
+        isEventOver = false;
+
         txtWording.text = "모두 기억 하셨나요?";
         yield return new WaitForSeconds(3);
         WaitForSeconds wf = new WaitForSeconds(1);
 
-        for (int i = 5; i > 0; i--)
+        for (int i = 3; i > 0; i--)
         {
             txtWording.text = i.ToString();
             txtWording.fontSize = 100;
@@ -33,5 +32,13 @@ public class EventCanvas : MonoBehaviour
         txtWording.fontSize = 50;
         gameObject.SetActive(false);
         
+    }
+
+    IEnumerator eventCanvasDeactive()
+    {
+        isEventOver = false;
+        yield return new WaitForSeconds(3);
+        isEventOver = true;
+        gameObject.SetActive(false);
     }
 }
