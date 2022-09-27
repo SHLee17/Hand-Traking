@@ -77,7 +77,7 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     int gameLevel;
     [SerializeField]
-    int count;
+    int exampleCount;
     [SerializeField]
     ProgressBar progressBar;
 
@@ -103,17 +103,27 @@ public class MemoryGameManager : MonoBehaviour
             foreach (Transform button in holder)
                 padButtonList.Add(button.GetComponent<PadButton>());
         }
-
+        
         gameLevelDict = new Dictionary<Type, int>();
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
         maxGameLevel = 4;
-        maxCount = count;
+        maxCount = exampleCount;
         timer = timerReset = 1f;
         speed = 1;
 
         state = State.PlayExample;
         phase = Phase.Ready;
+
+        eventCanvas.gameObject.SetActive(true);
+
+        progressBar.gameObject.SetActive(false);
+
+        foreach (Pad item in clickHistroyList)
+            item.gameObject.SetActive(false);
+        txtHistory.gameObject.SetActive(false);
+
+        eventCanvas.StartGame();
     }
     void Update()
     {
@@ -128,11 +138,15 @@ public class MemoryGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        SetLevel(type);
-                        PadInteractable(false);
-                        progressBar.StartProtress();
-                        PlayExample(type);
-                        ChangeState(state, Phase.Start);
+
+                        if (eventCanvas.isEventOver)
+                        {
+                            SetLevel(type);
+                            PadInteractable(false);
+                            progressBar.StartProtress();
+                            PlayExample(type);
+                            ChangeState(state, Phase.Start);
+                        }
 
                         break;
                     case Phase.Start:
@@ -163,7 +177,7 @@ public class MemoryGameManager : MonoBehaviour
                     case Phase.Ready:
 
                         PadInteractable(true);
-                        timer = timerReset = 30f;
+                        timer = timerReset = 20f;
                         progressBar.StartProtress();
                         ChangeState(state, Phase.Start);
 
@@ -221,21 +235,22 @@ public class MemoryGameManager : MonoBehaviour
                                 goto wrong;
                             }
                         }
-                        if (playerStack.Count == 0)
+                        if (playerStack.Count == 0 || playerStack.Count < exampleStack.Count)
                         {
                             eventCanvas.txtWording.text = "<color=red>틀렸습니다.</color>";
                             eventCanvas.gameObject.SetActive(true);
+                            goto wrong;
                         }
-                        else
-                        {
+                        
                             eventCanvas.txtWording.text = "<color=#006400>맞았습니다.</color>";
                             eventCanvas.gameObject.SetActive(true);
-                        }
                     wrong:
                         ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
-                        eventCanvas.EndEvent();
+                       
+
+                        eventCanvas.StartGame();
                         ChangeState(state, Phase.End);
                         break;
                     case Phase.End:
@@ -248,9 +263,8 @@ public class MemoryGameManager : MonoBehaviour
                             while(temp == type)
                             type = GameManager.Instance.RandomEnum<Type>();
 
-
-
                             ChangeState(State.PlayExample, Phase.Ready);
+
                         }
                         break;
                 }
@@ -298,7 +312,7 @@ public class MemoryGameManager : MonoBehaviour
     {
         progressBar.gameObject.SetActive(false);
 
-        txtHistory.text = $"<color=red>{exampleStack.Count}</color> / {count}";
+        txtHistory.text = $"<color=red>{exampleStack.Count}</color> / {exampleCount}";
         foreach (Pad item in clickHistroyList)
             item.gameObject.SetActive(false);
 
@@ -387,7 +401,10 @@ public class MemoryGameManager : MonoBehaviour
                 {
                     int randIndex = rand.Next(0, 8);
                     clickHistroyList[i].txtName.text = padButtonList[randIndex].txtName.text;
+                    clickHistroyList[i].txtName.fontSize = 50;
+                    clickHistroyList[i].txtName.color = Color.black;
                     clickHistroyList[i].image.sprite = clickHistroyList[i].sprites[0];
+                    clickHistroyList[i].image.color = Color.white;
                     clickHistroyList[i].gameObject.SetActive(true);
                     exampleStack.Push(padButtonList[randIndex].Index);
                 }
@@ -415,8 +432,10 @@ public class MemoryGameManager : MonoBehaviour
                             playerStack.Push(item.Index);
                             tempIndex = playerStack.Count - 1;
                             clickHistroyList[tempIndex].image.sprite = clickHistroyList[tempIndex].sprites[0];
-                            clickHistroyList[tempIndex].txtName.fontSize = 20;
+                            clickHistroyList[tempIndex].txtName.color = Color.black;
+                            clickHistroyList[tempIndex].txtName.fontSize = 50;
                             clickHistroyList[tempIndex].txtName.text = item.Index.ToString();
+                            clickHistroyList[tempIndex].image.color = Color.white;
                             clickHistroyList[tempIndex].gameObject.SetActive(true);
                             item.isClick = false;
                             break;
@@ -456,8 +475,10 @@ public class MemoryGameManager : MonoBehaviour
                         {
                             playerStack.Push(item.Index);
                             tempIndex = playerStack.Count - 1;
-                            clickHistroyList[tempIndex].txtName.fontSize = 20;
+                            clickHistroyList[tempIndex].txtName.color = Color.black;
+                            clickHistroyList[tempIndex].txtName.fontSize = 50;
                             clickHistroyList[tempIndex].image.sprite = clickHistroyList[tempIndex].sprites[0];
+                            clickHistroyList[tempIndex].image.color = Color.white;
                             clickHistroyList[tempIndex].txtName.text = item.txtName.text;
                             clickHistroyList[tempIndex].gameObject.SetActive(true);
                             item.isClick = false;
@@ -473,7 +494,7 @@ public class MemoryGameManager : MonoBehaviour
         WaitForSeconds wfs = new WaitForSeconds(speed);
 
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < exampleCount; i++)
         {
 
             int randLine = rand.Next(0, gameLevel);
@@ -502,7 +523,7 @@ public class MemoryGameManager : MonoBehaviour
         WaitForSeconds wfs2 = new WaitForSeconds(0.1f);
 
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < exampleCount; i++)
         {
 
             int randIndex = rand.Next(1, 7);

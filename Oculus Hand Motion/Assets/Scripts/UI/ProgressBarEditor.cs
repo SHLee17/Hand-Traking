@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,5 +17,8 @@ public class ProgressBarEditor : Editor
             progressBar.SetProgressBar();
         else if (GUILayout.Button("Clear"))
             progressBar.ClearProgressBar();
+
     }
+
+    
 }

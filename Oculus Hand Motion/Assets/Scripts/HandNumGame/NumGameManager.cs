@@ -160,7 +160,7 @@ public class NumGameManager : MonoBehaviour
 
                         if (isToturial)
                         {
-                            objToturialClick.SetActive(true);
+                            //objToturialClick.SetActive(true);
                             objToturialClickCanvas.SetActive(true);
                         }
                         else

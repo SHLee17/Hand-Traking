@@ -49,7 +49,8 @@ public class GameManager : MonoBehaviour
 
         if(objGM == null)
             objGM = GameObject.FindGameObjectWithTag("GameManager");
-        else
+        
+        if(objGM != null)
             objGM.SetActive(!objGM.activeSelf);
     }
 

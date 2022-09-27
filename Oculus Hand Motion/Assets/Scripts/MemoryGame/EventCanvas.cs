@@ -10,35 +10,66 @@ public class EventCanvas : MonoBehaviour
     public TMP_Text txtWording;
     public bool isEventOver;
 
-    public void CountDown() => StartCoroutine(StartCount());
-    public void EndEvent() => StartCoroutine(eventCanvasDeactive());
+    private void Start()
+    {
+        txtWording.fontSize = 40;
+        txtWording.text = "잠시후 게임이 시작 됩니다.";
+    }
 
+    public void CountDown() => StartCoroutine(StartCount());
+    public void EndEvent() => StartCoroutine(CanvasEndEvent());
+    public void StartGame() => StartCoroutine(CanvasStartGame());
     IEnumerator StartCount()
     {
         isEventOver = false;
-
+        txtWording.fontSize = 40;
         txtWording.text = "모두 기억 하셨나요?";
         yield return new WaitForSeconds(3);
-        WaitForSeconds wf = new WaitForSeconds(1);
+        WaitForSeconds wfs = new WaitForSeconds(1);
 
         for (int i = 3; i > 0; i--)
         {
             txtWording.text = i.ToString();
             txtWording.fontSize = 100;
-            yield return wf;
+            yield return wfs;
         }
 
         isEventOver = true;
-        txtWording.fontSize = 50;
+        txtWording.fontSize = 40;
         gameObject.SetActive(false);
         
     }
 
-    IEnumerator eventCanvasDeactive()
+    IEnumerator CanvasEndEvent()
     {
         isEventOver = false;
         yield return new WaitForSeconds(3);
         isEventOver = true;
         gameObject.SetActive(false);
+    }
+
+    IEnumerator CanvasStartGame()
+    {
+        isEventOver = false;
+
+        WaitForSeconds wfs = new WaitForSeconds(1);
+        WaitForSeconds wfs2 = new WaitForSeconds(3);
+
+
+        yield return wfs2;
+
+        txtWording.fontSize = 40;
+        txtWording.text = "잠시후 게임이 시작 됩니다.";
+        yield return wfs2;
+
+
+        for (int i = 3; i > 0; i--)
+        {
+            txtWording.text = i.ToString();
+            txtWording.fontSize = 100;
+            yield return wfs;
+        }
+        gameObject.SetActive(false);
+        isEventOver = true;
     }
 }

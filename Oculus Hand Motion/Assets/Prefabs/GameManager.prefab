@@ -2340,6 +2340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   objOption: {fileID: 2906249363774256080}
+  objGM: {fileID: 0}
 --- !u!1 &8014401154036903959
 GameObject:
   m_ObjectHideFlags: 0
