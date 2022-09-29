@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MatchGameManager : MonoBehaviour
 {
+
+    public List<Blank> blankList;
+
     enum State
     {
         GameStart,
