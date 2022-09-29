@@ -6,6 +6,8 @@ public class MatchNumber : MonoBehaviour
 {
     public bool[] isMatchs = new bool[7];
     public List<Blank> blankList;
+    public Match match;
+
     void Start()
     {
         
