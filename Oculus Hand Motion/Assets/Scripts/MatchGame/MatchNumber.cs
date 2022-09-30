@@ -6,12 +6,5 @@ public class MatchNumber : MatchGameManager
 {
     public Match match;
 
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
+    
 }

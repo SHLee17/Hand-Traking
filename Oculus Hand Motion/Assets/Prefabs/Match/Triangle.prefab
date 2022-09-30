@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807457173007434370}
   m_LocalRotation: {x: 0, y: 0.30070576, z: 0, w: 0.953717}
-  m_LocalPosition: {x: -0.12, y: 0, z: -0.025}
+  m_LocalPosition: {x: -0.117, y: 0, z: 0.09}
   m_LocalScale: {x: 0.025000004, y: 0.025000002, z: 0.14999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -96,7 +96,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &807457173007434368
 MonoBehaviour:
@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
+  meshRenderer: {fileID: 807457173007434374}
 --- !u!1 &807457173255823882
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807457173255823882}
   m_LocalRotation: {x: 0, y: -0.30070576, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 0, z: -0.025}
+  m_LocalPosition: {x: 0.003000021, y: 0, z: 0.09}
   m_LocalScale: {x: 0.025000004, y: 0.025000002, z: 0.14999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -207,7 +208,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &807457173255823880
 MonoBehaviour:
@@ -222,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
+  meshRenderer: {fileID: 807457173255823886}
 --- !u!1 &807457173267981896
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807457173267981896}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.06, y: -0, z: -0.103}
+  m_LocalPosition: {x: -0.06, y: -0, z: 0}
   m_LocalScale: {x: 0.025000004, y: 0.025000002, z: 0.14999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -318,7 +320,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &807457173267981902
 MonoBehaviour:
@@ -333,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
+  meshRenderer: {fileID: 807457173267981900}
 --- !u!1 &807457173290490175
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 807457173290490172}
+  - component: {fileID: 8913285731828739740}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -367,3 +371,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8913285731828739740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807457173290490175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb91f52509861440ad0b8137f6ea582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

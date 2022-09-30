@@ -6,6 +6,7 @@ public class MatchGameManager : MonoBehaviour
 {
 
     public List<Blank> blankList;
+    public List<MatchNumber> matchNumberList;
 
     enum State
     {
@@ -18,7 +19,6 @@ public class MatchGameManager : MonoBehaviour
         Start,
         End
     }
-    public List<MatchNumber> matchNumberList;
     void Start()
     {
         
