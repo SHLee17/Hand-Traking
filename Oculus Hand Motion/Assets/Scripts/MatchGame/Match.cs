@@ -1,40 +1,64 @@
-using Oculus.Interaction.HandGrab;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Match : MonoBehaviour
 {
     public int index;
     public bool isSelect;
-    [SerializeField]
-    public GameObject objCurrentBlank;
-    [SerializeField]
-    public Transform startPos;
-    
+    public Blank currentBlank;
+    public Blank nextMoveBlank;
 
     public void Selected(bool isSelect)
     {
         this.isSelect = isSelect;
-    }
+        Debug.Log(isSelect);
+        if (!isSelect)
+        {
+            if (nextMoveBlank != null)
+            {
+                if (currentBlank != nextMoveBlank)
+                {
+                    currentBlank.isMatchActive = false;
+                    currentBlank.match = null;
+                    currentBlank = nextMoveBlank;
+                    currentBlank.isMatchActive = true;
+                    currentBlank.match = this;
+                    nextMoveBlank = null;
+                    PosChange(currentBlank.transform);
+                    return;
+                }
+            }
+                foreach (Blank item in MatchStage.inventoryList)
+                {
+                    if (item.match == null)
+                    {
+                        currentBlank.isMatchActive = false;
+                        currentBlank.match = null;
+                        currentBlank = item;
+                        currentBlank.isMatchActive = true;
+                        currentBlank.match = this;
+                        PosChange(currentBlank.transform);
+                        return;
+                    }
+                }
+            
+            PosChange(currentBlank.transform);
+        }
 
+    }
+    public void Hover()
+    {
+        Debug.Log("hover");
+    }
 
     private void Update()
     {
-        if (!isSelect)
-        {
-            if (objCurrentBlank != null)
-            {
-                transform.position = objCurrentBlank.transform.position;
-                transform.rotation = objCurrentBlank.transform.rotation;
-            }
-            else if (objCurrentBlank == null)
-            {
-                transform.position = startPos.position;
-                transform.rotation = startPos.rotation;
-            }
-        }
+        //if (!isSelect)
+        //    GameManager.Instance.player.grabInteractor.Select();
     }
 
-
+    public void PosChange(Transform transform)
+    {
+        this.transform.position = transform.position;
+        this.transform.rotation = transform.rotation;
+    }
 }

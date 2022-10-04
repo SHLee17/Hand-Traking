@@ -83,7 +83,6 @@ public class MemoryGameManager : MonoBehaviour
 
     float timer;
     float timerReset;
-    float speed;
     int maxGameLevel;
     int maxCount;
 
@@ -110,7 +109,6 @@ public class MemoryGameManager : MonoBehaviour
         maxGameLevel = 4;
         maxCount = exampleCount;
         timer = timerReset = 1f;
-        speed = 1;
 
         state = State.PlayExample;
         phase = Phase.Ready;

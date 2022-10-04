@@ -1,62 +1,70 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Blank : MonoBehaviour
 {
-    public bool isActive;
-    Match match = null;
+    public enum Type
+    {
+        Inven,
+        Blank
+    }
+
+    public Type type;
+    public bool isMatchActive;
+    public bool isRightAnswer;
+    public Match match = null;
     [SerializeField]
     MeshRenderer meshRenderer;
+    [SerializeField]
+    BoxCollider boxCollider;
 
-    private void OnTriggerEnter(Collider other)
+
+    private void Start()
     {
-        if (other.CompareTag("Match"))
-        {
-            match = other.GetComponent<Match>();
+        meshRenderer.material.color = new Color(1, 1, 1, 0.3f);
+    }
 
-            if (match != null)
+    private void Update()
+    {
+        if (match != null)
+        {
+            meshRenderer.material.color = new Color(0, 1, 0, 0.3f);
+
+            if (isMatchActive)
             {
-                match.objCurrentBlank = gameObject;
-                isActive = true;
-                meshRenderer.material.color = new Color(1,0,0,0.3f);
+                meshRenderer.enabled = false;
+                boxCollider.enabled = false;
             }
         }
+        else
+        {
+            meshRenderer.material.color = new Color(1, 1, 1, 0.3f);
+            meshRenderer.enabled = true;
+            boxCollider.enabled = true;
+        }
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Match"))
         {
             match = other.GetComponent<Match>();
 
-            if (match != null)
-            {
-                match.objCurrentBlank = gameObject;
-                isActive = true;
-                meshRenderer.material.color = new Color(1, 0, 0, 0.3f);
-            }
-        }
-    }
-    private void Update()
-    {
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Match"))
-        {
-            Match match = other.GetComponent<Match>();
-
-            if (match != null)
+            if (match != null && !isMatchActive)
             {
                 if (match.isSelect)
                 {
-                    meshRenderer.material.color = new Color(1,1,1,0.3f);
-
-                    match.objCurrentBlank = null;
-                    isActive = false;
+                    match.nextMoveBlank = this;
                 }
             }
+
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Match"))
+            match = null;
+
+    }
 }
