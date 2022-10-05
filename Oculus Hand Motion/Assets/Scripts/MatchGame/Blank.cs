@@ -3,25 +3,30 @@ using UnityEngine;
 
 public class Blank : MonoBehaviour
 {
-    public enum Type
+    public enum Pair
     {
-        Inven,
-        Blank
+        None,
+        Unconditionally,
+        One,
+        Two,
+        Three,
+        Four
     }
-
-    public Type type;
     public bool isMatchActive;
     public bool isRightAnswer;
     public Match match = null;
+    public Pair pair;
     [SerializeField]
     MeshRenderer meshRenderer;
     [SerializeField]
     BoxCollider boxCollider;
 
+    
 
     private void Start()
     {
         meshRenderer.material.color = new Color(1, 1, 1, 0.3f);
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     private void Update()

@@ -110,9 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
+  isMatchActive: 0
   isRightAnswer: 0
+  match: {fileID: 0}
   meshRenderer: {fileID: 7879901598480302053}
+  boxCollider: {fileID: 0}
 --- !u!1 &5725658415523736736
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,9 +225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
+  isMatchActive: 0
   isRightAnswer: 0
+  match: {fileID: 0}
   meshRenderer: {fileID: 8676673173076446384}
+  boxCollider: {fileID: 0}
 --- !u!1 &8113435382935248542
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +253,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8113435382935248542}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.22, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

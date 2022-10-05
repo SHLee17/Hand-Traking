@@ -110,10 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
-  isRightAnswer: 0
+  isMatchActive: 0
+  isRightAnswer: 1
   match: {fileID: 0}
   meshRenderer: {fileID: 4885936646248922306}
+  boxCollider: {fileID: 0}
 --- !u!1 &2958621545308414920
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
-  isRightAnswer: 0
+  isMatchActive: 0
+  isRightAnswer: 1
   match: {fileID: 0}
   meshRenderer: {fileID: 589445847269379319}
+  boxCollider: {fileID: 0}

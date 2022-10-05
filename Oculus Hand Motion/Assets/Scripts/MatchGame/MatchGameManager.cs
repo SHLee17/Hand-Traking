@@ -10,6 +10,7 @@ public class MatchGameManager : MonoBehaviour
 
     Queue<Match> matchQueue;
 
+    [SerializeField]
     int currentStage;
     [SerializeField]
     State state;
@@ -28,7 +29,6 @@ public class MatchGameManager : MonoBehaviour
     }
     void Start()
     {
-        currentStage = 0;
         matchQueue = new Queue<Match>();
 
         GameObject pool = new GameObject("Pool");
@@ -38,9 +38,21 @@ public class MatchGameManager : MonoBehaviour
             Match temp = Instantiate(tempMatch);
             temp.gameObject.SetActive(false);
             temp.transform.SetParent(pool.transform);
+            temp.currentStage = stageList[currentStage];
             matchQueue.Enqueue(temp);
         }
 
+        for (int i = 0; i < stageList.Count; i++)
+        {
+            if (stageList[i].gameObject.activeSelf)
+                currentStage = i;
+        }
+
+
+        for (int i = 1; i < 100; i *= 3)
+        {
+                Debug.Log(i);
+        }
     }
 
     void Update()
@@ -57,18 +69,26 @@ public class MatchGameManager : MonoBehaviour
                     case Phase.Start:
                         foreach (Blank item in stageList[currentStage].blankList)
                         {
+                            Blank.Pair temp = Blank.Pair.Unconditionally;
+                            if(item.pair != Blank.Pair.None &&
+                                item.pair != Blank.Pair.Unconditionally)
+                                temp = item.pair;
+                            
                             if (item.isRightAnswer)
                             {
                                 if (!item.isMatchActive) return;
+                                if (temp != item.pair) return;
                             }
                             else
                             {
                                 if (item.isMatchActive) return;
                             }
+
                         }
                         ChangeState(state, Phase.End);
                         break;
                     case Phase.End:
+
                         break;
                 }
                 break;
@@ -85,9 +105,24 @@ public class MatchGameManager : MonoBehaviour
             {
                 item.match = matchQueue.Dequeue();
                 item.match.gameObject.SetActive(true);
-                item.match.transform.position = item.transform.position;
-                item.match.transform.rotation = item.transform.rotation;
+                item.match.PosChange(item.transform);
                 item.match.currentBlank = item;
+                item.match.currentStage = stageList[currentStage];
+                if (item.pair != Blank.Pair.None)
+                    item.isRightAnswer = true;
+
+            }
+        }
+        foreach (Blank item in stageList[currentStage].inventoryList)
+        {
+            
+            if (item.isMatchActive && item.gameObject.activeSelf)
+            {
+                item.match = matchQueue.Dequeue();
+                item.match.gameObject.SetActive(true);
+                item.match.PosChange(item.transform);
+                item.match.currentBlank = item;
+                item.match.currentStage = stageList[currentStage];
             }
         }
     }
@@ -97,6 +132,16 @@ public class MatchGameManager : MonoBehaviour
         foreach (Blank item in stageList[currentStage].blankList)
         {
             if (item.match != null)
+            {
+                matchQueue.Enqueue(item.match);
+                item.match.transform.SetParent(transform);
+                item.match = null;
+            }
+        }
+
+        foreach (Blank item in stageList[currentStage].inventoryList)
+        {
+            if (item.match != null && item.gameObject.activeSelf)
             {
                 matchQueue.Enqueue(item.match);
                 item.match.transform.SetParent(transform);

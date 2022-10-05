@@ -9,10 +9,11 @@ public class MatchStage : MonoBehaviour
     Transform inventoryParent;
     [SerializeField]
     Transform blankParent;
-
+    [SerializeField]
+    int invenCount;
 
     public List<Blank> blankList;
-    static public List<Blank> inventoryList;
+    public List<Blank> inventoryList;
     void Start()
     {
         foreach (Transform parent in blankParent)
@@ -26,13 +27,13 @@ public class MatchStage : MonoBehaviour
         foreach (Transform item in inventoryParent)
             inventoryList.Add(item.GetComponent<Blank>());
 
-        blankList.ForEach(x => x.type = Blank.Type.Blank);
-        inventoryList.ForEach(x => x.type = Blank.Type.Inven);
+        for (int i = 0; i < inventoryList.Count; i++)
+        {
+            if (invenCount <= i)
+                inventoryList[i].gameObject.SetActive(false);
+        }
+
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

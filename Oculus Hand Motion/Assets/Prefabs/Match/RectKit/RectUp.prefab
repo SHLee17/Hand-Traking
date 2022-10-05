@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2980407091764354305}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.20000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -144,9 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  isRightAnswer: 0
+  isMatchActive: 0
+  isRightAnswer: 1
+  match: {fileID: 0}
   meshRenderer: {fileID: 2980407092308228536}
+  boxCollider: {fileID: 0}
 --- !u!1 &2980407092777410476
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,9 +259,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  isRightAnswer: 0
+  isMatchActive: 1
+  isRightAnswer: 1
+  match: {fileID: 0}
   meshRenderer: {fileID: 2980407092777410512}
+  boxCollider: {fileID: 0}
 --- !u!1 &2980407093662536396
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  isRightAnswer: 0
+  isMatchActive: 1
+  isRightAnswer: 1
+  match: {fileID: 0}
   meshRenderer: {fileID: 2980407093662536432}
+  boxCollider: {fileID: 0}

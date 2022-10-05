@@ -22,13 +22,13 @@ public class MatchRectangle : MonoBehaviour
                 blankList.Add(child.GetComponent<Blank>());
         }
 
-        foreach (Blank item in blankList)
-        {
-            if (item.isMatchActive) 
-                item.match = Instantiate(tempMatch, 
-                    item.transform.position, 
-                    quaternion.identity, 
-                    transform);
-        }
+        //foreach (Blank item in blankList)
+        //{
+        //    if (item.isMatchActive) 
+        //        item.match = Instantiate(tempMatch, 
+        //            item.transform.position, 
+        //            quaternion.identity, 
+        //            transform);
+        //}
     }
 }
