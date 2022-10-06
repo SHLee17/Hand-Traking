@@ -49,10 +49,6 @@ public class MatchGameManager : MonoBehaviour
         }
 
 
-        for (int i = 1; i < 100; i *= 3)
-        {
-                Debug.Log(i);
-        }
     }
 
     void Update()
