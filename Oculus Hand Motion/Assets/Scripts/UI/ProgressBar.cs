@@ -10,6 +10,7 @@ public class ProgressBar : MonoBehaviour
     float current;
     float max;
     float normalized;
+    [SerializeField]
     bool isStart;
     [SerializeField]
     int cubeCount;

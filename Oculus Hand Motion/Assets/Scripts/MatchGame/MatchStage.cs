@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MatchStage : MonoBehaviour
 {
@@ -12,6 +10,7 @@ public class MatchStage : MonoBehaviour
     [SerializeField]
     int invenCount;
 
+    public GameObject objInfo;
     public List<Blank> blankList;
     public List<Blank> inventoryList;
     void Start()

@@ -52,7 +52,6 @@ public class MemoryGameManager : MonoBehaviour
     Stack<int> playerStack;
     [SerializeField]
     Transform[] buttonHolders;
-    Dictionary<Type, int> gameLevelDict;
 
     [Header("ETC")]
     [SerializeField]
@@ -103,7 +102,7 @@ public class MemoryGameManager : MonoBehaviour
                 padButtonList.Add(button.GetComponent<PadButton>());
         }
         
-        gameLevelDict = new Dictionary<Type, int>();
+
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
         maxGameLevel = 4;

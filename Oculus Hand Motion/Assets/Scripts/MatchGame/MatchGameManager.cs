@@ -53,6 +53,10 @@ public class MatchGameManager : MonoBehaviour
 
     void Update()
     {
+        transform.position =
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
+
+
         switch (state)
         {
             case State.GameStart:
@@ -95,6 +99,7 @@ public class MatchGameManager : MonoBehaviour
 
     void SetStage()
     {
+        stageList[currentStage].objInfo.SetActive(true);
         foreach (Blank item in stageList[currentStage].blankList)
         {
             if (item.isMatchActive)
@@ -106,6 +111,9 @@ public class MatchGameManager : MonoBehaviour
                 item.match.currentStage = stageList[currentStage];
                 if (item.pair != Blank.Pair.None)
                     item.isRightAnswer = true;
+                else
+                    item.isRightAnswer = false;
+
 
             }
         }
