@@ -5886,7 +5886,7 @@ MonoBehaviour:
   progressBar: {fileID: 1029616128}
   state: 0
   phase: 0
-  type: 0
+  type: 2
 --- !u!4 &2091197922
 Transform:
   m_ObjectHideFlags: 0

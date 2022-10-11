@@ -13,6 +13,8 @@ public class MatchGameManager : MonoBehaviour
 
     Queue<Match> matchQueue;
 
+    GameObject pool;
+
     [SerializeField]
     int currentStage;
     [SerializeField]
@@ -34,7 +36,7 @@ public class MatchGameManager : MonoBehaviour
     {
         matchQueue = new Queue<Match>();
 
-        GameObject pool = new GameObject("Pool");
+        pool = new GameObject("Pool");
         pool.transform.SetParent(transform);
         for (int i = 0; i < 40; i++)
         {
@@ -91,10 +93,12 @@ public class MatchGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
+                        //stageList[currentStage].gameObject.SetActive(false);
                         foreach (var item in stageList)
                             item.gameObject.SetActive(false);
+                        pool.gameObject.SetActive(false);
                         ChangeState(State.EndGame, Phase.Start);
-                        StartCoroutine(NextGame());
+                        //StartCoroutine(NextGame());
                         break;
 
                 }
