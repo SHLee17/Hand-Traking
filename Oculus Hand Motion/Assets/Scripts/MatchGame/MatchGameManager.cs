@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class MatchGameManager : MonoBehaviour
     List<MatchStage> stageList;
     [SerializeField]
     Match tempMatch;
+    [SerializeField]
+    GameObject objRightAnswerCanvas;
 
     Queue<Match> matchQueue;
 
@@ -42,13 +45,6 @@ public class MatchGameManager : MonoBehaviour
             matchQueue.Enqueue(temp);
         }
 
-        for (int i = 0; i < stageList.Count; i++)
-        {
-            if (stageList[i].gameObject.activeSelf)
-                currentStage = i;
-        }
-
-
     }
 
     void Update()
@@ -64,7 +60,7 @@ public class MatchGameManager : MonoBehaviour
                 {
                     case Phase.Ready:
                         SetStage();
-                        ChangeState(state, Phase.Start);
+                        ChangeState(State.GameStart, Phase.Start);
                         break;
                     case Phase.Start:
                         foreach (Blank item in stageList[currentStage].blankList)
@@ -80,41 +76,73 @@ public class MatchGameManager : MonoBehaviour
                                 if (temp != item.pair) return;
                             }
                             else
-                            {
                                 if (item.isMatchActive) return;
-                            }
 
                         }
-                        ChangeState(state, Phase.End);
+                        ChangeState(State.GameStart, Phase.End);
                         break;
                     case Phase.End:
-
+                        objRightAnswerCanvas.SetActive(true);
+                        ChangeState(State.EndGame, Phase.Ready);
                         break;
                 }
                 break;
             case State.EndGame:
+                switch (phase)
+                {
+                    case Phase.Ready:
+                        foreach (var item in stageList)
+                            item.gameObject.SetActive(false);
+                        ChangeState(State.EndGame, Phase.Start);
+                        StartCoroutine(NextGame());
+                        break;
+
+                }
                 break;
         }
     }
 
+    IEnumerator NextGame()
+    {
+        yield return new WaitForSeconds(2);
+        objRightAnswerCanvas.SetActive(false);
+        yield return new WaitForSeconds(2);
+        EndStage();
+        ChangeState(State.GameStart, Phase.Ready);
+        currentStage++;
+        if (stageList.Count == currentStage)
+            currentStage = 0;
+
+    }
+
     void SetStage()
     {
+        objRightAnswerCanvas.SetActive(false);
+        stageList[currentStage].gameObject.SetActive(true);
         stageList[currentStage].objInfo.SetActive(true);
         foreach (Blank item in stageList[currentStage].blankList)
         {
-            if (item.isMatchActive)
+            if (item.isComebackMatch)
             {
+                item.isMatchActive = true;
                 item.match = matchQueue.Dequeue();
                 item.match.gameObject.SetActive(true);
                 item.match.PosChange(item.transform);
                 item.match.currentBlank = item;
                 item.match.currentStage = stageList[currentStage];
+
                 if (item.pair != Blank.Pair.None)
                     item.isRightAnswer = true;
                 else
                     item.isRightAnswer = false;
-
-
+            }
+            else
+            {
+                if (item.pair != Blank.Pair.None)
+                    item.isRightAnswer = true;
+                else
+                    item.isRightAnswer = false;
+                item.isMatchActive = false;
             }
         }
         foreach (Blank item in stageList[currentStage].inventoryList)
@@ -135,20 +163,28 @@ public class MatchGameManager : MonoBehaviour
     {
         foreach (Blank item in stageList[currentStage].blankList)
         {
+            item.isMatchActive = false;
+
             if (item.match != null)
             {
                 matchQueue.Enqueue(item.match);
                 item.match.transform.SetParent(transform);
+                item.match.PosChange(transform);
+                item.match.gameObject.SetActive(false);
                 item.match = null;
             }
         }
 
         foreach (Blank item in stageList[currentStage].inventoryList)
         {
-            if (item.match != null && item.gameObject.activeSelf)
+            item.isMatchActive = false;
+
+            if (item.match != null)
             {
                 matchQueue.Enqueue(item.match);
                 item.match.transform.SetParent(transform);
+                item.match.PosChange(transform);
+                item.match.gameObject.SetActive(false);
                 item.match = null;
             }
         }
