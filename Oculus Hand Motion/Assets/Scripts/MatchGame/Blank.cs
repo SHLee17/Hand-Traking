@@ -14,6 +14,7 @@ public class Blank : MonoBehaviour
     }
     public bool isMatchActive;
     public bool isRightAnswer;
+    public bool isComebackMatch;
     public Match match = null;
     public Pair pair;
     [SerializeField]

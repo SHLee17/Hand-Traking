@@ -148,18 +148,40 @@ public class RSPGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        txtInfo.text = Judgment(isReverse).ToString();
+
+                        Result temp = Judgment(isReverse);
+                        txtInfo.fontSize = 60;
+                        switch (temp)
+                        {
+                            case Result.Win:
+                                txtInfo.color = new Color(0, 118f / 255f, 0, 1);
+                                break;
+                            case Result.Draw:
+                                txtInfo.color = Color.gray;
+                                break;
+                            case Result.Lose:
+                                txtInfo.color = Color.red;
+                                break;
+                        }
+                        txtInfo.text = temp.ToString();
                         timer = timerReset / 2;
                         progressBar.StartProtress();
                         phase = Phase.Start;
                         break;
                     case Phase.Start:
-                        timer -= Time.deltaTime;
+                        
+                       timer -= Time.deltaTime;
                         progressBar.gameObject.SetActive(true);
 
                         progressBar.Set(timer, timerReset / 2);
 
-                        if (timer < timerReset / 4) txtInfo.text = "바로 다음게임이 시작됩니다.";
+                        if (timer < timerReset / 4)
+                        {
+                            txtInfo.color = Color.black;
+
+                            txtInfo.fontSize = 30;
+                            txtInfo.text = "바로 다음게임이 시작됩니다.";
+                        }
                         if (timer < 0) state = State.SetGame;
                         break;
                     case Phase.End:

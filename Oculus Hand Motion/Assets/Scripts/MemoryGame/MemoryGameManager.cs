@@ -147,8 +147,10 @@ public class MemoryGameManager : MonoBehaviour
 
                         break;
                     case Phase.Start:
+                        
                         if (type == Type.Typing)
                         {
+                           
                             timer -= Time.deltaTime;
                             progressBar.gameObject.SetActive(true);
                             progressBar.Set(timer, timerReset);
@@ -158,6 +160,7 @@ public class MemoryGameManager : MonoBehaviour
                                 foreach (Pad item in clickHistroyList)
                                     item.gameObject.SetActive(false);
                                 CallEventCanvas();
+                                
                             }
                         }
                         break;
@@ -548,6 +551,7 @@ public class MemoryGameManager : MonoBehaviour
             yield return wfs2;
 
         }
+        objColorExample.gameObject.SetActive(false);
         CallEventCanvas();
     }
 
