@@ -13,7 +13,7 @@ public enum PoseType
 public class Pose : MonoBehaviour
 {
     public Direction dir;
-    public PoseType poseType;
+    public RSPGameManager.RSP rsp;
     public int num;
     public bool select;
 

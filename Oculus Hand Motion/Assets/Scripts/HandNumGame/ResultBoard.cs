@@ -75,6 +75,13 @@ public class ResultBoard : MonoBehaviour
         objResultBoardCanvas.gameObject.SetActive(false);
         objSelectPage.gameObject.SetActive(false);
         objFinalSelect.gameObject.SetActive(false);
+
+        if (resultPartitionList == null) return;
+        foreach (var item in resultPartitionList)
+        {
+            foreach (ResultPartition partition in item)
+                partition.holder.SetActive(false);
+        }
     }
 
     public void CallResultBoard()
@@ -127,7 +134,7 @@ public class ResultBoard : MonoBehaviour
                 }
 
                 resultPartitionList[pageIndex][index].txtPlayerAnswer.text = $"<color=orange>{resultList[i].answer}</color>";
-                resultPartitionList[pageIndex][index].holder.gameObject.SetActive(true);
+                resultPartitionList[pageIndex][index].holder.SetActive(true);
 
                
             }

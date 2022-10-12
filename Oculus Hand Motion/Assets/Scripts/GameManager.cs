@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using Oculus.Interaction.Input;
+
 
 public class GameManager : MonoBehaviour
 {
     static GameManager instance;
     public Player player;
+    [SerializeField]
+    GameObject objOption;
+    [SerializeField]
+    GameObject objGM;
 
     public static GameManager Instance 
     {
@@ -35,6 +36,27 @@ public class GameManager : MonoBehaviour
     {
         if (ReferenceEquals(player, null))
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        objOption.transform.position = new Vector3(
+            transform.position.x, 
+            player.cameraRig.centerEyeAnchor.transform.position.y + 0.5f,
+            player.cameraRig.centerEyeAnchor.transform.position.z + 0.3f);
     }
 
+    public void OnOption()
+    {
+        objOption.SetActive(!objOption.activeSelf);
+
+        if(objGM == null)
+            objGM = GameObject.FindGameObjectWithTag("GameManager");
+        
+        if(objGM != null)
+            objGM.SetActive(!objGM.activeSelf);
+    }
+
+    public T RandomEnum<T>(int min = 0)
+    {
+        System.Array values = System.Enum.GetValues(typeof(T));
+        return (T)values.GetValue(new System.Random().Next(min, values.Length));
+    }
 }
