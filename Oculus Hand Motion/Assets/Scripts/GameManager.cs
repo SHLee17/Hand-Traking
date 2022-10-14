@@ -36,11 +36,13 @@ public class GameManager : MonoBehaviour
     {
         if (ReferenceEquals(player, null))
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
-        objOption.transform.position = new Vector3(
-            transform.position.x, 
-            player.cameraRig.centerEyeAnchor.transform.position.y + 0.5f,
-            player.cameraRig.centerEyeAnchor.transform.position.z + 0.3f);
+        if (objOption)
+        {
+            objOption.transform.position = new Vector3(
+                transform.position.x,
+                player.cameraRig.centerEyeAnchor.transform.position.y + 0.5f,
+                player.cameraRig.centerEyeAnchor.transform.position.z + 0.3f);
+        }
     }
 
     public void OnOption()
