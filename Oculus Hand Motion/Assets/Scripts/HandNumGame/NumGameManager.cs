@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace NumGameEnum
 {
@@ -63,8 +64,8 @@ public class NumGameManager : MonoBehaviour
     Dictionary<Order, Number> answerDict;
 
     [Header("Texts")]
-    [SerializeField]
-    TMP_Text txtTimer;
+    //[SerializeField]
+    //TMP_Text txtTimer;
     [SerializeField]
     TMP_Text txtSign;
     [SerializeField]
@@ -100,7 +101,8 @@ public class NumGameManager : MonoBehaviour
     NumGameOption numGameOption;
     [SerializeField]
     PokeInteractable CheckButtonInteractable;
-
+    [SerializeField]
+    ProgressBar progressBar;
 
     [Header("GameObjects")]
     [SerializeField]
@@ -155,7 +157,7 @@ public class NumGameManager : MonoBehaviour
                 {
                     case Phase.Ready:
                         objMainGame.SetActive(false);
-
+                        progressBar.gameObject.SetActive(false);
                         txtExampleCount.text = $"<color=red>0</color> / {exampleCount}";
 
                         if (isToturial)
@@ -216,7 +218,8 @@ public class NumGameManager : MonoBehaviour
 
                         ExampleQuestion(sign, blankOrder);
                         ChangeState(state, Phase.Start);
-
+                        progressBar.StartProtress();
+                        progressBar.gameObject.SetActive(true);
                         break;
                     case Phase.Start:
                         if (exampleCount <= 0)
@@ -233,7 +236,8 @@ public class NumGameManager : MonoBehaviour
                             if (timer > 0)
                             {
                                 timer -= Time.deltaTime;
-                                txtTimer.text = timer.ToString("N1");
+                                progressBar.Set(timer, resetTimer);
+                                //txtTimer.text = timer.ToString("N1");
 
                                 CheckCount(blankOrder);
                             }
@@ -262,6 +266,7 @@ public class NumGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
+                        progressBar.gameObject.SetActive(false);
                         objCheckButton.gameObject.SetActive(false);
                         resultBoard.CallResultBoard();
                         ChangeState(state, Phase.End);
