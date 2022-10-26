@@ -14,4 +14,9 @@ public class Player : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
+
+    public void OnButton()
+    {
+        GameManager.Instance.OnOption();
+    }
 }
