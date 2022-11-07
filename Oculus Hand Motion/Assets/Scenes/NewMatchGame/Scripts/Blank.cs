@@ -3,48 +3,59 @@ using UnityEngine;
 
 public class Blank : MonoBehaviour
 {
-    public enum Pair
+    public enum ActiveMatch
     {
+        active,
+        deactive
+    }
+    public enum Answer
+    {   
         None,
         Unconditionally,
-        One,
-        Two,
-        Three,
-        Four
+        Alpha,
+        Beta,
+        Gamma,
+        Delta
     }
-    public bool isMatchActive;
-    public bool isRightAnswer;
-    public bool isComebackMatch;
+    //public bool isMatchActive;
+    //public bool isRightAnswer;
+
     public Match match = null;
-    public Pair pair;
+    public ActiveMatch activeMatch;
+    public Answer answer;
     [SerializeField]
     MeshRenderer meshRenderer;
     [SerializeField]
     BoxCollider boxCollider;
 
-    
+    Color ActiveColor;
+    Color DeactiveClolor;
 
     private void Start()
     {
-        meshRenderer.material.color = new Color(1, 1, 1, 0.3f);
+        ActiveColor = new Color(0, 1, 0, 0.3f);
+        DeactiveClolor = new Color(1, 1, 1, 0.3f);
+        meshRenderer.material.color = DeactiveClolor;
         boxCollider = GetComponent<BoxCollider>();
+
+
     }
 
     private void Update()
     {
         if (match != null)
         {
-            meshRenderer.material.color = new Color(0, 1, 0, 0.3f);
+            meshRenderer.material.color = ActiveColor;
 
-            if (isMatchActive)
-            {
+            //if (isMatchActive)
+            //{
                 meshRenderer.enabled = false;
                 boxCollider.enabled = false;
-            }
+            //}
         }
         else
         {
-            meshRenderer.material.color = new Color(1, 1, 1, 0.3f);
+            meshRenderer.material.color = DeactiveClolor;
             meshRenderer.enabled = true;
             boxCollider.enabled = true;
         }
@@ -56,7 +67,7 @@ public class Blank : MonoBehaviour
         {
             match = other.GetComponent<Match>();
 
-            if (match != null && !isMatchActive)
+            if (match != null /*&& !isMatchActive*/)
             {
                 if (match.isSelect)
                 {

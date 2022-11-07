@@ -18,11 +18,8 @@ public class Match : MonoBehaviour
             {
                 if (currentBlank != nextMoveBlank)
                 {
-                    currentBlank.isMatchActive = false;
-                    currentBlank.match = null;
-                    currentBlank = nextMoveBlank;
-                    currentBlank.isMatchActive = true;
-                    currentBlank.match = this;
+                    Swap(currentBlank, nextMoveBlank);
+
                     nextMoveBlank = null;
                     PosChange(currentBlank.transform);
                     return;
@@ -32,11 +29,7 @@ public class Match : MonoBehaviour
             {
                 if (item.match == null && item.gameObject.activeSelf)
                 {
-                    currentBlank.isMatchActive = false;
-                    currentBlank.match = null;
-                    currentBlank = item;
-                    currentBlank.isMatchActive = true;
-                    currentBlank.match = this;
+                    Swap(currentBlank, item);
                     PosChange(currentBlank.transform);
                     return;
                 }
@@ -45,6 +38,17 @@ public class Match : MonoBehaviour
             PosChange(currentBlank.transform);
         }
 
+    }
+
+    public void Swap(Blank current, Blank target)
+    {
+        //current.isMatchActive = false;
+        current.match = null;
+
+        //target.isMatchActive = true;
+        target.match = this;
+
+        currentBlank = target;
     }
 
     public void PosChange(Transform transform)

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bdced037686428148b18e317d7094f26
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - sprTriangle: {fileID: 21300000, guid: f862843edafcf894ca6197c914419a15, type: 3}
+  - stage: {fileID: 7413440182816605307, guid: 9abc2d33eb4a34a408c4f94c50b524a9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

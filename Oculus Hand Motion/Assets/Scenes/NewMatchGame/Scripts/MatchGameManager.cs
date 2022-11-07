@@ -65,22 +65,7 @@ public class MatchGameManager : MonoBehaviour
                         ChangeState(State.GameStart, Phase.Start);
                         break;
                     case Phase.Start:
-                        foreach (Blank item in stageList[currentStage].blankList)
-                        {
-                            Blank.Pair temp = Blank.Pair.Unconditionally;
-                            if(item.pair != Blank.Pair.None &&
-                                item.pair != Blank.Pair.Unconditionally)
-                                temp = item.pair;
-                            
-                            if (item.isRightAnswer)
-                            {
-                                if (!item.isMatchActive) return;
-                                if (temp != item.pair) return;
-                            }
-                            else
-                                if (item.isMatchActive) return;
-
-                        }
+                        
                         ChangeState(State.GameStart, Phase.End);
                         break;
                     case Phase.End:
@@ -121,53 +106,55 @@ public class MatchGameManager : MonoBehaviour
 
     void SetStage()
     {
-        objRightAnswerCanvas.SetActive(false);
-        stageList[currentStage].gameObject.SetActive(true);
-        stageList[currentStage].objInfo.SetActive(true);
-        foreach (Blank item in stageList[currentStage].blankList)
-        {
-            if (item.isComebackMatch)
-            {
-                item.isMatchActive = true;
-                item.match = matchQueue.Dequeue();
-                item.match.gameObject.SetActive(true);
-                item.match.PosChange(item.transform);
-                item.match.currentBlank = item;
-                item.match.currentStage = stageList[currentStage];
 
-                if (item.pair != Blank.Pair.None)
-                    item.isRightAnswer = true;
-                else
-                    item.isRightAnswer = false;
-            }
-            else
-            {
-                if (item.pair != Blank.Pair.None)
-                    item.isRightAnswer = true;
-                else
-                    item.isRightAnswer = false;
-                item.isMatchActive = false;
-            }
-        }
-        foreach (Blank item in stageList[currentStage].inventoryList)
-        {
+
+        //objRightAnswerCanvas.SetActive(false);
+        //stageList[currentStage].gameObject.SetActive(true);
+        //stageList[currentStage].objInfo.SetActive(true);
+        //foreach (Blank item in stageList[currentStage].blankList)
+        //{
+        //    if (item.isComebackMatch)
+        //    {
+        //        item.isMatchActive = true;
+        //        item.match = matchQueue.Dequeue();
+        //        item.match.gameObject.SetActive(true);
+        //        item.match.PosChange(item.transform);
+        //        item.match.currentBlank = item;
+        //        item.match.currentStage = stageList[currentStage];
+
+        //        if (item.pair != Blank.Pair.None)
+        //            item.isRightAnswer = true;
+        //        else
+        //            item.isRightAnswer = false;
+        //    }
+        //    else
+        //    {
+        //        if (item.pair != Blank.Pair.None)
+        //            item.isRightAnswer = true;
+        //        else
+        //            item.isRightAnswer = false;
+        //        item.isMatchActive = false;
+        //    }
+        //}
+        //foreach (Blank item in stageList[currentStage].inventoryList)
+        //{
             
-            if (item.isMatchActive && item.gameObject.activeSelf)
-            {
-                item.match = matchQueue.Dequeue();
-                item.match.gameObject.SetActive(true);
-                item.match.PosChange(item.transform);
-                item.match.currentBlank = item;
-                item.match.currentStage = stageList[currentStage];
-            }
-        }
+        //    if (item.isMatchActive && item.gameObject.activeSelf)
+        //    {
+        //        item.match = matchQueue.Dequeue();
+        //        item.match.gameObject.SetActive(true);
+        //        item.match.PosChange(item.transform);
+        //        item.match.currentBlank = item;
+        //        item.match.currentStage = stageList[currentStage];
+        //    }
+        //}
     }
 
     void EndStage()
     {
         foreach (Blank item in stageList[currentStage].blankList)
         {
-            item.isMatchActive = false;
+            //item.isMatchActive = false;
 
             if (item.match != null)
             {
@@ -181,7 +168,7 @@ public class MatchGameManager : MonoBehaviour
 
         foreach (Blank item in stageList[currentStage].inventoryList)
         {
-            item.isMatchActive = false;
+            //item.isMatchActive = false;
 
             if (item.match != null)
             {
