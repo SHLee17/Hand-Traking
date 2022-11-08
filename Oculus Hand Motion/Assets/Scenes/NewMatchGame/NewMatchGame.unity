@@ -632,11 +632,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 136063084}
   boxCollider: {fileID: 0}
 --- !u!65 &136063083
@@ -1212,7 +1210,7 @@ RectTransform:
   - {fileID: 576809598}
   - {fileID: 374019783}
   m_Father: {fileID: 717169245}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1617,11 +1615,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 349001855}
   boxCollider: {fileID: 0}
 --- !u!65 &349001854
@@ -2130,11 +2126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 0
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 568736905}
   boxCollider: {fileID: 0}
 --- !u!65 &568736904
@@ -2979,9 +2973,9 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 976368367}
-  - {fileID: 1249624227}
   - {fileID: 265726945}
   - {fileID: 1691708661083327915}
+  - {fileID: 846559470}
   m_Father: {fileID: 2122973990}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3118,6 +3112,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99c252f3bcadd22468e5f9963c6e9bc8, type: 3}
+--- !u!1001 &846559469
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 717169245}
+    m_Modifications:
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190130663530236703, guid: a5a822fdbcd6738478c725ef3479623e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rectangle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a5a822fdbcd6738478c725ef3479623e, type: 3}
+--- !u!4 &846559470 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7190130663530236702, guid: a5a822fdbcd6738478c725ef3479623e,
+    type: 3}
+  m_PrefabInstance: {fileID: 846559469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &847293964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3234,11 +3303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 857088667}
   boxCollider: {fileID: 0}
 --- !u!65 &857088666
@@ -3589,11 +3656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 0
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 904684157}
   boxCollider: {fileID: 0}
 --- !u!65 &904684156
@@ -3795,11 +3860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 951259842}
   boxCollider: {fileID: 0}
 --- !u!65 &951259841
@@ -4130,60 +4193,6 @@ MonoBehaviour:
   blankPosition: {fileID: 976368367}
   posOffsetX: 0.06
   posOffsetY: 0.22
-  spawnX: 6
-  spawnY: 1
-  isGaro: 0
---- !u!1 &988331913
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 988331914}
-  - component: {fileID: 988331915}
-  m_Layer: 0
-  m_Name: PosSeroOrigin
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &988331914
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988331913}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.023, z: 0.15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1249624227}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &988331915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988331913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02632c4f671b2b143a895ed78a6205d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blankPrefab: {fileID: 2387551956137903383, guid: 0dd9f062d8f3edf4fb28fe85d3a6c0a7,
-    type: 3}
-  blankPosition: {fileID: 988331914}
-  posOffsetX: 0.3
-  posOffsetY: 0.3
-  spawnX: 4
-  spawnY: 3
   isGaro: 0
 --- !u!1001 &993710722
 PrefabInstance:
@@ -4560,11 +4569,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 1
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1094487269}
   boxCollider: {fileID: 0}
 --- !u!65 &1094487268
@@ -4732,11 +4739,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 1
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 2
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1162153275}
   boxCollider: {fileID: 0}
 --- !u!65 &1162153274
@@ -5179,11 +5184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 1
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1241235521}
   boxCollider: {fileID: 0}
 --- !u!65 &1241235520
@@ -5249,39 +5252,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241235517}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1249624226
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1249624227}
-  m_Layer: 0
-  m_Name: Blank
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1249624227
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1249624226}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1812169303}
-  - {fileID: 988331914}
-  m_Father: {fileID: 717169245}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1257024657
 GameObject:
   m_ObjectHideFlags: 0
@@ -5329,11 +5299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1257024661}
   boxCollider: {fileID: 0}
 --- !u!65 &1257024660
@@ -5452,11 +5420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 1
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 2
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1433567638}
   boxCollider: {fileID: 0}
 --- !u!65 &1433567637
@@ -5917,11 +5883,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1601743912}
   boxCollider: {fileID: 0}
 --- !u!65 &1601743911
@@ -6034,11 +5998,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1618534562}
   boxCollider: {fileID: 0}
 --- !u!65 &1618534561
@@ -6233,11 +6195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1696908771}
   boxCollider: {fileID: 0}
 --- !u!65 &1696908770
@@ -6770,58 +6730,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a0398ff5e6e0b149b0f6ab5412dd15a, type: 3}
---- !u!1 &1812169302
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1812169303}
-  - component: {fileID: 1812169304}
-  m_Layer: 0
-  m_Name: PosGaroOrigin
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1812169303
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812169302}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.15, y: -0.023, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1249624227}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &1812169304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812169302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02632c4f671b2b143a895ed78a6205d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blankPrefab: {fileID: 2387551956137903383, guid: 0dd9f062d8f3edf4fb28fe85d3a6c0a7,
-    type: 3}
-  blankPosition: {fileID: 1812169303}
-  posOffsetX: -0.3
-  posOffsetY: 0.3
-  spawnX: 4
-  spawnY: 3
-  isGaro: 1
 --- !u!1 &1885277054
 GameObject:
   m_ObjectHideFlags: 0
@@ -6869,11 +6777,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1885277058}
   boxCollider: {fileID: 0}
 --- !u!65 &1885277057
@@ -7176,11 +7082,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 1
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 2060502177}
   boxCollider: {fileID: 0}
 --- !u!65 &2060502176
@@ -8023,11 +7927,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 542014724038036001}
   boxCollider: {fileID: 0}
 --- !u!33 &542014724257327784
@@ -8140,11 +8042,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 0
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 542014724257327785}
   boxCollider: {fileID: 0}
 --- !u!1 &542014724540379408
@@ -8446,11 +8346,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 0
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1185659676082277632}
   boxCollider: {fileID: 0}
 --- !u!65 &1185659676082277639
@@ -8478,11 +8376,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 1
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 3
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 1185659676089911618}
   boxCollider: {fileID: 0}
 --- !u!65 &1185659676089911617
@@ -8649,7 +8545,7 @@ Transform:
   - {fileID: 7562363092024115967}
   - {fileID: 9196176736026699518}
   m_Father: {fileID: 717169245}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &2000047361924726482
 GameObject:
@@ -8885,11 +8781,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 1
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 3
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 3311578457999075793}
   boxCollider: {fileID: 0}
 --- !u!33 &3311578458184534360
@@ -9002,11 +8896,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 1
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 3311578458184534361}
   boxCollider: {fileID: 0}
 --- !u!4 &3767152503173128146
@@ -9040,11 +8932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 0
-  isRightAnswer: 0
-  isComebackMatch: 0
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 4119374167349645982}
   boxCollider: {fileID: 0}
 --- !u!65 &4119374167349645977
@@ -9157,11 +9047,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 0
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 4119374167436554774}
   boxCollider: {fileID: 0}
 --- !u!65 &4119374167436554769
@@ -9307,11 +9195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 0
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 4528429883797618182}
   boxCollider: {fileID: 0}
 --- !u!65 &4528429883797618177
@@ -9424,11 +9310,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76799682763b4434db03b90d208e1ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMatchActive: 1
-  isRightAnswer: 0
-  isComebackMatch: 1
   match: {fileID: 0}
-  pair: 1
+  activeMatch: 0
+  answer: 0
   meshRenderer: {fileID: 4528429883851218574}
   boxCollider: {fileID: 0}
 --- !u!65 &4528429883851218569
