@@ -152,19 +152,19 @@ public class MatchGameManager : MonoBehaviour
 
     void EndStage()
     {
-        foreach (Blank item in stageList[currentStage].blankList)
-        {
-            //item.isMatchActive = false;
+        //foreach (Blank item in stageList[currentStage].blankList)
+        //{
+        //    //item.isMatchActive = false;
 
-            if (item.match != null)
-            {
-                matchQueue.Enqueue(item.match);
-                item.match.transform.SetParent(transform);
-                item.match.PosChange(transform);
-                item.match.gameObject.SetActive(false);
-                item.match = null;
-            }
-        }
+        //    if (item.match != null)
+        //    {
+        //        matchQueue.Enqueue(item.match);
+        //        item.match.transform.SetParent(transform);
+        //        item.match.PosChange(transform);
+        //        item.match.gameObject.SetActive(false);
+        //        item.match = null;
+        //    }
+        //}
 
         foreach (Blank item in stageList[currentStage].inventoryList)
         {

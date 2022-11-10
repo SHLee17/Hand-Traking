@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rectangle : MonoBehaviour
+public class Angle : MonoBehaviour
 {
-    public List<Blank> rectangle;
+    public List<Blank> angleList;
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.42117676, g: 0.5159463, b: 0.63333476, a: 1}
+  m_IndirectSpecularColor: {r: 0.42117682, g: 0.5159463, b: 0.63333476, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -557,12 +557,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb793b18b9e2d17439cf744f925b8a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryParent: {fileID: 1523763149}
-  blankParent: {fileID: 748672811}
+  type: 0
   invenCount: 4
-  objInfo: {fileID: 1598966416}
-  blankList: []
   inventoryList: []
+  stage: []
 --- !u!1 &43061393
 GameObject:
   m_ObjectHideFlags: 0
@@ -4911,12 +4909,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb793b18b9e2d17439cf744f925b8a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryParent: {fileID: 718675609}
-  blankParent: {fileID: 1460746434}
+  type: 0
   invenCount: 0
-  objInfo: {fileID: 1740681833}
-  blankList: []
   inventoryList: []
+  stage: []
 --- !u!65 &655753410 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 6777208286595627800, guid: 1d58840b33e1a174998390b6bf8f3999,
@@ -5528,12 +5524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb793b18b9e2d17439cf744f925b8a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryParent: {fileID: 976368367}
-  blankParent: {fileID: 1249624227}
+  type: 0
   invenCount: 4
-  objInfo: {fileID: 265726941}
-  blankList: []
   inventoryList: []
+  stage: []
 --- !u!4 &718675609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3018534506162090760, guid: 99c252f3bcadd22468e5f9963c6e9bc8,
@@ -7825,12 +7819,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb793b18b9e2d17439cf744f925b8a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryParent: {fileID: 1103009297}
-  blankParent: {fileID: 385315597}
+  type: 0
   invenCount: 2
-  objInfo: {fileID: 461128195}
-  blankList: []
   inventoryList: []
+  stage: []
 --- !u!4 &1008395287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1632224736264578098, guid: fa4c8554039fba1409120afcf74453a2,
@@ -14753,6 +14745,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb91f52509861440ad0b8137f6ea582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invenCount: 0
+  inventoryList: []
+  stage: []
   triangleList:
   - {fileID: 1864559206}
   - {fileID: 1538043690}
@@ -14774,6 +14769,7 @@ MonoBehaviour:
   - {fileID: 1763819029}
   - {fileID: 807827466}
   - {fileID: 919750744}
+  inventory: []
 --- !u!4 &1943697834
 Transform:
   m_ObjectHideFlags: 0
