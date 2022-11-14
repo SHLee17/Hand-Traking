@@ -63,12 +63,13 @@ public class Blank : MonoBehaviour
                             return;
                         }
                     }
-                    else if (match.currentBlank != this)
+                    else
                     {
-
                         if (!match.isSelect)
                         {
                             match.Unselected();
+                            if (match.currentBlank != this) match = null;
+
                             return;
                         }
                     }
