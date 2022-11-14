@@ -7,47 +7,71 @@ public class Match : MonoBehaviour
     public Blank currentBlank;
     public Blank nextMoveBlank;
     public MatchStage currentStage;
-
     public void Selected(bool isSelect)
     {
         this.isSelect = isSelect;
 
-        if (!isSelect)
+        //if (!isSelect)
+        //{
+        //    if (nextMoveBlank != null)
+        //    {
+        //        if (currentBlank != nextMoveBlank)
+        //        {
+        //            Swap(currentBlank, nextMoveBlank);
+
+        //            nextMoveBlank = null;
+        //            PosChange(currentBlank.transform);
+        //            return;
+        //        }
+        //    }
+        //    foreach (Blank item in currentStage.inventoryList)
+        //    {
+        //        if (item.gameObject.activeSelf) {
+        //            if (item.match == null)
+        //            {
+        //                Swap(currentBlank, item);
+        //                PosChange(currentBlank.transform);
+        //                return;
+        //            }
+        //        }
+        //    }
+
+        //    PosChange(currentBlank.transform);
+        //}
+
+    }
+  
+    public void Unselected()
+    {
+        if (nextMoveBlank != null)
         {
-            if (nextMoveBlank != null)
+            if (currentBlank != nextMoveBlank)
             {
-                if (currentBlank != nextMoveBlank)
-                {
-                    Swap(currentBlank, nextMoveBlank);
-
-                    nextMoveBlank = null;
-                    PosChange(currentBlank.transform);
-                    return;
-                }
+                Swap(currentBlank, nextMoveBlank);
+                PosChange(currentBlank.transform);
+                return;
             }
-            foreach (Blank item in currentStage.inventoryList)
-            {
-                if (item.match == null && item.gameObject.activeSelf)
-                {
-                    Swap(currentBlank, item);
-                    PosChange(currentBlank.transform);
-                    return;
-                }
-            }
-
-            PosChange(currentBlank.transform);
         }
+        //foreach (Blank item in currentStage.inventoryList)
+        //{
+        //    if (item.gameObject.activeSelf)
+        //    {
+        //        if (item.match == null)
+        //        {
+        //            Swap(currentBlank, item);
+        //            PosChange(currentBlank.transform);
+        //            return;
+        //        }
+        //    }
+        //}
 
+        
     }
 
     public void Swap(Blank current, Blank target)
     {
-        //current.isMatchActive = false;
         current.match = null;
-
-        //target.isMatchActive = true;
         target.match = this;
-
         currentBlank = target;
     }
 

@@ -8,7 +8,10 @@ MonoImporter:
   - sprTriangle: {fileID: 21300000, guid: f862843edafcf894ca6197c914419a15, type: 3}
   - verticalRect: {fileID: 21300000, guid: 75756ea6b44ad8b41933122858a0ad18, type: 3}
   - horizontalRect: {fileID: 21300000, guid: 12558bf046d0eb5408764f1ed2d15a53, type: 3}
-  - stage: {instanceID: 0}
+  - triangleStage: {fileID: 7139663895708055922, guid: 9abc2d33eb4a34a408c4f94c50b524a9,
+      type: 3}
+  - rectangleStage: {fileID: 5344249225279723786, guid: a5a822fdbcd6738478c725ef3479623e,
+      type: 3}
   - currentStage: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}

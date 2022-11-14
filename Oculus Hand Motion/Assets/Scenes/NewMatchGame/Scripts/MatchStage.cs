@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
  
@@ -10,7 +11,11 @@ public class MatchStage : MonoBehaviour
         Triangle
     }
     public Type type;
-    public int invenCount;
+    //public int invenCount;
     public List<Blank> inventoryList;
     public List<Angle> stage;
+    public GameObject objHint;
+    public TMP_Text txtHint;
+
+    public void hintActive(bool isActive) => objHint.gameObject.SetActive(isActive);
 }

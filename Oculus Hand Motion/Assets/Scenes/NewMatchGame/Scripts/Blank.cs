@@ -1,15 +1,14 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Blank : MonoBehaviour
 {
     public enum ActiveMatch
     {
-        active,
-        deactive
+        deactive,
+        active
     }
     public enum Answer
-    {   
+    {
         None,
         Unconditionally,
         Alpha,
@@ -20,13 +19,14 @@ public class Blank : MonoBehaviour
     //public bool isMatchActive;
     //public bool isRightAnswer;
 
-    public Match match = null;
+
+    Match tempMatch;
+    public Match match;
     public ActiveMatch activeMatch;
     public Answer answer;
     [SerializeField]
     MeshRenderer meshRenderer;
-    [SerializeField]
-    BoxCollider boxCollider;
+
 
     Color ActiveColor;
     Color DeactiveClolor;
@@ -36,29 +36,79 @@ public class Blank : MonoBehaviour
         ActiveColor = new Color(0, 1, 0, 0.3f);
         DeactiveClolor = new Color(1, 1, 1, 0.3f);
         meshRenderer.material.color = DeactiveClolor;
-        boxCollider = GetComponent<BoxCollider>();
-
-
+        match = null;
     }
 
     private void Update()
     {
         if (match != null)
         {
-            meshRenderer.material.color = ActiveColor;
+            meshRenderer.enabled = false;
 
-            //if (isMatchActive)
-            //{
-                meshRenderer.enabled = false;
-                boxCollider.enabled = false;
-            //}
+            if (match.isSelect)
+            {
+                meshRenderer.material.color = ActiveColor;
+                meshRenderer.enabled = true;
+            }
+            else
+            {
+                if (match.currentBlank != null)
+                {
+                    if(match.currentBlank == this)
+                    {
+                        if (!match.isSelect)
+                        {
+                            match.PosChange(match.currentBlank.transform);
+
+                            return;
+                        }
+                    }
+                    else if (match.currentBlank != this)
+                    {
+
+                        if (!match.isSelect)
+                        {
+                            match.Unselected();
+                            return;
+                        }
+                    }
+                }
+            }
         }
         else
         {
             meshRenderer.material.color = DeactiveClolor;
             meshRenderer.enabled = true;
-            boxCollider.enabled = true;
         }
+
+        if (tempMatch != null)
+        {
+            if (!tempMatch.isSelect)
+            {
+                if (tempMatch.nextMoveBlank == null)
+                {
+                    foreach (Blank item in tempMatch.currentStage.inventoryList)
+                    {
+                        if (item.gameObject.activeSelf)
+                        {
+                            if (item.match == null)
+                            {
+                                item.match = tempMatch;
+                                tempMatch.Swap(tempMatch.currentBlank, target: item);
+                                tempMatch.PosChange(tempMatch.currentBlank.transform);
+                                tempMatch.currentBlank = this;
+                                tempMatch = null;
+                                return;
+                            }
+                        }
+                    }
+                    tempMatch.PosChange(tempMatch.currentBlank.transform);
+                }
+
+                tempMatch = null;
+            }
+        }
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -66,22 +116,20 @@ public class Blank : MonoBehaviour
         if (other.CompareTag("Match"))
         {
             match = other.GetComponent<Match>();
-
-            if (match != null /*&& !isMatchActive*/)
-            {
-                if (match.isSelect)
-                {
-                    match.nextMoveBlank = this;
-                }
-            }
-
+            tempMatch = null;
+            match.nextMoveBlank = this;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Match"))
+        {
+            match = other.GetComponent<Match>();
+            match.nextMoveBlank = null;
+            tempMatch = match;
             match = null;
+        }
 
     }
 }
