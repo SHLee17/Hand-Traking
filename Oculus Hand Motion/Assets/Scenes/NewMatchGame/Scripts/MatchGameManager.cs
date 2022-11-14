@@ -73,13 +73,15 @@ public class MatchGameManager : MonoBehaviour
         }
 
         transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.z + .4f);
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
         //transform.LookAt(GameManager.Instance.player.cameraRig.transform);
     }
 
     void Update()
     {
-        
+
+        transform.position =
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .0f, transform.position.z);
 
 
         switch (state)
@@ -95,16 +97,16 @@ public class MatchGameManager : MonoBehaviour
                         break;
                     case Phase.Start:
                         
-                        timer -= Time.deltaTime;
-                        progressBar.Set(timer, resetTimer);
-                        if(timer < 0)
-                        {
-                            txtRight.gameObject.SetActive(false);
-                            txtTimeOver.gameObject.SetActive(true);
-                            ChangeState(State.EndGame, Phase.Ready);
+                        //timer -= Time.deltaTime;
+                        //progressBar.Set(timer, resetTimer);
+                        //if(timer < 0)
+                        //{
+                        //    txtRight.gameObject.SetActive(false);
+                        //    txtTimeOver.gameObject.SetActive(true);
+                        //    ChangeState(State.EndGame, Phase.Ready);
 
-                            return;
-                        }
+                        //    return;
+                        //}
                         foreach (Angle item in stageList[currentStage].stage)
                         {
                             foreach (Blank blank in item.angleList)
