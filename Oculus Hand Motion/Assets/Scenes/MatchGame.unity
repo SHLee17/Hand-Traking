@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.42117676, g: 0.5159463, b: 0.63333476, a: 1}
+  m_IndirectSpecularColor: {r: 0.42117682, g: 0.5159463, b: 0.63333476, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1516,7 +1516,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161204000}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.18, y: 0.001, z: -0.196}
+  m_LocalPosition: {x: -0.122, y: 0.001, z: -0.196}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2142,7 +2142,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC815\uC0AC\uAC01\uD615 2\uAC1C\uB97C \uB9CC\uB4E4\uAE30 \uC704\uD574
-    \n\uC131\uB0E5 2\uAC1C \uC774\uB3D9"
+    \n\uC131\uB0E5 2\uAC1C \uC774\uB3D9\n(\uBB34\uC870\uAC74 2\uAC1C\uB97C \uC774\uB3D9\uD574\uC57C
+    \uD569\uB2C8\uB2E4)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 045fd67ca211f374e9a48d21d60170e1, type: 2}
   m_sharedMaterial: {fileID: -2999390080586911472, guid: 045fd67ca211f374e9a48d21d60170e1,
@@ -5937,12 +5938,12 @@ GameObject:
   - component: {fileID: 435371180}
   - component: {fileID: 435371181}
   m_Layer: 0
-  m_Name: Rectangle(Clone)
+  m_Name: 1_Rectangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &435371180
 Transform:
   m_ObjectHideFlags: 0
@@ -5951,7 +5952,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435371179}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.423, y: 0, z: 0.18}
+  m_LocalPosition: {x: 0.273, y: 0, z: 0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5961,7 +5962,7 @@ Transform:
   - {fileID: 834778178}
   - {fileID: 1010449236}
   m_Father: {fileID: 2122973990}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &435371181
 MonoBehaviour:
@@ -10302,8 +10303,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3137339391
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.7294118}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13908,7 +13909,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010449235}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.243, y: 0.001, z: -0.431}
+  m_LocalPosition: {x: -0.213, y: 0.001, z: -0.431}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14195,37 +14196,37 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2122973990}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.25
+      value: -0.151
       objectReference: {fileID: 0}
     - target: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.026
+      value: 0.94890153
       objectReference: {fileID: 0}
     - target: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.326
+      value: 0.815132
       objectReference: {fileID: 0}
     - target: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92387956
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.38268343
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
         type: 3}
@@ -14259,12 +14260,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1506bfeeafa657f4cb0b6312669fae24, type: 3}
---- !u!4 &1033134130 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2797328346184387132, guid: 1506bfeeafa657f4cb0b6312669fae24,
-    type: 3}
-  m_PrefabInstance: {fileID: 1033134129}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1033134131 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2797328346184387011, guid: 1506bfeeafa657f4cb0b6312669fae24,
@@ -21068,8 +21063,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3137339391
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.7294118}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -21877,7 +21872,7 @@ GameObject:
   - component: {fileID: 1655286311}
   - component: {fileID: 1655286312}
   m_Layer: 0
-  m_Name: Triangle(Clone)
+  m_Name: 1_Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28441,7 +28436,6 @@ Transform:
   - {fileID: 1006912585}
   - {fileID: 1910195073}
   - {fileID: 1655286311}
-  - {fileID: 1033134130}
   - {fileID: 435371180}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -28460,6 +28454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageList:
   - {fileID: 435371181}
+  - {fileID: 1655286312}
   tempMatch: {fileID: 8653510629360082312, guid: a7a2804a3b275b24989646d9a837b993,
     type: 3}
   objResualtCanvas: {fileID: 1910195072}
