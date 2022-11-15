@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -10,6 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject objGM;
 
+    List<SelectAlphabet> userName;
+
+    public User currentUser;
+    
     public static GameManager Instance 
     {
         get
@@ -60,5 +67,16 @@ public class GameManager : MonoBehaviour
     {
         System.Array values = System.Enum.GetValues(typeof(T));
         return (T)values.GetValue(new System.Random().Next(min, values.Length));
+    }
+
+    public void CreateUser()
+    {
+        currentUser = ScriptableObject.CreateInstance<User>();
+        foreach (SelectAlphabet item in userName)
+            currentUser.name += item;
+
+
+             //AssetDatabase.CreateAsset(currentUser, "")
+             AssetDatabase.Refresh();
     }
 }

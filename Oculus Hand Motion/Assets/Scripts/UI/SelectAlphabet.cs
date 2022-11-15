@@ -8,7 +8,15 @@ public class SelectAlphabet : MonoBehaviour
     List<GameObject> alphabets;
     [SerializeField]
     int index;
+    int firstIndex;
+    [SerializeField]
+    char alphabet;
 
+    private void Start()
+    {
+        firstIndex = 65;
+        alphabet = (char)firstIndex;
+    }
     public void UpButton()
     {
         index++;
@@ -23,6 +31,8 @@ public class SelectAlphabet : MonoBehaviour
         }
 
         alphabets[index].SetActive(true);
+
+        alphabet = (char)(firstIndex + index);
     }
     public void DownButton()
     {
@@ -37,5 +47,7 @@ public class SelectAlphabet : MonoBehaviour
         }
 
         alphabets[index].SetActive(true);
+
+        alphabet = (char)(firstIndex + index);
     }
 }
