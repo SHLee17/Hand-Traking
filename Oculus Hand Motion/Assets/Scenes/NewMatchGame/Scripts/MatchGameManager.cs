@@ -13,6 +13,9 @@ public class MatchGameManager : MonoBehaviour
 
     [SerializeField]
     List<MatchStage> stageList;
+    MatchStage currentStage;
+    [SerializeField]
+    List<int> stageRandIndex;
 
     [Space(10)]
     [Header("Objects")]
@@ -37,13 +40,14 @@ public class MatchGameManager : MonoBehaviour
     [Space(10)]
 
     [SerializeField]
-    int currentStage;
+    int currentStageIndex;
     [SerializeField]
     State state;
     [SerializeField]
     Phase phase;
 
     float timer, resetTimer;
+    
 
     enum State
     {
@@ -58,6 +62,23 @@ public class MatchGameManager : MonoBehaviour
     }
     void Start()
     {
+        stageRandIndex = new List<int>();
+
+        for (int i = 0; i < stageList.Count; i++)
+            stageRandIndex.Add(i);
+
+        int j = 0;
+        System.Random rand = new System.Random();
+        for (int i = 0; i < stageList.Count; i++)
+        {
+            while (i == j)
+                j = rand.Next(stageList.Count);
+
+            int temp = stageRandIndex[i];
+            stageRandIndex[i] = stageRandIndex[j];
+            stageRandIndex[j] = temp;
+        }
+
         timer = resetTimer = 60;
         objectPoolQueue = new Queue<Match>();
 
@@ -68,7 +89,7 @@ public class MatchGameManager : MonoBehaviour
             Match temp = Instantiate(tempMatch);
             temp.gameObject.SetActive(false);
             temp.transform.SetParent(pool.transform);
-            temp.currentStage = stageList[currentStage];
+            temp.currentStage = stageList[currentStageIndex];
             objectPoolQueue.Enqueue(temp);
         }
 
@@ -90,24 +111,24 @@ public class MatchGameManager : MonoBehaviour
                 switch (phase)
                 {
                     case Phase.Ready:
-                        
-                        SetStage(stageList[currentStage]);
+                        currentStage = stageList[stageRandIndex[currentStageIndex]];
+                        SetStage(currentStage);
                         ChangeState(State.GameStart, Phase.Start);
 
                         break;
                     case Phase.Start:
-                        
-                        //timer -= Time.deltaTime;
-                        //progressBar.Set(timer, resetTimer);
-                        //if(timer < 0)
-                        //{
-                        //    txtRight.gameObject.SetActive(false);
-                        //    txtTimeOver.gameObject.SetActive(true);
-                        //    ChangeState(State.EndGame, Phase.Ready);
 
-                        //    return;
-                        //}
-                        foreach (Angle item in stageList[currentStage].stage)
+                        timer -= Time.deltaTime;
+                        progressBar.Set(timer, resetTimer);
+                        if (timer < 0)
+                        {
+                            txtRight.gameObject.SetActive(false);
+                            txtTimeOver.gameObject.SetActive(true);
+                            ChangeState(State.EndGame, Phase.Ready);
+
+                            return;
+                        }
+                        foreach (Angle item in currentStage.stage)
                         {
                             foreach (Blank blank in item.angleList)
                             {
@@ -149,15 +170,17 @@ public class MatchGameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         objResualtCanvas.SetActive(true);
         yield return new WaitForSeconds(5);
-        stageList[currentStage].gameObject.SetActive(false);
-        //currentStage++;
+        EndGame(currentStage);
+        currentStageIndex++;
 
-        
-        //if (stageList.Count <= currentStage)
-        //    ChangeState(State.EndGame, Phase.End);
+        if (stageList.Count <= currentStageIndex)
+        {
+            ChangeState(State.EndGame, Phase.End);
+            StopCoroutine(NextGame());
+        }
 
         objResualtCanvas.SetActive(false);
-        EndGame(stageList[currentStage]);
+        
 
         ChangeState(State.GameStart, Phase.Ready);
 
@@ -208,7 +231,7 @@ public class MatchGameManager : MonoBehaviour
     void EndGame(MatchStage current)
     {
         current.hintActive(false);
-        current.gameObject.SetActive(true);
+        current.gameObject.SetActive(false);
 
         foreach (Angle stage in current.stage)
         {
