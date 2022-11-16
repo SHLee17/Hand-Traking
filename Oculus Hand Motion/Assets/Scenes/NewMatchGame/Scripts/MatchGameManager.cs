@@ -102,7 +102,7 @@ public class MatchGameManager : MonoBehaviour
     {
 
         transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .0f, transform.position.z);
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y, transform.position.z);
 
 
         switch (state)

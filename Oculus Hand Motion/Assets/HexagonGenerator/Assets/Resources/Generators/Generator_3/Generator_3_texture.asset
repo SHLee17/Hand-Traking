@@ -12,16 +12,20 @@ Texture2D:
     Hash: 00000000000000000000000000000000
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
   serializedVersion: 2
   m_Width: 50
   m_Height: 1
   m_CompleteImageSize: 388
+  m_MipsStripped: 0
   m_TextureFormat: 4
   m_MipCount: 6
   m_IsReadable: 1
+  m_IsPreProcessed: 0
   m_IgnoreMasterTextureLimit: 0
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
   m_AlphaIsTransparency: 0
   m_ImageCount: 1
   m_TextureDimension: 2
@@ -35,9 +39,11 @@ Texture2D:
     m_WrapW: 0
   m_LightmapFormat: 0
   m_ColorSpace: 1
+  m_PlatformBlob: 
   image data: 388
   _typelessdata: fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcfffafff9fff6fff6fef1fff4feecfff1fee8ffeefee3ffebfedeffe8fddaffe5fdd5ffe2fdd0ffe0fdccffddfdc7ffdafdc2ffd7fcbeffd4fcb9ffcff8baffc9f4bbffc3f0bdffbdebbeffb7e7c0ffb1e2c1ffabdec3ffa5dac4ffa2d8c5ffa2d8c5ffa2d8c5ffa2d8c5ffa2d8c5fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffafff8fff5feeeffeffee5ffe9fddcffe3fdd2ffdefdc9ffd8fcc0ffd1fab9ffc6f2bcffbae9bfffaee0c2ffa3d9c4ffa2d8c5ffa2d8c5fffffffffffffffffffffffffffffffffffffffffffafff8ffeefde4ffe2fdd0ffd6fbbeffc2efbcffa9ddc2ffa2d8c5fffffffffffffffffffcfffbffe8fddaffccf5bdffa5dac3fffffffffff2feeaffb8e7c0fff2feeaff
   m_StreamData:
+    serializedVersion: 2
     offset: 0
     size: 0
     path: 

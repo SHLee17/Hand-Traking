@@ -16,7 +16,7 @@ MonoBehaviour:
   topografiaSettings: {fileID: 11400000, guid: 3979a9470b2ee0f49a5629970fc9c1e3, type: 2}
   noiseSettings: {fileID: 11400000, guid: 8dce554510f634e47b23cd6581d0197f, type: 2}
   graphicsSettings: {fileID: 11400000, guid: 3b10a5d4fab5c1f4ca10ffb549e2f003, type: 2}
-  seed: 841
+  seed: 248
   generateScripts: 1
   generateTileColliders: 1
   generateDetailColliders: 0

@@ -16,16 +16,12 @@ MonoBehaviour:
   topografiaSettings: {fileID: 11400000, guid: 6bc91b958cd09f341b8b3319ccf894de, type: 2}
   noiseSettings: {fileID: 11400000, guid: dc55d2e330468274b837fa70fe578f06, type: 2}
   graphicsSettings: {fileID: 11400000, guid: f226f47bc1179f0458f44ab715ef2575, type: 2}
-  seed: 0
+  seed: 9999
   generateScripts: 1
   generateTileColliders: 0
   generateDetailColliders: 0
   staticTiles: 1
   staticDetails: 1
-  tileLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  detailLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
+  tileLayer: 0
+  detailLayer: 0
   generatorFolderPath: Assets/POLYGEN - HexagonGenerator/Assets/Resources/Generators/Generator_4

@@ -41,7 +41,7 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _baseScale: 1
+    - _baseScale: 3
     - _mainSeaLevel: 3.4
     - _objectSpace: 1
     - _seaTiles: 1

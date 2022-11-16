@@ -12,15 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb118e10fc4955a498c161f6b6f6f5a6, type: 3}
   m_Name: Generator_4_topoSettings
   m_EditorClassIdentifier: 
-  autoUpdate: 1
-  seed: 0
   offset: {x: 0, y: 0}
   numTilePerEdge: 32
   tilePrefab: {fileID: 435647765195451241, guid: 380323206711cf742afa154d3a10fa3a,
     type: 3}
   seaPrefab: {fileID: 435647765195451241, guid: cf5a8c6c643d77e4690644969e43c786,
     type: 3}
-  baseScale: 1
+  baseScale: 3
   heightScale: 10
   baseNoiseScale: 1
   rotation: {x: 0, y: 0, z: 0}
