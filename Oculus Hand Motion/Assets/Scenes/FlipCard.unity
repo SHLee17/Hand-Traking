@@ -814,7 +814,7 @@ PrefabInstance:
     - target: {fileID: 6849493525252599414, guid: f0e925c3583c2cc4d9cd78d60d14fe4b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6849493525252599414, guid: f0e925c3583c2cc4d9cd78d60d14fe4b,
         type: 3}
@@ -824,7 +824,7 @@ PrefabInstance:
     - target: {fileID: 6849493525252599414, guid: f0e925c3583c2cc4d9cd78d60d14fe4b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: -13.4
       objectReference: {fileID: 0}
     - target: {fileID: 6849493525252599414, guid: f0e925c3583c2cc4d9cd78d60d14fe4b,
         type: 3}
@@ -1606,7 +1606,7 @@ GameObject:
   - component: {fileID: 520680345}
   - component: {fileID: 520680346}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Filp Card GameManager
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1623,7 +1623,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1079097334}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3091,8 +3092,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079097330}
   m_LocalRotation: {x: 0.60876155, y: -0, z: -0, w: -0.7933533}
-  m_LocalPosition: {x: 0, y: 1, z: 0.3}
-  m_LocalScale: {x: 0.08, y: 0.1, z: 0.06}
+  m_LocalPosition: {x: 0, y: -0.136, z: 0.809}
+  m_LocalScale: {x: 0.08, y: 0.1, z: 0.060000002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1422532683}
@@ -3103,8 +3104,8 @@ Transform:
   - {fileID: 884817873}
   - {fileID: 1060459084}
   - {fileID: 1962420478}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 520680345}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 285, y: 0, z: 0}
 --- !u!1001 &1140507312
 PrefabInstance:

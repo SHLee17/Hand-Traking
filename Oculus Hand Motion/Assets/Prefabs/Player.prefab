@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &127965823333796901
 Transform:
   m_ObjectHideFlags: 0
@@ -5272,7 +5272,6 @@ MonoBehaviour:
   _interactors:
   - {fileID: 7648219769892684545}
   - {fileID: 8876713792151372804}
-  - {fileID: 2871044784815683620}
   _interactorComparer: {fileID: 0}
   MaxIterationsPerFrame: 3
 --- !u!1 &2171598716143232072
@@ -12050,7 +12049,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51fa31c8485801c468e1c6bef8e059ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ovrManager: {fileID: 8053517620534157016}
   cameraRig: {fileID: 8270119774640881485}
+  handGrabInteractors: []
 --- !u!1 &4950218165187741437
 GameObject:
   m_ObjectHideFlags: 0
@@ -16293,7 +16294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8456691369641350857
 Transform:
   m_ObjectHideFlags: 0
@@ -17316,6 +17317,5 @@ MonoBehaviour:
   _interactors:
   - {fileID: 3815098254590643416}
   - {fileID: 8876713791176378702}
-  - {fileID: 5999520136259379912}
   _interactorComparer: {fileID: 0}
   MaxIterationsPerFrame: 3

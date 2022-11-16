@@ -61,6 +61,7 @@ using UnityEngine.Experimental.XR;
 
 using Settings = UnityEngine.XR.XRSettings;
 using Node = UnityEngine.XR.XRNode;
+using UnityEditor.Build.Content;
 
 /// <summary>
 /// Configuration data for Oculus virtual reality.
@@ -2344,7 +2345,8 @@ public class OVRManager : MonoBehaviour, OVRMixedRealityCaptureConfiguration
 	{
 		if (focus)
 		{
-			Debug.Log("[OVRManager] OnApplicationFocus(true)");
+           
+            Debug.Log("[OVRManager] OnApplicationFocus(true)");
 		}
 		else
 		{

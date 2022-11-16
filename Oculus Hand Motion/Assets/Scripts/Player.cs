@@ -5,15 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public OVRManager ovrManager;
     public OVRCameraRig cameraRig;
     public HandGrabInteractor[] handGrabInteractors;
-    //public GameObject
-
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
 
     public void OnButton()
     {
