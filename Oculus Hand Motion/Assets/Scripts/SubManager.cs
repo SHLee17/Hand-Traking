@@ -24,6 +24,7 @@ public class SubManager : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         terrains = new List<GameObject>();
         foreach (Transform terrain in gameManager.transform)
         {
@@ -47,6 +48,7 @@ public class SubManager : MonoBehaviour
         result.text = resultText;
 
         resultPlate.SetActive(true);
+        gameManager.AddTotal(resultNum);
     }
 
     //public void 

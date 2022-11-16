@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 520680346}
   m_Layer: 0
   m_Name: FlipCardManager
-  m_TagString: GameManager
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3876,85 +3876,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26cef95ee425284387b9506a09bd1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1450840572
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2906249363774256080, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569648, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1476399289}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569651, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710625627372569662, guid: 7e1490c46795d7c4b83b25676dc6f6b7,
-        type: 3}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7e1490c46795d7c4b83b25676dc6f6b7, type: 3}
 --- !u!1001 &1476399288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4024,18 +3945,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d63ef5964f0f9844abd2d54deba997c, type: 3}
---- !u!114 &1476399289 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1787041873, guid: 8d63ef5964f0f9844abd2d54deba997c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1476399288}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51fa31c8485801c468e1c6bef8e059ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1567226017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5219,7 +5128,12 @@ PrefabInstance:
     - target: {fileID: 258534042061070161, guid: 006a860e18e23a84c80c5064b389cc7d,
         type: 3}
       propertyPath: mapNum
-      value: 3
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 258534042061070161, guid: 006a860e18e23a84c80c5064b389cc7d,
+        type: 3}
+      propertyPath: scoreMultiple
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 371639028465743430, guid: 006a860e18e23a84c80c5064b389cc7d,
         type: 3}
@@ -5244,7 +5158,7 @@ PrefabInstance:
     - target: {fileID: 8516504848138987087, guid: 006a860e18e23a84c80c5064b389cc7d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8516504848138987087, guid: 006a860e18e23a84c80c5064b389cc7d,
         type: 3}
