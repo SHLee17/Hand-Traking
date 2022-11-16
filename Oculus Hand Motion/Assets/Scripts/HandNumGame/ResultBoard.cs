@@ -51,6 +51,9 @@ public class ResultBoard : MonoBehaviour
 
     void Start()
     {
+        //foreach (Transform item in transform)
+        //    item.gameObject.SetActive(false);
+
         ResetBoard();
 
         resultList = new List<Result>();

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
+using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
 
 public class MatchGameManager : MonoBehaviour
@@ -45,9 +47,11 @@ public class MatchGameManager : MonoBehaviour
     State state;
     [SerializeField]
     Phase phase;
-
+    Vector3 cameraOffset;
     float timer, resetTimer;
-    
+    int stageCount;
+    int score;
+
 
     enum State
     {
@@ -62,6 +66,8 @@ public class MatchGameManager : MonoBehaviour
     }
     void Start()
     {
+        objResualtCanvas.SetActive(true);
+        stageCount = 5;
         stageRandIndex = new List<int>();
 
         for (int i = 0; i < stageList.Count; i++)
@@ -93,18 +99,16 @@ public class MatchGameManager : MonoBehaviour
             objectPoolQueue.Enqueue(temp);
         }
 
-        transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
-        //transform.LookAt(GameManager.Instance.player.cameraRig.transform);
+        cameraOffset = new Vector3(-0.3f, 0, 0.4f);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        objResualtCanvas.SetActive(false);
+
     }
 
     void Update()
     {
 
-        transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y, transform.position.z);
-
-
+       
         switch (state)
         {
             case State.GameStart:
@@ -112,7 +116,7 @@ public class MatchGameManager : MonoBehaviour
                 {
                     case Phase.Ready:
                         currentStage = stageList[stageRandIndex[currentStageIndex]];
-                        SetStage(currentStage);
+                        SetStage();
                         ChangeState(State.GameStart, Phase.Start);
 
                         break;
@@ -138,10 +142,14 @@ public class MatchGameManager : MonoBehaviour
                                     {
                                         if (blank.match == null)
                                             return;
+                                        else
+                                            if (blank.match.isSelect)
+                                            return;
                                     }
                                 }
                             }
                         }
+                        score++;
                         txtRight.gameObject.SetActive(true);
                         txtTimeOver.gameObject.SetActive(false);
                         ChangeState(State.EndGame, Phase.Ready);
@@ -157,9 +165,7 @@ public class MatchGameManager : MonoBehaviour
                         StartCoroutine(NextGame());
                         ChangeState(State.EndGame, Phase.Start);
                         break;
-                    case Phase.Start:
 
-                        break;
                 }
                 break;
         }
@@ -170,7 +176,7 @@ public class MatchGameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         objResualtCanvas.SetActive(true);
         yield return new WaitForSeconds(5);
-        EndGame(currentStage);
+        EndGame();
         currentStageIndex++;
 
         if (stageList.Count <= currentStageIndex)
@@ -180,19 +186,22 @@ public class MatchGameManager : MonoBehaviour
         }
 
         objResualtCanvas.SetActive(false);
-        
+        stageCount--;
 
+
+        if (stageCount > 0) 
         ChangeState(State.GameStart, Phase.Ready);
-
+        
 
     }
 
-    void SetStage(MatchStage current)
+    public void SetStage()
     {
-        current.gameObject.SetActive(true);
-        current.hintActive(true);
 
-        foreach (Angle stage in current.stage)
+        currentStage.gameObject.SetActive(true);
+        currentStage.hintActive(true);
+
+        foreach (Angle stage in currentStage.stage)
         {
             foreach (Blank item in stage.angleList)
             {
@@ -202,12 +211,12 @@ public class MatchGameManager : MonoBehaviour
                     item.match.gameObject.SetActive(true);
                     item.match.PosChange(item.transform);
                     item.match.currentBlank = item;
-                    item.match.currentStage = current;
+                    item.match.currentStage = currentStage;
                 }
             }
         }
 
-        foreach (Blank item in current.inventoryList)
+        foreach (Blank item in currentStage.inventoryList)
         {
             if(item.gameObject.activeSelf)
             {
@@ -217,7 +226,7 @@ public class MatchGameManager : MonoBehaviour
                     item.match.gameObject.SetActive(true);
                     item.match.PosChange(item.transform);
                     item.match.currentBlank = item;
-                    item.match.currentStage = current;
+                    item.match.currentStage = currentStage;
                 }
             }
         }
@@ -228,12 +237,12 @@ public class MatchGameManager : MonoBehaviour
     }
 
 
-    void EndGame(MatchStage current)
+    public void EndGame()
     {
-        current.hintActive(false);
-        current.gameObject.SetActive(false);
+        currentStage.hintActive(false);
+        currentStage.gameObject.SetActive(false);
 
-        foreach (Angle stage in current.stage)
+        foreach (Angle stage in currentStage.stage)
         {
             foreach (Blank item in stage.angleList)
             {
@@ -249,7 +258,7 @@ public class MatchGameManager : MonoBehaviour
             }
         }
 
-        foreach (Blank item in current.inventoryList)
+        foreach (Blank item in currentStage.inventoryList)
         {
             if (item.gameObject.activeSelf)
             {
@@ -270,5 +279,10 @@ public class MatchGameManager : MonoBehaviour
     {
         this.state = state;
         this.phase = phase;
+    }
+
+    public void OnHint()
+    {
+        currentStage.hintActive(true);
     }
 }
