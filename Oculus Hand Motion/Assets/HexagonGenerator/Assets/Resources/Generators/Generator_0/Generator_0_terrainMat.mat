@@ -59,6 +59,6 @@ Material:
     - _objectSpace: 1
     - _seaTiles: 1
     m_Colors:
-    - _heightBounds: {r: 2, g: 7, b: 0, a: 0}
+    - _heightBounds: {r: 2, g: 8, b: 0, a: 0}
     - _underwaterColour: {r: 1, g: 0.9999874, b: 0.4292453, a: 0}
   m_BuildTextureStacks: []

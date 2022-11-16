@@ -17,7 +17,7 @@ MonoBehaviour:
   terrainMaterial: {fileID: 2100000, guid: b5a57ac93767ebe4db4c9a3395dc3cf6, type: 2}
   waterMaterial: {fileID: 2100000, guid: fefb87b8880b7e846b3a14d2bafe6f37, type: 2}
   debugMaterial: {fileID: 0}
-  baseDetailSeed: 51
+  baseDetailSeed: 9999
   fixedDetails: 1
   baseDetailDensity: 0.8
   baseDetailScale: 1
