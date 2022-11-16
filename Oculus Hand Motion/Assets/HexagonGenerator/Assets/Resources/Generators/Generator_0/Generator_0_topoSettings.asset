@@ -19,8 +19,8 @@ MonoBehaviour:
   seaPrefab: {fileID: 435647765195451241, guid: a1e895a60c478fc40838b178f246a6f3,
     type: 3}
   baseScale: 3
-  heightScale: 6
-  baseNoiseScale: 1
+  heightScale: 7
+  baseNoiseScale: 2
   rotation: {x: 0, y: 0, z: 0}
   seaTiles: 1
   seaLevel: 1
