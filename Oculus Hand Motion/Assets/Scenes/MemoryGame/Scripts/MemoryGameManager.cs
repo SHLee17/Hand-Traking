@@ -2,8 +2,9 @@ using MemoryGame;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
-
+using UnityEngine.Rendering.Universal;
 
 namespace MemoryGame
 {
@@ -17,8 +18,6 @@ namespace MemoryGame
         Purple,
         White
     }
-
-
 }
 
 public class MemoryGameManager : MonoBehaviour
@@ -71,6 +70,14 @@ public class MemoryGameManager : MonoBehaviour
     GameObject objCompleted;
     [SerializeField]
     GameObject objColorExample;
+    [SerializeField]
+    GameObject objGameHolder;
+    [SerializeField]
+    GameObject objTutorial;
+    [SerializeField]
+    GameObject objResualt;
+    [SerializeField]
+    TMP_Text txtResualt;
 
     [Header("Data Type")]
     [SerializeField]
@@ -79,11 +86,17 @@ public class MemoryGameManager : MonoBehaviour
     int exampleCount;
     [SerializeField]
     ProgressBar progressBar;
+    [SerializeField]
+    Vector3 cameraOffset;
+    bool isTutorial;
 
     float timer;
     float timerReset;
     int maxGameLevel;
     int maxCount;
+
+    int stageCount;
+    int currectAnswer;
 
     [SerializeField]
     State state;
@@ -92,17 +105,18 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     Type type;
 
-
+    
     void Start()
     {
+        objColorExample.SetActive(false);
         rand = new System.Random();
         foreach (Transform holder in buttonHolders)
         {
             foreach (Transform button in holder)
                 padButtonList.Add(button.GetComponent<PadButton>());
         }
-        
 
+        stageCount = 10;
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
         maxGameLevel = 4;
@@ -119,15 +133,22 @@ public class MemoryGameManager : MonoBehaviour
         foreach (Pad item in clickHistroyList)
             item.gameObject.SetActive(false);
         txtHistory.gameObject.SetActive(false);
-
         eventCanvas.StartGame();
+
+        cameraOffset = new Vector3(-0.1f, 0, 0.8f);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
     }
     void Update()
     {
-        transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
-        transform.LookAt(GameManager.Instance.player.cameraRig.transform);
 
+        if (!isTutorial)
+        {
+            objTutorial.SetActive(true);
+
+            objGameHolder.SetActive(false);
+            return;
+        }
+        
         switch (state)
         {
             case State.PlayExample:
@@ -145,13 +166,16 @@ public class MemoryGameManager : MonoBehaviour
                             PlayExample(type);
                             ChangeState(state, Phase.Start);
                         }
-
+                        else
+                        {
+                            foreach (PadButton item in padButtonList)
+                                item.gameObject.SetActive(false);
+                        }
                         break;
                     case Phase.Start:
                         
                         if (type == Type.Typing)
                         {
-                           
                             timer -= Time.deltaTime;
                             progressBar.gameObject.SetActive(true);
                             progressBar.Set(timer, timerReset);
@@ -244,6 +268,7 @@ public class MemoryGameManager : MonoBehaviour
                         }
                         
                             eventCanvas.txtWording.text = "<color=#006400>맞았습니다.</color>";
+                        currectAnswer++;
                             eventCanvas.gameObject.SetActive(true);
                     wrong:
                         ChangeState(state, Phase.Start);
@@ -264,10 +289,25 @@ public class MemoryGameManager : MonoBehaviour
                             while(temp == type)
                             type = GameManager.Instance.RandomEnum<Type>();
 
-                            ChangeState(State.PlayExample, Phase.Ready);
+
+
+                            if (stageCount > 0)
+                            {
+                                stageCount--;
+                                ChangeState(State.PlayExample, Phase.Ready);
+                            }
+                            else
+                            {
+                                GameManager.Instance.AddTotal(currectAnswer);
+                                txtResualt.text = $"총 {currectAnswer} 문제 맞추셨습니다.\n다음 게임으로 넘어갑니다.";
+
+                                objResualt.SetActive(true);
+                            }
+
 
                         }
                         break;
+
                 }
                 break;
 
@@ -538,7 +578,7 @@ public class MemoryGameManager : MonoBehaviour
                     if (randIndex == item.Index)
                     {
                         exampleColorMeshRenderer.material.color = item.colorVisual.NormalColor;
-                        txtExampleColor.text = item.PadColor.ToString();
+                        txtExampleColor.text = $"<wave>{item.PadColor}</wave>";
                         txtExampleColor.color = item.colorVisual.NormalColor;
                     }
 
@@ -561,5 +601,13 @@ public class MemoryGameManager : MonoBehaviour
         eventCanvas.gameObject.SetActive(true);
         eventCanvas.CountDown();
         ChangeState(state, Phase.End);
+    }
+
+    public void OnTutorialButton()
+    {
+        isTutorial = true;
+
+        objGameHolder.SetActive(true);
+        objTutorial.SetActive(false);
     }
 }

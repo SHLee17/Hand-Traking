@@ -1,11 +1,10 @@
-using Oculus.Platform.Samples.VrHoops;
 using System.Collections.Generic;
 using System.IO;
-using TMPro;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
-
+using TMPro;
+using UnityEditor.XR.LegacyInputHelpers;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,9 +33,10 @@ public class GameManager : MonoBehaviour
     Transform parentSeletUserName;
     [SerializeField]
     List<SelectAlphabet> userName;
+    [SerializeField]
+    List<GameObject> BGmapList;
 
     public User currentUser;
-    public bool isCameraSet;
     [SerializeField]
     float timer, restTimer;
     System.Random rand;
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if(objGM != null)
+        if (objGM != null)
         {
             CameraUpdate(objGM.transform);
         }
@@ -188,32 +188,63 @@ public class GameManager : MonoBehaviour
 
     }
 
+    Vector3 cameraOffset;
     public void CameraUpdate(Transform transform)
     {
-        if(Vector3.Distance(player.cameraRig.centerEyeAnchor.transform.position, Vector3.zero) != 0)
-        timer -= Time.deltaTime;
+        if(player == null)
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if (Vector3.Distance(player.cameraRig.centerEyeAnchor.transform.position, Vector3.zero) != 0)
+            timer -= Time.deltaTime;
 
         if (timer > 0)
         {
             Vector3 pos = player.cameraRig.centerEyeAnchor.position;
-            transform.position = new Vector3(pos.x, pos.y + 0.2f, pos.z + 0.3f);
+            transform.position = new Vector3(pos.x + cameraOffset.x, pos.y + cameraOffset.y, pos.z + cameraOffset.z);
         }
-            
+        else
+            objGM = null;
+
     }
-    public void ResetTimer() => timer = restTimer;
+    public void ResetTimer(GameObject obj, Vector3 offset)
+    {
+        cameraOffset = offset;
+        objGM = obj;
+        timer = restTimer;
+    }
 
     private void OnGUI()
     {
         if (GUI.Button(new Rect(10, 10, 100, 20), "CameraReset"))
         {
-            if(objGM != null)
-            CameraUpdate(objGM.transform);
+            if(objGM == null)
+                objGM = GameObject.FindGameObjectWithTag("GameManager");
+
+            if (objGM != null)
+            {
+                timer = restTimer;
+                CameraUpdate(objGM.transform);
+            }
         }
     }
 
+    public void NextScene(int index)
+    {
+
+        foreach (GameObject item in BGmapList)
+            item.SetActive(false);
+        int temp = rand.Next(BGmapList.Count);
+        BGmapList[temp].SetActive(true);
+
+        objGM = null;
+        SceneManager.LoadScene(index);
+    }
+
+    public void AddTotal(int score)
+    {
+        if (currentUser != null)
+            currentUser.total += score;
+    }
 }
-
-
-
 
 

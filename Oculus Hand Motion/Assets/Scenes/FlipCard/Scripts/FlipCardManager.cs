@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
 
 public class FlipCardManager : MonoBehaviour
@@ -18,6 +19,9 @@ public class FlipCardManager : MonoBehaviour
     public bool processing;
 
     public Transform objBoard;
+
+    [SerializeField]
+    Vector3 cameraOffset;
 
     void Start()
     {
@@ -44,14 +48,14 @@ public class FlipCardManager : MonoBehaviour
         {
             cardList[i].cardPos = i;
         }
+
+        cameraOffset = new Vector3(-0.2f, 0.2f, 0.4f);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
     }
 
     void Update()
     {
-        transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
-        transform.LookAt(GameManager.Instance.player.cameraRig.transform);
-
+        
         int temp = cardsCount;
         level = arrow.Value;
         cardsCount = cardsCountByLevel[level - 1];

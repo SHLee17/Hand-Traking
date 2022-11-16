@@ -88,9 +88,9 @@ public class NumGameManager : MonoBehaviour
     State state;
     [SerializeField]
     Phase phase;
-
     [SerializeField]
     int answer;
+    public Vector3 cameraOffset;
 
     [Header("Class")]
     [SerializeField]
@@ -140,14 +140,13 @@ public class NumGameManager : MonoBehaviour
                 poseList.Add(child.GetComponent<Pose>());
         }
 
-        
+        cameraOffset = new Vector3(-0.1f, 0.2f, 0.8f);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+
     }
 
     void Update()
     {
-
-        transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y + 0.35f, transform.position.z);
 
         switch (state)
         {
@@ -157,6 +156,7 @@ public class NumGameManager : MonoBehaviour
                 {
                     case Phase.Ready:
                         objMainGame.SetActive(false);
+                        numberManager.gameObject.SetActive(true);
                         progressBar.gameObject.SetActive(false);
                         txtExampleCount.text = $"<color=red>0</color> / {exampleCount}";
 
@@ -268,6 +268,7 @@ public class NumGameManager : MonoBehaviour
                     case Phase.Ready:
                         progressBar.gameObject.SetActive(false);
                         objCheckButton.gameObject.SetActive(false);
+                        numberManager.gameObject.SetActive(false);
                         resultBoard.CallResultBoard();
                         ChangeState(state, Phase.End);
                         break;
@@ -435,7 +436,10 @@ public class NumGameManager : MonoBehaviour
             Time.timeScale = 0;
 
             if (answerDict[blankOrder].Num == answer)
+            {
                 objRightAnswer.SetActive(true);
+                GameManager.Instance.AddTotal(1);
+            }
             else
                 objWrongAnswer.SetActive(true);
         }
@@ -443,7 +447,7 @@ public class NumGameManager : MonoBehaviour
         {
             objRightAnswer.SetActive(false);
             objWrongAnswer.SetActive(false);
-
+            StartCoroutine(CheckButtonEnable());
             Time.timeScale = 1;
 
             if (isToturial)
