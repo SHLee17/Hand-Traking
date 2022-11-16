@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -15,8 +16,12 @@ public class GameManager : MonoBehaviour
         public int card;
         public int match;
         public int rsp;
+        public int total;
         public int serialnumber;
+
     }
+
+
 
     static GameManager instance;
     public Player player;
@@ -33,6 +38,8 @@ public class GameManager : MonoBehaviour
     public User currentUser;
     System.Random rand;
     string path;
+    const int rankLenth = 100000;
+    //int[] rank = new int[rankLenth]; 
 
     public static GameManager Instance
     {
@@ -67,8 +74,13 @@ public class GameManager : MonoBehaviour
         else
             path = $"{Application.dataPath}/User/";
 
-        //CreateUser();
-        //SaveUser();
+        for (int i = 0; i < rankLenth; i++)
+        {
+            if (!PlayerPrefs.HasKey(i.ToString()))
+                PlayerPrefs.SetInt(i.ToString(), 0);
+        }
+
+        PlayerPrefs.SetInt("UserCount", 0);
 
         if (ReferenceEquals(player, null))
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -127,5 +139,33 @@ public class GameManager : MonoBehaviour
             foreach (Transform item in parentSeletUserName)
                 currentUser.name += item.GetComponent<SelectAlphabet>().alphabet;
         }
+    }
+    List<int> rank = new List<int>();
+    int currentPlayerRank;
+    public void SetScoreBoard()
+    {
+        rank.Clear();
+
+        int userCount = PlayerPrefs.GetInt("UserCount");
+        PlayerPrefs.SetInt("UserCount", userCount++);
+
+        for (int i = 0; i < rankLenth; i++)
+        {
+            rank.Add(PlayerPrefs.GetInt(i.ToString()));
+        }
+
+        for (int i = 0; i < rank.Count; i++)
+        {
+            if (rank[i] <= currentUser.total)
+            {
+                rank.Insert(i, currentUser.total);
+                currentPlayerRank = i;
+                break;
+            }
+        }
+
+        for (int i = 0; i < rank.Count; i++)
+            PlayerPrefs.SetInt(i.ToString(), rank[i]);
+    
     }
 }
