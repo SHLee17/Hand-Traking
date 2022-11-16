@@ -48,6 +48,10 @@ public class FlipCardManager : MonoBehaviour
 
     void Update()
     {
+        transform.position =
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
+        transform.LookAt(GameManager.Instance.player.cameraRig.transform);
+
         int temp = cardsCount;
         level = arrow.Value;
         cardsCount = cardsCountByLevel[level - 1];

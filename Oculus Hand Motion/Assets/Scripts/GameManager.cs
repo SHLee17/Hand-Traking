@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject objGM;
 
+    public List<GameObject> terrains;
+
     [SerializeField]
     Transform parentSeletUserName;
     [SerializeField]
@@ -127,5 +129,13 @@ public class GameManager : MonoBehaviour
             foreach (Transform item in parentSeletUserName)
                 currentUser.name += item.GetComponent<SelectAlphabet>().alphabet;
         }
+    }
+
+    public void ChangeTerrain(int num)
+    {
+        foreach (var item in terrains)
+            item.SetActive(false);
+
+        terrains[num].SetActive(true);
     }
 }

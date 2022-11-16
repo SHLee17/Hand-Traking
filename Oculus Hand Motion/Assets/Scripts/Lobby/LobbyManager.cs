@@ -24,6 +24,10 @@ public class LobbyManager : MonoBehaviour
 
     private void Update()
     {
+        transform.position =
+            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
+        //transform.LookAt(GameManager.Instance.player.cameraRig.transform);
+
         if (selectedMenu == selectTemp)
             return;
 
