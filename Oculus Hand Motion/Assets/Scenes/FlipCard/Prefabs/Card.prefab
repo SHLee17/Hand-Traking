@@ -578,6 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26cef95ee425284387b9506a09bd1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   flipCardManager: {fileID: 0}
   thisCard: {fileID: 4924550777102485449}
   flipCardAnim: {fileID: 7450136661985013822}
