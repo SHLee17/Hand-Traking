@@ -1,11 +1,23 @@
-using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 
 public class GameManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class User
+    {
+        public string name;
+        public int num;
+        public int memory;
+        public int card;
+        public int match;
+        public int rsp;
+        public int serialnumber;
+    }
+
     static GameManager instance;
     public Player player;
     [SerializeField]
@@ -13,11 +25,16 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject objGM;
 
+    [SerializeField]
+    Transform parentSeletUserName;
+    [SerializeField]
     List<SelectAlphabet> userName;
 
     public User currentUser;
-    
-    public static GameManager Instance 
+    System.Random rand;
+    string path;
+
+    public static GameManager Instance
     {
         get
         {
@@ -41,8 +58,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        rand = new System.Random();
+        if (!Directory.Exists($"{Application.dataPath}/User/"))
+        {
+            Directory.CreateDirectory($"{Application.dataPath}/User/");
+            path = $"{Application.dataPath}/User/";
+        }
+        else
+            path = $"{Application.dataPath}/User/";
+
+        //CreateUser();
+        //SaveUser();
+
         if (ReferenceEquals(player, null))
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         if (objOption)
         {
             objOption.transform.position = new Vector3(
@@ -56,10 +86,10 @@ public class GameManager : MonoBehaviour
     {
         objOption.SetActive(!objOption.activeSelf);
 
-        if(objGM == null)
+        if (objGM == null)
             objGM = GameObject.FindGameObjectWithTag("GameManager");
-        
-        if(objGM != null)
+
+        if (objGM != null)
             objGM.SetActive(!objGM.activeSelf);
     }
 
@@ -68,15 +98,34 @@ public class GameManager : MonoBehaviour
         System.Array values = System.Enum.GetValues(typeof(T));
         return (T)values.GetValue(new System.Random().Next(min, values.Length));
     }
+    public void SaveUser()
+    {
+
+        string json = JsonUtility.ToJson(currentUser);
+
+        Debug.Log(json);
+
+        if (!File.Exists($"{path}{currentUser.name}{currentUser.serialnumber}.json"))
+            File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
+        else
+        {
+            currentUser.serialnumber = rand.Next(100000);
+            File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
+        }
+
+        AssetDatabase.Refresh();
+    }
 
     public void CreateUser()
     {
-        currentUser = ScriptableObject.CreateInstance<User>();
-        foreach (SelectAlphabet item in userName)
-            currentUser.name += item;
+        currentUser = new User();
 
+        parentSeletUserName = GameObject.FindGameObjectWithTag("NameSelect").transform;
 
-             //AssetDatabase.CreateAsset(currentUser, "")
-             AssetDatabase.Refresh();
+        if (parentSeletUserName != null)
+        {
+            foreach (Transform item in parentSeletUserName)
+                currentUser.name += item.GetComponent<SelectAlphabet>().alphabet;
+        }
     }
 }

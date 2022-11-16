@@ -9,8 +9,7 @@ public class SelectAlphabet : MonoBehaviour
     [SerializeField]
     int index;
     int firstIndex;
-    [SerializeField]
-    char alphabet;
+    public char alphabet;
 
     private void Start()
     {
