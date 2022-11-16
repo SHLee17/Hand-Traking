@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-
+using TMPro;
+using UnityEditor.XR.LegacyInputHelpers;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +18,9 @@ public class GameManager : MonoBehaviour
         public int match;
         public int rsp;
         public int serialnumber;
+        public int total;
     }
+
 
     static GameManager instance;
     public Player player;
@@ -25,16 +29,23 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject objGM;
 
-    public List<GameObject> terrains;
-
     [SerializeField]
     Transform parentSeletUserName;
     [SerializeField]
     List<SelectAlphabet> userName;
+    [SerializeField]
+    List<GameObject> BGmapList;
 
     public User currentUser;
+    [SerializeField]
+    float timer, restTimer;
     System.Random rand;
     string path;
+    const int rankLenth = 10000;
+
+    [SerializeField]
+    TMP_Text txtRank;
+
 
     public static GameManager Instance
     {
@@ -60,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        timer = restTimer = 3f;
         rand = new System.Random();
         if (!Directory.Exists($"{Application.dataPath}/User/"))
         {
@@ -69,8 +81,14 @@ public class GameManager : MonoBehaviour
         else
             path = $"{Application.dataPath}/User/";
 
-        //CreateUser();
-        //SaveUser();
+
+        for (int i = 0; i < rankLenth; i++)
+        {
+            if (!PlayerPrefs.HasKey(i.ToString()))
+                PlayerPrefs.SetInt(i.ToString(), 0);
+        }
+
+        PlayerPrefs.SetInt("UserCount", 0);
 
         if (ReferenceEquals(player, null))
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -81,6 +99,16 @@ public class GameManager : MonoBehaviour
                 transform.position.x,
                 player.cameraRig.centerEyeAnchor.transform.position.y + 0.5f,
                 player.cameraRig.centerEyeAnchor.transform.position.z + 0.3f);
+        }
+
+        if (objGM == null)
+            objGM = GameObject.FindGameObjectWithTag("GameManager");
+    }
+    private void Update()
+    {
+        if (objGM != null)
+        {
+            CameraUpdate(objGM.transform);
         }
     }
 
@@ -102,7 +130,6 @@ public class GameManager : MonoBehaviour
     }
     public void SaveUser()
     {
-
         string json = JsonUtility.ToJson(currentUser);
 
         Debug.Log(json);
@@ -130,12 +157,94 @@ public class GameManager : MonoBehaviour
                 currentUser.name += item.GetComponent<SelectAlphabet>().alphabet;
         }
     }
-
-    public void ChangeTerrain(int num)
+    List<int> rank = new List<int>();
+    int currentPlayerRank;
+    public void SetScoreBoard()
     {
-        foreach (var item in terrains)
-            item.SetActive(false);
+        rank.Clear();
 
-        terrains[num].SetActive(true);
+        int userCount = PlayerPrefs.GetInt("UserCount");
+        PlayerPrefs.SetInt("UserCount", userCount++);
+
+        for (int i = 0; i < rankLenth; i++)
+        {
+            rank.Add(PlayerPrefs.GetInt(i.ToString()));
+        }
+
+        for (int i = 0; i < rank.Count; i++)
+        {
+            if (rank[i] <= currentUser.total)
+            {
+                rank.Insert(i, currentUser.total);
+                currentPlayerRank = i;
+                break;
+            }
+        }
+
+        txtRank.text = currentPlayerRank.ToString();
+
+        for (int i = 0; i < rank.Count; i++)
+            PlayerPrefs.SetInt(i.ToString(), rank[i]);
+
+    }
+
+    Vector3 cameraOffset;
+    public void CameraUpdate(Transform transform)
+    {
+        if(player == null)
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if (Vector3.Distance(player.cameraRig.centerEyeAnchor.transform.position, Vector3.zero) != 0)
+            timer -= Time.deltaTime;
+
+        if (timer > 0)
+        {
+            Vector3 pos = player.cameraRig.centerEyeAnchor.position;
+            transform.position = new Vector3(pos.x + cameraOffset.x, pos.y + cameraOffset.y, pos.z + cameraOffset.z);
+        }
+        else
+            objGM = null;
+
+    }
+    public void ResetTimer(GameObject obj, Vector3 offset)
+    {
+        cameraOffset = offset;
+        objGM = obj;
+        timer = restTimer;
+    }
+
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(10, 10, 100, 20), "CameraReset"))
+        {
+            if(objGM == null)
+                objGM = GameObject.FindGameObjectWithTag("GameManager");
+
+            if (objGM != null)
+            {
+                timer = restTimer;
+                CameraUpdate(objGM.transform);
+            }
+        }
+    }
+
+    public void NextScene(int index)
+    {
+
+        foreach (GameObject item in BGmapList)
+            item.SetActive(false);
+        int temp = rand.Next(BGmapList.Count);
+        BGmapList[temp].SetActive(true);
+
+        objGM = null;
+        SceneManager.LoadScene(index);
+    }
+
+    public void AddTotal(int score)
+    {
+        if (currentUser != null)
+            currentUser.total += score;
     }
 }
+
+

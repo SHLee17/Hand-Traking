@@ -17,5 +17,9 @@ public class MatchStage : MonoBehaviour
     public GameObject objHint;
     public TMP_Text txtHint;
 
+    private void Start()
+    {
+        txtHint.color = Color.black;
+    }
     public void hintActive(bool isActive) => objHint.gameObject.SetActive(isActive);
 }

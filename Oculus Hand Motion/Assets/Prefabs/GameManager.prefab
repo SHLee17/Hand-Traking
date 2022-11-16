@@ -2346,14 +2346,14 @@ MonoBehaviour:
   player: {fileID: 0}
   objOption: {fileID: 2906249363774256080}
   objGM: {fileID: 7710625627372569662}
-  terrains:
+  parentSeletUserName: {fileID: 0}
+  userName: []
+  BGmapList:
   - {fileID: 3957098517358371640}
   - {fileID: 3957098516637344100}
   - {fileID: 3957098516252348304}
   - {fileID: 3957098516127456614}
   - {fileID: 3957098517184340579}
-  parentSeletUserName: {fileID: 0}
-  userName: []
   currentUser:
     name: 
     num: 0
@@ -2362,6 +2362,11 @@ MonoBehaviour:
     match: 0
     rsp: 0
     serialnumber: 0
+    total: 0
+  isCameraSet: 0
+  timer: 0
+  restTimer: 0
+  txtRank: {fileID: 0}
 --- !u!1 &8014401154036903959
 GameObject:
   m_ObjectHideFlags: 0

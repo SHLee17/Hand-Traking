@@ -23,13 +23,13 @@ public class EventCanvas : MonoBehaviour
     {
         isEventOver = false;
         txtWording.fontSize = 40;
-        txtWording.text = "모두 기억 하셨나요?";
+        txtWording.text = "<rainb>모두 기억 하셨나요?</rainb>";
         yield return new WaitForSeconds(3);
         WaitForSeconds wfs = new WaitForSeconds(1);
 
         for (int i = 3; i > 0; i--)
         {
-            txtWording.text = i.ToString();
+            txtWording.text = $"<fade>{i}</fade>";
             txtWording.fontSize = 100;
             yield return wfs;
         }
@@ -59,13 +59,13 @@ public class EventCanvas : MonoBehaviour
         yield return wfs2;
 
         txtWording.fontSize = 40;
-        txtWording.text = "잠시후 게임이 시작 됩니다.";
+        txtWording.text = "<bounce>잠시후 게임이 시작 됩니다.</bounce>";
         yield return wfs2;
 
 
         for (int i = 3; i > 0; i--)
         {
-            txtWording.text = i.ToString();
+            txtWording.text = $"<fade>{i}</fade>";
             txtWording.fontSize = 100;
             yield return wfs;
         }
