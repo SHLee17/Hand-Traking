@@ -54,11 +54,11 @@ public class LobbyManager : MonoBehaviour
     public void MenuContents()
     {
         titles = new string[titleNum] {
-            "손으로 사칙연산 게임",
-            "성냥 옮기기 게임",
-            "카드 뒤집기 게임",
-            "가위 바위 보",
-            "기억력 테스트"
+            "<rainb f=0.2>손으로 사칙연산 게임</rainb>",
+            "<rainb f=0.2>성냥 옮기기 게임</rainb>",
+            "<rainb f=0.2>카드 뒤집기 게임</rainb>",
+            "<rainb f=0.2>가위 바위 보</rainb>",
+            "<rainb f=0.2>기억력 테스트</rainb>"
         };
         descriptions = new string[titleNum] {
             "화면에는 펼친 손가락 갯수만큼 숫자가 표시돼요.\n화면에 나온 덧셈 뺄셈 곱셈 나눗셈 문제의 답을\n손가락을 펼쳐서 맞춰주세요.\n",
