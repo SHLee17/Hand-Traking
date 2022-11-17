@@ -48,12 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f769d511683c54cb392745c8da7e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrains: []
   levelControl: {fileID: 8516504848167874184}
   musicBox: {fileID: 4764401936386950959}
   seManager: {fileID: 4467520893314871262}
   resultPlate: {fileID: 2020630274132409760}
   resultCalc: {fileID: 371639028465743430}
   result: {fileID: 3453752870763980507}
+  mapNum: 0
   correctNum: 0
   scoreMultiple: 0
   clearBonus: 0
@@ -236,6 +238,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241692967707891480, guid: e9eb9bc646fd68647b2d1464e0f16735,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 258534042061070161}
+    - target: {fileID: 5241692967707891480, guid: e9eb9bc646fd68647b2d1464e0f16735,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241692967707891480, guid: e9eb9bc646fd68647b2d1464e0f16735,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SubManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241692967707891480, guid: e9eb9bc646fd68647b2d1464e0f16735,
+        type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9eb9bc646fd68647b2d1464e0f16735, type: 3}

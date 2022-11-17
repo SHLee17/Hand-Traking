@@ -28,7 +28,6 @@ public class FlipCardManager : MonoBehaviour
         picked = false;
         correctCards = 0;
         subManager.correctNum = 0;
-        subManager.scoreMultiple = 50.0f;
         subManager.clearBonus = 0;
         processing = false;
         cardList = new List<CardManager>();
@@ -49,7 +48,7 @@ public class FlipCardManager : MonoBehaviour
         {
             cardList[i].cardPos = i;
         }
-        CompleteGame();
+        
     }
 
     void Update()
