@@ -2,9 +2,8 @@ using MemoryGame;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Profiling.Memory.Experimental;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace MemoryGame
 {
@@ -41,6 +40,8 @@ public class MemoryGameManager : MonoBehaviour
         Color,
         Typing,
     }
+
+    public SubManager subManager;
 
     [Header("Arrays")]
     [SerializeField]
@@ -105,9 +106,12 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     Type type;
 
-    
+
     void Start()
     {
+        subManager.correctNum = 0;
+        subManager.clearBonus = 0;
+
         objColorExample.SetActive(false);
         rand = new System.Random();
         foreach (Transform holder in buttonHolders)
@@ -148,7 +152,7 @@ public class MemoryGameManager : MonoBehaviour
             objGameHolder.SetActive(false);
             return;
         }
-        
+
         switch (state)
         {
             case State.PlayExample:
@@ -173,7 +177,7 @@ public class MemoryGameManager : MonoBehaviour
                         }
                         break;
                     case Phase.Start:
-                        
+
                         if (type == Type.Typing)
                         {
                             timer -= Time.deltaTime;
@@ -185,7 +189,7 @@ public class MemoryGameManager : MonoBehaviour
                                 foreach (Pad item in clickHistroyList)
                                     item.gameObject.SetActive(false);
                                 CallEventCanvas();
-                                
+
                             }
                         }
                         break;
@@ -256,6 +260,7 @@ public class MemoryGameManager : MonoBehaviour
                             if (playerStack.Pop() != exampleStack.Pop())
                             {
                                 eventCanvas.txtWording.text = "<color=red>틀렸습니다.</color>";
+                                subManager.seManager.PlaySE(6);
                                 eventCanvas.gameObject.SetActive(true);
                                 goto wrong;
                             }
@@ -263,18 +268,20 @@ public class MemoryGameManager : MonoBehaviour
                         if (playerStack.Count == 0 || playerStack.Count < exampleStack.Count)
                         {
                             eventCanvas.txtWording.text = "<color=red>틀렸습니다.</color>";
+                            subManager.seManager.PlaySE(6);
                             eventCanvas.gameObject.SetActive(true);
                             goto wrong;
                         }
-                        
-                            eventCanvas.txtWording.text = "<color=#006400>맞았습니다.</color>";
+
+                        eventCanvas.txtWording.text = "<color=#006400>맞았습니다.</color>";
+                        subManager.seManager.PlaySE(1);
                         currectAnswer++;
-                            eventCanvas.gameObject.SetActive(true);
+                        eventCanvas.gameObject.SetActive(true);
                     wrong:
                         ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
-                       
+
 
                         eventCanvas.StartGame();
                         ChangeState(state, Phase.End);
@@ -286,8 +293,8 @@ public class MemoryGameManager : MonoBehaviour
                             exampleStack.Clear();
                             Type temp = type;
 
-                            while(temp == type)
-                            type = GameManager.Instance.RandomEnum<Type>();
+                            while (temp == type)
+                                type = GameManager.Instance.RandomEnum<Type>();
 
 
 
@@ -298,10 +305,20 @@ public class MemoryGameManager : MonoBehaviour
                             }
                             else
                             {
-                                GameManager.Instance.AddTotal(currectAnswer);
-                                txtResualt.text = $"총 {currectAnswer} 문제 맞추셨습니다.\n다음 게임으로 넘어갑니다.";
+                                subManager.correctNum = currectAnswer;
+                                if (currectAnswer == 10)
+                                {
+                                    subManager.levelControl.clearStage = true;
+                                    subManager.clearBonus = 1000;
+                                    subManager.levelControl.CompleteGame();
+                                }
+                                else
+                                    subManager.levelControl.CompleteGame();
 
-                                objResualt.SetActive(true);
+                                //GameManager.Instance.AddTotal(currectAnswer);
+                                //txtResualt.text = $"총 {currectAnswer} 문제 맞추셨습니다.\n다음 게임으로 넘어갑니다.";
+                                //
+                                //objResualt.SetActive(true);
                             }
 
 
@@ -394,7 +411,7 @@ public class MemoryGameManager : MonoBehaviour
                 SetColorButton(ConvertArrayIndex(1, 3), true, PadColor.Yellow, 4);
                 SetColorButton(ConvertArrayIndex(0, 1), true, PadColor.Orange, 5);
                 SetColorButton(ConvertArrayIndex(0, 2), true, PadColor.Purple, 6);
-                
+
                 break;
 
             case Type.Typing:
@@ -530,7 +547,7 @@ public class MemoryGameManager : MonoBehaviour
                 break;
         }
     }
-    IEnumerator ShowNumberExample(float speed , float clickSpeed = 1f)
+    IEnumerator ShowNumberExample(float speed, float clickSpeed = 1f)
     {
         WaitForSeconds wfs = new WaitForSeconds(speed);
 
@@ -547,7 +564,7 @@ public class MemoryGameManager : MonoBehaviour
 
             timer = timerReset;
 
-            if(exampleStack.Count != maxCount)
+            if (exampleStack.Count != maxCount)
                 txtHistory.text = $"<color=red>{exampleStack.Count}</color> / {maxCount}";
             else
                 txtHistory.text = $"<color=green>{exampleStack.Count}</color> / {maxCount}";

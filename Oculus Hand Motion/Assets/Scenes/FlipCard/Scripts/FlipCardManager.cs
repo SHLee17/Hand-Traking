@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
 
 public class FlipCardManager : MonoBehaviour
 {
+    public SubManager subManager;
+    public ProgressBar progressBar;
     public GameObject[] levels;
     public CardManager[] cards;
     public List<CardManager> cardList;
@@ -18,13 +21,26 @@ public class FlipCardManager : MonoBehaviour
     int correctCards;
     public bool processing;
 
+    public float timer;
+    float timerReset;
+
     public Transform objBoard;
+    public bool isStart;
 
     [SerializeField]
     Vector3 cameraOffset;
 
     void Start()
     {
+        //timer setting
+        progressBar.StartProtress();
+        timer = timerReset = 30f;
+        progressBar.gameObject.SetActive(true);
+        progressBar.Set(timer, timerReset);
+        //
+        subManager.correctNum = 0;
+        subManager.clearBonus = 0;
+        
         rand = new System.Random();
         level = 1;
         picked = false;
@@ -55,7 +71,20 @@ public class FlipCardManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (!isStart)
+        {
+            return;
+        }
+        //timer
+        timer -= Time.deltaTime;
+        progressBar.Set(timer, timerReset);
+
+        if (timer < 0)
+        {
+            gameObject.SetActive(false);
+            subManager.ShowResult();
+        }
+        //
         int temp = cardsCount;
         level = arrow.Value;
         cardsCount = cardsCountByLevel[level - 1];
@@ -103,6 +132,11 @@ public class FlipCardManager : MonoBehaviour
 
     }
 
+    public void StartGame()
+    {
+        isStart = true;
+    }
+
     public void FlipThatCard(CardManager thatCard, bool setCard)
     {
         thatCard.FlipCard(setCard);
@@ -111,20 +145,14 @@ public class FlipCardManager : MonoBehaviour
     public void Judge()
     {
         correctCards += 2;
-
+        subManager.seManager.PlaySE(1);
+        subManager.correctNum = correctCards / 2;
         if (correctCards == cardsCount)
         {
-            Invoke("CompleteGame", 1.5f);
+            isStart = false;
+            subManager.levelControl.clearStage = true;
+            subManager.clearBonus = 1000;
+            subManager.levelControl.CompleteGame();
         }
-    }
-
-    public void CompleteGame()
-    {
-        correctCards = 0;
-        for (int i = 0; i < cardList.Count; i++)
-        {
-            FlipThatCard(cardList[i], false);
-        }
-        Invoke("SetLevel", 1.5f);
     }
 }

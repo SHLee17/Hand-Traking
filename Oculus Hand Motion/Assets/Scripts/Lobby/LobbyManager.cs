@@ -76,7 +76,7 @@ public class LobbyManager : MonoBehaviour
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(titleNum + 1);
         //Debug.Log("Start Scene"+selectedMenu);
     }
 

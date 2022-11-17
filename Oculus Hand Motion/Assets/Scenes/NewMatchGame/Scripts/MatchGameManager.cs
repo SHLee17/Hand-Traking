@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
 using UnityEditor.XR.LegacyInputHelpers;
@@ -12,6 +13,8 @@ public class MatchGameManager : MonoBehaviour
 {
     [Header("List")]
     [Space(10)]
+
+    public SubManager subManager;
 
     [SerializeField]
     List<MatchStage> stageList;
@@ -126,6 +129,7 @@ public class MatchGameManager : MonoBehaviour
                         progressBar.Set(timer, resetTimer);
                         if (timer < 0)
                         {
+                            subManager.seManager.PlaySE(6);
                             txtRight.gameObject.SetActive(false);
                             txtTimeOver.gameObject.SetActive(true);
                             ChangeState(State.EndGame, Phase.Ready);
@@ -150,6 +154,7 @@ public class MatchGameManager : MonoBehaviour
                             }
                         }
                         score++;
+                        subManager.seManager.PlaySE(1);
                         txtRight.gameObject.SetActive(true);
                         txtTimeOver.gameObject.SetActive(false);
                         ChangeState(State.EndGame, Phase.Ready);
@@ -189,10 +194,22 @@ public class MatchGameManager : MonoBehaviour
         stageCount--;
 
 
-        if (stageCount > 0) 
-        ChangeState(State.GameStart, Phase.Ready);
-        
-
+        if (stageCount > 0)
+        {
+            ChangeState(State.GameStart, Phase.Ready);
+        }
+        else
+        {
+            subManager.correctNum = score;
+            if (score == 5)
+            {
+                subManager.levelControl.clearStage = true;
+                subManager.clearBonus = 1000;
+                subManager.levelControl.CompleteGame();
+            }
+            else
+                subManager.levelControl.CompleteGame();
+        }
     }
 
     public void SetStage()

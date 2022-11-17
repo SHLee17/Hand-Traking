@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RSPGameManager : MonoBehaviour
@@ -29,6 +30,8 @@ public class RSPGameManager : MonoBehaviour
         Start,
         End
     }
+
+    public SubManager subManager;
 
     [SerializeField]
     Transform poseParent;
@@ -71,8 +74,15 @@ public class RSPGameManager : MonoBehaviour
     bool isReverse;
     float timer;
     float timerReset;
+
+    public int gameNum, score, currentGame;
+
     void Start()
     {
+
+        subManager.correctNum = 0;
+        subManager.clearBonus = 0;
+
         foreach (Transform item in poseParent)
             poseList.Add(item.GetComponent<Pose>());
 
@@ -154,19 +164,27 @@ public class RSPGameManager : MonoBehaviour
                         switch (temp)
                         {
                             case Result.Win:
+                                subManager.seManager.PlaySE(1);
+                                score++;
                                 txtInfo.color = new Color(0, 118f / 255f, 0, 1);
                                 break;
                             case Result.Draw:
+                                subManager.seManager.PlaySE(5);
                                 txtInfo.color = Color.gray;
                                 break;
                             case Result.Lose:
+                                subManager.seManager.PlaySE(6);
                                 txtInfo.color = Color.red;
                                 break;
                         }
                         txtInfo.text = temp.ToString();
                         timer = timerReset / 2;
                         progressBar.StartProtress();
-                        phase = Phase.Start;
+                        currentGame++;
+                        if (gameNum<=currentGame)
+                            phase = Phase.End;
+                        else
+                            phase = Phase.Start;
                         break;
                     case Phase.Start:
                         
@@ -185,6 +203,15 @@ public class RSPGameManager : MonoBehaviour
                         if (timer < 0) state = State.SetGame;
                         break;
                     case Phase.End:
+                        subManager.correctNum = score;
+                        if (score >= gameNum)
+                        {
+                            subManager.levelControl.clearStage = true;
+                            subManager.clearBonus = 1000;
+                            subManager.levelControl.CompleteGame();
+                        }
+                        else
+                            subManager.levelControl.CompleteGame();
                         break;
                 }
                 break;

@@ -7,15 +7,17 @@ public class MusicManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public List<AudioClip> audioClips = new List<AudioClip>();
+    private System.Random rand = new System.Random();
 
-
-    private void Awake()
+    public void PlayMusic()
     {
-        audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
+        int musicNum = rand.Next(audioClips.Count);
+        audioSource.clip = audioClips[musicNum];
+        audioSource.Play();
     }
 
-    void Update()
+    public void MusicStop()
     {
-        
+        audioSource.Stop();
     }
 }

@@ -39,6 +39,7 @@ public class CardManager : MonoBehaviour
             }
             else
             {
+                flipCardManager.subManager.seManager.PlaySE(6);
                 StartCoroutine(WaitAndFlip(1.5f));
             }
 
