@@ -188,7 +188,7 @@ public class MatchGameManager : MonoBehaviour
         {
             ChangeState(State.EndGame, Phase.End);
             subManager.correctNum = score;
-            if (score >= stageList.Count)
+            if (score == stageList.Count)
             {
                 subManager.clearBonus = 1000;
                 subManager.levelControl.clearStage = true;
