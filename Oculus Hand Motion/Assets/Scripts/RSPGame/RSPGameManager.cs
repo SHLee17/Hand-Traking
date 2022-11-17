@@ -30,6 +30,8 @@ public class RSPGameManager : MonoBehaviour
         End
     }
 
+    public SubManager subManager;
+
     [SerializeField]
     Transform poseParent;
     [SerializeField]
@@ -154,12 +156,14 @@ public class RSPGameManager : MonoBehaviour
                         switch (temp)
                         {
                             case Result.Win:
+                                subManager.seManager.PlaySE(1);
                                 txtInfo.color = new Color(0, 118f / 255f, 0, 1);
                                 break;
                             case Result.Draw:
                                 txtInfo.color = Color.gray;
                                 break;
                             case Result.Lose:
+                                subManager.seManager.PlaySE(6);
                                 txtInfo.color = Color.red;
                                 break;
                         }
