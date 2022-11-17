@@ -24,7 +24,8 @@ public class CompleteLevel : MonoBehaviour
                 item.SetActive(true);
                 yield return new WaitForSeconds(1f);
             }
-            yield return new WaitForSeconds(10f);
+            subManager.seManager.PlaySE(3);
+            yield return new WaitForSeconds(4f);
         }
         
         subManager.ShowResult();

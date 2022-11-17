@@ -2305,7 +2305,7 @@ GameObject:
   - component: {fileID: 7710625627372569648}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2363,7 +2363,6 @@ MonoBehaviour:
     rsp: 0
     serialnumber: 0
     total: 0
-  isCameraSet: 0
   timer: 0
   restTimer: 0
   txtRank: {fileID: 0}
