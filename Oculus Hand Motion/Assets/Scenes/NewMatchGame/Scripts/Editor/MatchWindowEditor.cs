@@ -1,5 +1,7 @@
 using System.Drawing;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;

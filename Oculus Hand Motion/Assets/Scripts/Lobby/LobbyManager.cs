@@ -14,19 +14,28 @@ public class LobbyManager : MonoBehaviour
     public int selectedMenu;
     private int selectTemp;
 
+    Vector3 cameraOffset;
+
     private void Awake()
     {
         MenuContents();
         selectedMenu = 0;
         selectTemp = selectedMenu;
         SetMenus();
+
+        
+    }
+
+    private void Start()
+    {
+        cameraOffset = new Vector3(0, 0.2f, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
     }
 
     private void Update()
     {
-        transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
-        //transform.LookAt(GameManager.Instance.player.cameraRig.transform);
+        
+        
 
         if (selectedMenu == selectTemp)
             return;
