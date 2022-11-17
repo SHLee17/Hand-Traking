@@ -55,6 +55,7 @@ public class NumGameManager : MonoBehaviour
         }
     }
 
+    public SubManager subManager;
 
     [Header("Arrays")]
     public Transform[] fingerPoses;
@@ -124,6 +125,9 @@ public class NumGameManager : MonoBehaviour
 
     void Start()
     {
+        subManager.correctNum = 0;
+        subManager.clearBonus = 0;
+
         isToturial = true;
         answerDict = new Dictionary<Order, Number>();
         answerDict.Add(Order.First, nums[0]);
@@ -438,10 +442,15 @@ public class NumGameManager : MonoBehaviour
             if (answerDict[blankOrder].Num == answer)
             {
                 objRightAnswer.SetActive(true);
+                subManager.seManager.PlaySE(1);
                 GameManager.Instance.AddTotal(1);
             }
             else
+            {
                 objWrongAnswer.SetActive(true);
+                subManager.seManager.PlaySE(1);
+            }
+
         }
         else
         {

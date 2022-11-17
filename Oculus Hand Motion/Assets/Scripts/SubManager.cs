@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 
 public class SubManager : MonoBehaviour
 {
-    public GameManager gameManager;
     public List<GameObject> terrains;
     public CompleteLevel levelControl;
     public MusicManager musicBox;
@@ -24,9 +23,8 @@ public class SubManager : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         terrains = new List<GameObject>();
-        foreach (Transform terrain in gameManager.transform)
+        foreach (Transform terrain in GameManager.Instance.transform)
         {
             GameObject terra = terrain.gameObject;
             terrains.Add(terra);
@@ -48,8 +46,11 @@ public class SubManager : MonoBehaviour
         result.text = resultText;
 
         resultPlate.SetActive(true);
-        gameManager.AddTotal(resultNum);
+        GameManager.Instance.AddTotal(resultNum);
     }
 
-    //public void 
+    public void NextScene(int sceneNum)
+    {
+        GameManager.Instance.NextScene(sceneNum);
+    }
 }
