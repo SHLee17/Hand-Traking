@@ -76,6 +76,10 @@ public class LobbyManager : MonoBehaviour
 
     public void ChangeScene()
     {
+        if(selectedMenu<2)
+        {
+            return;
+        }
         SceneManager.LoadScene(selectedMenu+1);
         //Debug.Log("Start Scene"+selectedMenu);
     }

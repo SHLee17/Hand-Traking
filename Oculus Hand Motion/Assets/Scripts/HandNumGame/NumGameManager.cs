@@ -56,7 +56,6 @@ public class NumGameManager : MonoBehaviour
         }
     }
 
-    public SubManager subManager;
 
     [Header("Arrays")]
     public Transform[] fingerPoses;
@@ -126,8 +125,7 @@ public class NumGameManager : MonoBehaviour
 
     void Start()
     {
-        subManager.correctNum = 0;
-        subManager.clearBonus = 0;
+        
 
         isToturial = true;
         answerDict = new Dictionary<Order, Number>();
