@@ -35,6 +35,8 @@ public class SubManager : MonoBehaviour
             item.SetActive(false);
         }
         terrains[mapNum].SetActive(true);
+
+        //GameManager.Instance
     }
 
     public void ShowResult()

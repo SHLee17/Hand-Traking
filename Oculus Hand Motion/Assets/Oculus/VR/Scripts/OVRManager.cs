@@ -61,7 +61,9 @@ using UnityEngine.Experimental.XR;
 
 using Settings = UnityEngine.XR.XRSettings;
 using Node = UnityEngine.XR.XRNode;
+#if UNITY_EDITOR
 using UnityEditor.Build.Content;
+#endif
 
 /// <summary>
 /// Configuration data for Oculus virtual reality.

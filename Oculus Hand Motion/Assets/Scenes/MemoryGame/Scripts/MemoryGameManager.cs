@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MemoryGame
 {
@@ -41,7 +42,6 @@ public class MemoryGameManager : MonoBehaviour
         Typing,
     }
 
-    public SubManager subManager;
 
     [Header("Arrays")]
     [SerializeField]
@@ -79,6 +79,10 @@ public class MemoryGameManager : MonoBehaviour
     GameObject objResualt;
     [SerializeField]
     TMP_Text txtResualt;
+    [SerializeField]
+    GameObject objReset;
+    [SerializeField]
+    TMP_Text txtResault;
 
     [Header("Data Type")]
     [SerializeField]
@@ -96,7 +100,7 @@ public class MemoryGameManager : MonoBehaviour
     int maxGameLevel;
     int maxCount;
 
-    int stageCount;
+    public int stageCount;
     int currectAnswer;
 
     [SerializeField]
@@ -109,8 +113,6 @@ public class MemoryGameManager : MonoBehaviour
 
     void Start()
     {
-        subManager.correctNum = 0;
-        subManager.clearBonus = 0;
 
         objColorExample.SetActive(false);
         rand = new System.Random();
@@ -120,7 +122,7 @@ public class MemoryGameManager : MonoBehaviour
                 padButtonList.Add(button.GetComponent<PadButton>());
         }
 
-        stageCount = 10;
+        stageCount = 5;
         exampleStack = new Stack<int>();
         playerStack = new Stack<int>();
         maxGameLevel = 4;
@@ -141,17 +143,18 @@ public class MemoryGameManager : MonoBehaviour
 
         cameraOffset = new Vector3(-0.1f, 0, 0.8f);
         GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        objReset.SetActive(false);
     }
     void Update()
     {
 
-        if (!isTutorial)
-        {
-            objTutorial.SetActive(true);
+        //if (!isTutorial)
+        //{
+        //    objTutorial.SetActive(true);
 
-            objGameHolder.SetActive(false);
-            return;
-        }
+        //    objGameHolder.SetActive(false);
+        //    return;
+        //}
 
         switch (state)
         {
@@ -169,6 +172,7 @@ public class MemoryGameManager : MonoBehaviour
                             progressBar.StartProtress();
                             PlayExample(type);
                             ChangeState(state, Phase.Start);
+                            stageCount--;
                         }
                         else
                         {
@@ -260,7 +264,6 @@ public class MemoryGameManager : MonoBehaviour
                             if (playerStack.Pop() != exampleStack.Pop())
                             {
                                 eventCanvas.txtWording.text = "<color=red>틀렸습니다.</color>";
-                                subManager.seManager.PlaySE(6);
                                 eventCanvas.gameObject.SetActive(true);
                                 goto wrong;
                             }
@@ -268,27 +271,36 @@ public class MemoryGameManager : MonoBehaviour
                         if (playerStack.Count == 0 || playerStack.Count < exampleStack.Count)
                         {
                             eventCanvas.txtWording.text = "<color=red>틀렸습니다.</color>";
-                            subManager.seManager.PlaySE(6);
                             eventCanvas.gameObject.SetActive(true);
                             goto wrong;
                         }
 
                         eventCanvas.txtWording.text = "<color=#006400>맞았습니다.</color>";
-                        subManager.seManager.PlaySE(1);
                         currectAnswer++;
                         eventCanvas.gameObject.SetActive(true);
                     wrong:
                         ChangeState(state, Phase.Start);
                         break;
                     case Phase.Start:
+                        if (stageCount > 0)
+                        {
+                            eventCanvas.StartGame();
+                            ChangeState(state, Phase.End);
+                        }
+                        else
+                        {
+                            txtResault.text = $"총 <color=green>{currectAnswer}</color> 문제 맞추셨습니다.";
+                            objGameHolder.SetActive(false);
+                            objReset.SetActive(true);
+                        }
 
-
-                        eventCanvas.StartGame();
-                        ChangeState(state, Phase.End);
                         break;
                     case Phase.End:
                         if (eventCanvas.isEventOver)
                         {
+
+                            eventCanvas.txtWording.text = "";
+
                             playerStack.Clear();
                             exampleStack.Clear();
                             Type temp = type;
@@ -296,31 +308,7 @@ public class MemoryGameManager : MonoBehaviour
                             while (temp == type)
                                 type = GameManager.Instance.RandomEnum<Type>();
 
-
-
-                            if (stageCount > 0)
-                            {
-                                stageCount--;
-                                ChangeState(State.PlayExample, Phase.Ready);
-                            }
-                            else
-                            {
-                                subManager.correctNum = currectAnswer;
-                                if (currectAnswer == 10)
-                                {
-                                    subManager.levelControl.clearStage = true;
-                                    subManager.clearBonus = 1000;
-                                    subManager.levelControl.CompleteGame();
-                                }
-                                else
-                                    subManager.levelControl.CompleteGame();
-
-                                //GameManager.Instance.AddTotal(currectAnswer);
-                                //txtResualt.text = $"총 {currectAnswer} 문제 맞추셨습니다.\n다음 게임으로 넘어갑니다.";
-                                //
-                                //objResualt.SetActive(true);
-                            }
-
+                            ChangeState(State.PlayExample, Phase.Ready);
 
                         }
                         break;
@@ -626,5 +614,19 @@ public class MemoryGameManager : MonoBehaviour
 
         objGameHolder.SetActive(true);
         objTutorial.SetActive(false);
+    }
+    public void OnResetButton(bool isSelect)
+    {
+        if (isSelect)
+        {
+            stageCount = 5;
+
+            objGameHolder.SetActive(true);
+            ChangeState(State.EndGame, Phase.End);
+            eventCanvas.isEventOver = true;
+            objReset.SetActive(false);
+        }
+        else
+            SceneManager.LoadScene(0);
     }
 }

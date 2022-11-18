@@ -33,8 +33,7 @@ public class GameManager : MonoBehaviour
     Transform parentSeletUserName;
     [SerializeField]
     List<SelectAlphabet> userName;
-    [SerializeField]
-    List<GameObject> BGmapList;
+
 
     public User currentUser;
     [SerializeField]
@@ -114,13 +113,13 @@ public class GameManager : MonoBehaviour
 
     public void OnOption()
     {
-        objOption.SetActive(!objOption.activeSelf);
+        //objOption.SetActive(!objOption.activeSelf);
 
-        if (objGM == null)
-            objGM = GameObject.FindGameObjectWithTag("GameManager");
+        //if (objGM == null)
+        //    objGM = GameObject.FindGameObjectWithTag("GameManager");
 
-        if (objGM != null)
-            objGM.SetActive(!objGM.activeSelf);
+        //if (objGM != null)
+        //    objGM.SetActive(!objGM.activeSelf);
     }
 
     public T RandomEnum<T>(int min = 0)
@@ -130,19 +129,19 @@ public class GameManager : MonoBehaviour
     }
     public void SaveUser()
     {
-        string json = JsonUtility.ToJson(currentUser);
+        //string json = JsonUtility.ToJson(currentUser);
 
-        Debug.Log(json);
+        //Debug.Log(json);
 
-        if (!File.Exists($"{path}{currentUser.name}{currentUser.serialnumber}.json"))
-            File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
-        else
-        {
-            currentUser.serialnumber = rand.Next(100000);
-            File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
-        }
+        //if (!File.Exists($"{path}{currentUser.name}{currentUser.serialnumber}.json"))
+        //    File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
+        //else
+        //{
+        //    currentUser.serialnumber = rand.Next(100000);
+        //    File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
+        //}
 
-        AssetDatabase.Refresh();
+        //AssetDatabase.Refresh();
     }
 
     public void CreateUser()
@@ -230,11 +229,6 @@ public class GameManager : MonoBehaviour
 
     public void NextScene(int index)
     {
-
-        foreach (GameObject item in BGmapList)
-            item.SetActive(false);
-        int temp = rand.Next(BGmapList.Count);
-        BGmapList[temp].SetActive(true);
 
         objGM = null;
         SceneManager.LoadScene(index);
