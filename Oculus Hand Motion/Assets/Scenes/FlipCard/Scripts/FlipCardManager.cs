@@ -28,19 +28,21 @@ public class FlipCardManager : MonoBehaviour
     public bool isStart;
 
     [SerializeField]
+    GameObject objHolder;
+    [SerializeField]
     Vector3 cameraOffset;
 
     void Start()
     {
         //timer setting
         progressBar.StartProtress();
-        timer = timerReset = 30f;
+        timer = timerReset = 60f;
         progressBar.gameObject.SetActive(true);
         progressBar.Set(timer, timerReset);
         //
         subManager.correctNum = 0;
         subManager.clearBonus = 0;
-        
+        subManager.gameObject.SetActive(false);
         rand = new System.Random();
         level = 1;
         picked = false;
@@ -81,12 +83,14 @@ public class FlipCardManager : MonoBehaviour
 
         if (timer < 0)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            objHolder.gameObject.SetActive(false);
+            subManager.gameObject.SetActive(true);
             subManager.ShowResult();
         }
         //
         int temp = cardsCount;
-        level = arrow.Value;
+        level = 3;
         cardsCount = cardsCountByLevel[level - 1];
         if (temp != cardsCount)
         {
@@ -149,6 +153,8 @@ public class FlipCardManager : MonoBehaviour
         subManager.correctNum = correctCards / 2;
         if (correctCards == cardsCount)
         {
+            objHolder.gameObject.SetActive(false);
+            subManager.gameObject.SetActive(true);
             isStart = false;
             subManager.levelControl.clearStage = true;
             subManager.clearBonus = 1000;

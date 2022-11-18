@@ -239,7 +239,7 @@ public class RSPGameManager : MonoBehaviour
     {
         txtInfo.text = "";
         randRSP = GameManager.Instance.RandomEnum<RSP>();
-
+        
         objPaper.gameObject.SetActive(false);
         objRock.gameObject.SetActive(false);
         objScissor.gameObject.SetActive(false);
@@ -333,7 +333,8 @@ public class RSPGameManager : MonoBehaviour
         if (isTrue) 
         {
             objHolder.SetActive(true);
-            stageCount = 5;
+            stageCount = 1;
+            score = 0;
             state = State.SetGame;
         }
 

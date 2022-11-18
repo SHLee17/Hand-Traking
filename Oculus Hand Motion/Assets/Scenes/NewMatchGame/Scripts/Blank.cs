@@ -116,6 +116,7 @@ public class Blank : MonoBehaviour
     {
         if (other.CompareTag("Match"))
         {
+            if (match != null) return;
             match = other.GetComponent<Match>();
             tempMatch = null;
             match.nextMoveBlank = this;

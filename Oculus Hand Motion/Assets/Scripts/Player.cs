@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
 
     public void OnButton()
     {
-        GameManager.Instance.OnOption();
+        GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+        Vector3 pos = gm.transform.position;
+        Vector3 self = cameraRig.transform.position;
+        cameraRig.transform.position = new Vector3(pos.x, pos.y, pos.z - 0.5f);
     }
 }

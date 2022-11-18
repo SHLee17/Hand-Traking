@@ -620,7 +620,7 @@ public class MemoryGameManager : MonoBehaviour
         if (isSelect)
         {
             stageCount = 5;
-
+            currectAnswer = 0;
             objGameHolder.SetActive(true);
             ChangeState(State.EndGame, Phase.End);
             eventCanvas.isEventOver = true;

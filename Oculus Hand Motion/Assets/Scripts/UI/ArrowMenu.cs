@@ -33,7 +33,7 @@ public class ArrowMenu : MonoBehaviour
 
     private void Start()
     {
-        Value = 4;
+        Value = 5;
     }
 
     public void Plus()
