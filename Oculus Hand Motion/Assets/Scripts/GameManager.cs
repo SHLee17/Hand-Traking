@@ -216,7 +216,8 @@ public class GameManager : MonoBehaviour
     {
         if (GUI.Button(new Rect(10, 10, 100, 20), "CameraReset"))
         {
-            if(objGM == null)
+            //SceneManager.LoadScene(0);
+            if (objGM == null)
                 objGM = GameObject.FindGameObjectWithTag("GameManager");
 
             if (objGM != null)
