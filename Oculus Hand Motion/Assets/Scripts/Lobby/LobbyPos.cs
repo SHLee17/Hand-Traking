@@ -6,10 +6,13 @@ using UnityEngine;
 public class LobbyPos : MonoBehaviour
 {
     Vector3 cameraOffset;
+    Quaternion cameraRotation;
+
     void Start()
     {
         cameraOffset = new Vector3(-0.2f, 0, 0.4f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraRotation = new Quaternion( 0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
 
     }
 

@@ -93,6 +93,7 @@ public class MemoryGameManager : MonoBehaviour
     ProgressBar progressBar;
     [SerializeField]
     Vector3 cameraOffset;
+    Quaternion cameraRotation;
     bool isTutorial;
 
     float timer;
@@ -141,8 +142,9 @@ public class MemoryGameManager : MonoBehaviour
         txtHistory.gameObject.SetActive(false);
         eventCanvas.StartGame();
 
-        cameraOffset = new Vector3(-0.1f, 0, 0.8f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraOffset = new Vector3(-0.0f, 0, 0.8f);
+        cameraRotation = new Quaternion(0,0,0,0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
         objReset.SetActive(false);
     }
     void Update()

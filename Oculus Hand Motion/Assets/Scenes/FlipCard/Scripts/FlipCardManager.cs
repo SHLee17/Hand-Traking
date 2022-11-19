@@ -31,6 +31,7 @@ public class FlipCardManager : MonoBehaviour
     GameObject objHolder;
     [SerializeField]
     Vector3 cameraOffset;
+    Quaternion cameraRotation;
 
     void Start()
     {
@@ -68,7 +69,8 @@ public class FlipCardManager : MonoBehaviour
         }
 
         cameraOffset = new Vector3(-0.2f, 0.2f, 0.4f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraRotation = new Quaternion(0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
     }
 
     void Update()

@@ -92,6 +92,7 @@ public class NumGameManager : MonoBehaviour
     [SerializeField]
     int answer;
     public Vector3 cameraOffset;
+    public Quaternion cameraRotation;
 
     [Header("Class")]
     [SerializeField]
@@ -144,7 +145,8 @@ public class NumGameManager : MonoBehaviour
         }
 
         cameraOffset = new Vector3(-0.1f, 0.2f, 0.8f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraRotation = new Quaternion(0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
 
     }
 

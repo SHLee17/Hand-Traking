@@ -84,6 +84,7 @@ public class RSPGameManager : MonoBehaviour
     public int gameNum, score, currentGame;
 
     Vector3 cameraOffset;
+    Quaternion cameraRotation;
     void Start()
     {
 
@@ -102,7 +103,8 @@ public class RSPGameManager : MonoBehaviour
 
 
         cameraOffset = new Vector3(0, 0, 0.4f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraRotation = new Quaternion(0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
 
     }
 

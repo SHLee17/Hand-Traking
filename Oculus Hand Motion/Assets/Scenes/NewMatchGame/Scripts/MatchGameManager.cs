@@ -48,6 +48,7 @@ public class MatchGameManager : MonoBehaviour
     [SerializeField]
     Phase phase;
     Vector3 cameraOffset;
+    Quaternion cameraRotation;
     float timer, resetTimer;
     int stageCount;
     int score;
@@ -100,7 +101,8 @@ public class MatchGameManager : MonoBehaviour
         }
 
         cameraOffset = new Vector3(-0.3f, 0, 0.4f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraRotation = new Quaternion(0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
         objResualtCanvas.SetActive(false);
 
     }
