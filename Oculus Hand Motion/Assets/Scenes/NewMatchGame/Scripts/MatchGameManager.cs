@@ -13,7 +13,7 @@ public class MatchGameManager : MonoBehaviour
     [Header("List")]
     [Space(10)]
 
-    public SubManager subManager;
+    //public SubManager subManager;
 
     [SerializeField]
     List<MatchStage> stageList;
