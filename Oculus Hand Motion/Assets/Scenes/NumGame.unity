@@ -10899,7 +10899,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99653e3fed511042bf3c08dd3ade628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subManager: {fileID: 0}
   fingerPoses:
   - {fileID: 310353621}
   - {fileID: 242213885}
@@ -10916,6 +10915,7 @@ MonoBehaviour:
   phase: 0
   answer: 0
   cameraOffset: {x: 0, y: 0, z: 0}
+  cameraRotation: {x: 0, y: 0, z: 0, w: 0}
   resultBoard: {fileID: 1081415972}
   numberManager: {fileID: 2077425564}
   numGameOption: {fileID: 1035406371}
@@ -12720,7 +12720,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: bd0bb729cb6159b4ab21c5f62cad24ee, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26818,7 +26818,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: bd0bb729cb6159b4ab21c5f62cad24ee, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

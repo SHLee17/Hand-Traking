@@ -79,6 +79,7 @@ public class RSPGameManager : MonoBehaviour
     bool isReverse;
     float timer;
     float timerReset;
+    [SerializeField]
     int stageCount;
 
     public int gameNum, score, currentGame;
@@ -194,10 +195,7 @@ public class RSPGameManager : MonoBehaviour
                         txtInfo.text = temp.ToString();
                         timer = timerReset / 2;
                         progressBar.StartProtress();
-                        currentGame++;
-                        if (gameNum<=currentGame)
-                            phase = Phase.End;
-                        else
+                       
                             phase = Phase.Start;
                         break;
                     case Phase.Start:
@@ -214,6 +212,7 @@ public class RSPGameManager : MonoBehaviour
                             txtInfo.fontSize = 30;
                             txtInfo.text = "바로 다음게임이 시작됩니다.";
                         }
+                       
                         if (stageCount <= 0)
                         {
                             txtInfo.text = "";
@@ -227,6 +226,7 @@ public class RSPGameManager : MonoBehaviour
                         {
                             if (timer < 0) state = State.SetGame;
                         }
+
                         break;
                     case Phase.End:
                       
@@ -335,7 +335,7 @@ public class RSPGameManager : MonoBehaviour
         if (isTrue) 
         {
             objHolder.SetActive(true);
-            stageCount = 1;
+            stageCount = 5;
             score = 0;
             state = State.SetGame;
         }

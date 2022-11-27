@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
             Vector3 pos = player.cameraRig.centerEyeAnchor.position;
             Quaternion rot = player.cameraRig.centerEyeAnchor.rotation;
             transform.position = new Vector3(pos.x + cameraOffset.x, pos.y + cameraOffset.y, pos.z + cameraOffset.z);
-            transform.rotation = new Quaternion(rot.w + cameraRotation.w, rot.x + cameraRotation.x, rot.y + cameraRotation.y, rot.z + cameraRotation.z);
+            //transform.rotation = new Quaternion(rot.w + cameraRotation.w, rot.x + cameraRotation.x, rot.y + cameraRotation.y, rot.z + cameraRotation.z);
         }
         else
             objGM = null;
