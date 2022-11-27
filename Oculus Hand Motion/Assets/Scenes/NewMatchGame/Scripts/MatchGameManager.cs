@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class MatchGameManager : MonoBehaviour
 {
+    public SubManager subManager;
+
     [Header("List")]
     [Space(10)]
 
@@ -67,6 +69,8 @@ public class MatchGameManager : MonoBehaviour
     }
     void Start()
     {
+        subManager.correctNum = 0;
+        subManager.clearBonus = 0;
         objResualtCanvas.SetActive(true);
         stageCount = 5;
         stageRandIndex = new List<int>();
@@ -186,6 +190,13 @@ public class MatchGameManager : MonoBehaviour
         if (stageList.Count <= currentStageIndex)
         {
             ChangeState(State.EndGame, Phase.End);
+            subManager.correctNum = score;
+            if (score == stageList.Count)
+            {
+                subManager.clearBonus = 1000;
+                subManager.levelControl.clearStage = true;
+            }
+            subManager.levelControl.CompleteGame();
             StopCoroutine(NextGame());
         }
 
