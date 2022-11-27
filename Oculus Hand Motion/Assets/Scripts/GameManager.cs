@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
-using UnityEngine;
 using TMPro;
-using UnityEditor.XR.LegacyInputHelpers;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -33,8 +31,7 @@ public class GameManager : MonoBehaviour
     Transform parentSeletUserName;
     [SerializeField]
     List<SelectAlphabet> userName;
-    [SerializeField]
-    List<GameObject> BGmapList;
+
 
     public User currentUser;
     [SerializeField]
@@ -114,13 +111,13 @@ public class GameManager : MonoBehaviour
 
     public void OnOption()
     {
-        objOption.SetActive(!objOption.activeSelf);
+        //objOption.SetActive(!objOption.activeSelf);
 
-        if (objGM == null)
-            objGM = GameObject.FindGameObjectWithTag("GameManager");
+        //if (objGM == null)
+        //    objGM = GameObject.FindGameObjectWithTag("GameManager");
 
-        if (objGM != null)
-            objGM.SetActive(!objGM.activeSelf);
+        //if (objGM != null)
+        //    objGM.SetActive(!objGM.activeSelf);
     }
 
     public T RandomEnum<T>(int min = 0)
@@ -130,19 +127,19 @@ public class GameManager : MonoBehaviour
     }
     public void SaveUser()
     {
-        string json = JsonUtility.ToJson(currentUser);
+        //string json = JsonUtility.ToJson(currentUser);
 
-        Debug.Log(json);
+        //Debug.Log(json);
 
-        if (!File.Exists($"{path}{currentUser.name}{currentUser.serialnumber}.json"))
-            File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
-        else
-        {
-            currentUser.serialnumber = rand.Next(100000);
-            File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
-        }
+        //if (!File.Exists($"{path}{currentUser.name}{currentUser.serialnumber}.json"))
+        //    File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
+        //else
+        //{
+        //    currentUser.serialnumber = rand.Next(100000);
+        //    File.WriteAllText($"{path}{currentUser.name}{currentUser.serialnumber}.json", json);
+        //}
 
-        AssetDatabase.Refresh();
+        //AssetDatabase.Refresh();
     }
 
     public void CreateUser()
@@ -189,9 +186,10 @@ public class GameManager : MonoBehaviour
     }
 
     Vector3 cameraOffset;
+    Quaternion cameraRotation;
     public void CameraUpdate(Transform transform)
     {
-        if(player == null)
+        if (player == null)
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         if (Vector3.Distance(player.cameraRig.centerEyeAnchor.transform.position, Vector3.zero) != 0)
@@ -200,15 +198,18 @@ public class GameManager : MonoBehaviour
         if (timer > 0)
         {
             Vector3 pos = player.cameraRig.centerEyeAnchor.position;
+            Quaternion rot = player.cameraRig.centerEyeAnchor.rotation;
             transform.position = new Vector3(pos.x + cameraOffset.x, pos.y + cameraOffset.y, pos.z + cameraOffset.z);
+            transform.rotation = new Quaternion(rot.w + cameraRotation.w, rot.x + cameraRotation.x, rot.y + cameraRotation.y, rot.z + cameraRotation.z);
         }
         else
             objGM = null;
 
     }
-    public void ResetTimer(GameObject obj, Vector3 offset)
+    public void ResetTimer(GameObject obj, Vector3 offset, Quaternion rotation)
     {
         cameraOffset = offset;
+        cameraRotation = rotation;
         objGM = obj;
         timer = restTimer;
     }
@@ -217,7 +218,8 @@ public class GameManager : MonoBehaviour
     {
         if (GUI.Button(new Rect(10, 10, 100, 20), "CameraReset"))
         {
-            if(objGM == null)
+            //SceneManager.LoadScene(0);
+            if (objGM == null)
                 objGM = GameObject.FindGameObjectWithTag("GameManager");
 
             if (objGM != null)
@@ -230,11 +232,6 @@ public class GameManager : MonoBehaviour
 
     public void NextScene(int index)
     {
-
-        foreach (GameObject item in BGmapList)
-            item.SetActive(false);
-        int temp = rand.Next(BGmapList.Count);
-        BGmapList[temp].SetActive(true);
 
         objGM = null;
         SceneManager.LoadScene(index);

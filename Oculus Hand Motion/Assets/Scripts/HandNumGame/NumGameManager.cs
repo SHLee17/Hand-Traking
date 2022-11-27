@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace NumGameEnum
@@ -55,7 +56,6 @@ public class NumGameManager : MonoBehaviour
         }
     }
 
-    public SubManager subManager;
 
     [Header("Arrays")]
     public Transform[] fingerPoses;
@@ -92,6 +92,7 @@ public class NumGameManager : MonoBehaviour
     [SerializeField]
     int answer;
     public Vector3 cameraOffset;
+    public Quaternion cameraRotation;
 
     [Header("Class")]
     [SerializeField]
@@ -125,8 +126,7 @@ public class NumGameManager : MonoBehaviour
 
     void Start()
     {
-        subManager.correctNum = 0;
-        subManager.clearBonus = 0;
+        
 
         isToturial = true;
         answerDict = new Dictionary<Order, Number>();
@@ -145,7 +145,8 @@ public class NumGameManager : MonoBehaviour
         }
 
         cameraOffset = new Vector3(-0.1f, 0.2f, 0.8f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraRotation = new Quaternion(0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
 
     }
 
@@ -442,15 +443,10 @@ public class NumGameManager : MonoBehaviour
             if (answerDict[blankOrder].Num == answer)
             {
                 objRightAnswer.SetActive(true);
-                subManager.seManager.PlaySE(1);
                 GameManager.Instance.AddTotal(1);
             }
             else
-            {
                 objWrongAnswer.SetActive(true);
-                subManager.seManager.PlaySE(1);
-            }
-
         }
         else
         {
@@ -476,4 +472,10 @@ public class NumGameManager : MonoBehaviour
         resultBoard.ResetBoard();
     }
 
+
+    public void LobbyScene()
+    {
+
+        SceneManager.LoadScene(0);
+    }
 }

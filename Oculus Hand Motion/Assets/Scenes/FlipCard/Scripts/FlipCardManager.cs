@@ -1,10 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
 
 public class FlipCardManager : MonoBehaviour
 {
     public SubManager subManager;
+    public ProgressBar progressBar;
     public GameObject[] levels;
     public CardManager[] cards;
     public List<CardManager> cardList;
@@ -19,16 +21,33 @@ public class FlipCardManager : MonoBehaviour
     int correctCards;
     public bool processing;
 
+    public float timer;
+    float timerReset;
+
     public Transform objBoard;
+    public bool isStart;
+
+    [SerializeField]
+    GameObject objHolder;
+    [SerializeField]
+    Vector3 cameraOffset;
+    Quaternion cameraRotation;
 
     void Start()
     {
+        //timer setting
+        progressBar.StartProtress();
+        timer = timerReset = 60f;
+        progressBar.gameObject.SetActive(true);
+        progressBar.Set(timer, timerReset);
+        //
+        subManager.correctNum = 0;
+        subManager.clearBonus = 0;
+        subManager.gameObject.SetActive(false);
         rand = new System.Random();
         level = 1;
         picked = false;
         correctCards = 0;
-        subManager.correctNum = 0;
-        subManager.clearBonus = 0;
         processing = false;
         cardList = new List<CardManager>();
 
@@ -48,17 +67,32 @@ public class FlipCardManager : MonoBehaviour
         {
             cardList[i].cardPos = i;
         }
-        
+
+        cameraOffset = new Vector3(-0.2f, 0.2f, 0.4f);
+        cameraRotation = new Quaternion(0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
     }
 
     void Update()
     {
-        transform.position =
-            new Vector3(transform.position.x, GameManager.Instance.player.cameraRig.centerEyeAnchor.position.y - .2f, transform.position.z);
-        //transform.LookAt(GameManager.Instance.player.cameraRig.transform);
+        if (!isStart)
+        {
+            return;
+        }
+        //timer
+        timer -= Time.deltaTime;
+        progressBar.Set(timer, timerReset);
 
+        if (timer < 0)
+        {
+            //gameObject.SetActive(false);
+            objHolder.gameObject.SetActive(false);
+            subManager.gameObject.SetActive(true);
+            subManager.ShowResult();
+        }
+        //
         int temp = cardsCount;
-        level = arrow.Value;
+        level = 3;
         cardsCount = cardsCountByLevel[level - 1];
         if (temp != cardsCount)
         {
@@ -77,7 +111,7 @@ public class FlipCardManager : MonoBehaviour
         for (int i = 0; i < levels.Length; i++)
         {
             levels[i].SetActive(true);
-            if (i >= level)
+            if (i>=level)
                 levels[i].SetActive(false);
         }
 
@@ -104,6 +138,11 @@ public class FlipCardManager : MonoBehaviour
 
     }
 
+    public void StartGame()
+    {
+        isStart = true;
+    }
+
     public void FlipThatCard(CardManager thatCard, bool setCard)
     {
         thatCard.FlipCard(setCard);
@@ -113,18 +152,15 @@ public class FlipCardManager : MonoBehaviour
     {
         correctCards += 2;
         subManager.seManager.PlaySE(1);
-        subManager.correctNum = correctCards/2;
+        subManager.correctNum = correctCards / 2;
         if (correctCards == cardsCount)
         {
-            subManager.clearBonus = 1000;
+            objHolder.gameObject.SetActive(false);
+            subManager.gameObject.SetActive(true);
+            isStart = false;
             subManager.levelControl.clearStage = true;
-            CompleteGame();
+            subManager.clearBonus = 1000;
+            subManager.levelControl.CompleteGame();
         }
     }
-
-    public void CompleteGame()
-    {
-        subManager.levelControl.CompleteGame();
-    }
-
 }

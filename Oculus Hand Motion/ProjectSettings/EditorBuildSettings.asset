@@ -8,21 +8,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 5e9ce0d48e9f72449948fb9a80d378e1
-  - enabled: 1
-    path: Assets/Scenes/NumGame.unity
-    guid: 83e0f23db06db2545b50875bbc7ccd11
-  - enabled: 1
-    path: Assets/Scenes/MemoryGame.unity
-    guid: fbb4c5ab51d1551489c963d7d04dec3b
-  - enabled: 1
-    path: Assets/Scenes/FlipCard.unity
-    guid: 2e38d138331c2b340a2141663f56bbd5
   - enabled: 0
     path: Assets/Scenes/MatchGame.unity
     guid: 0b0ecd12b5211d147a19b4e09fb9d861
   - enabled: 0
+    path: Assets/Scenes/FlipCard.unity
+    guid: 2e38d138331c2b340a2141663f56bbd5
+  - enabled: 1
     path: Assets/Scenes/RSPGame.unity
     guid: f264377171635cf448c05389db2e1e06
+  - enabled: 1
+    path: Assets/Scenes/MemoryGame.unity
+    guid: fbb4c5ab51d1551489c963d7d04dec3b
+  - enabled: 1
+    path: Assets/Scenes/NumGame.unity
+    guid: 83e0f23db06db2545b50875bbc7ccd11
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6e97b957c5c47f84587a363d4c42afc7,
       type: 2}

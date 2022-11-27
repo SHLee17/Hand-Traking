@@ -23,6 +23,7 @@ public class SubManager : MonoBehaviour
 
     private void Start()
     {
+        //musicBox.PlayMusic();
         terrains = new List<GameObject>();
         foreach (Transform terrain in GameManager.Instance.transform)
         {
@@ -34,11 +35,13 @@ public class SubManager : MonoBehaviour
             item.SetActive(false);
         }
         terrains[mapNum].SetActive(true);
+
+        //GameManager.Instance
     }
 
     public void ShowResult()
     {
-        resultCalcText = string.Format("{0:00}개\n{0:00.0}배\n{0:0000}점\n", correctNum, scoreMultiple, clearBonus);
+        resultCalcText = string.Format("{0:00}개\n{1:00.0}배\n{2:0000}점\n", correctNum, scoreMultiple, clearBonus);
         resultNum = (int)(correctNum * scoreMultiple) + clearBonus;
         resultText = string.Format("{0:0000}점\n", resultNum);
 
@@ -46,7 +49,7 @@ public class SubManager : MonoBehaviour
         result.text = resultText;
 
         resultPlate.SetActive(true);
-        GameManager.Instance.AddTotal(resultNum);
+        //GameManager.Instance.AddTotal(resultNum);
     }
 
     public void NextScene(int sceneNum)

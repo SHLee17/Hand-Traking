@@ -4,9 +4,9 @@ using UnityEngine;
 public class ProgressBar : MonoBehaviour
 {
 
-    float current;
-    float max;
-    float normalized;
+    public float current;
+    public float max;
+    public float normalized;
     [SerializeField]
     bool isStart;
     [SerializeField]

@@ -47,9 +47,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7110994300686988693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef2ec21fd92100e45aea3bb552c07566, type: 3}
+  m_Script: {fileID: 11500000, guid: d7ddeb0795e18d348a6688b5312276b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subManager: {fileID: 0}
   fireWorks:
   - {fileID: 8564403500331681875}
   - {fileID: 8564403498777464189}
@@ -57,6 +58,7 @@ MonoBehaviour:
   - {fileID: 8564403500093745374}
   - {fileID: 8564403499158658425}
   - {fileID: 8564403498885086939}
+  clearStage: 0
 --- !u!1001 &7110994301126041301
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SceneManagement;
-using UnityEditor.UIElements;
-using UnityEditor.XR.LegacyInputHelpers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
@@ -14,6 +12,8 @@ public class MatchGameManager : MonoBehaviour
 
     [Header("List")]
     [Space(10)]
+
+    public SubManager subManager;
 
     [SerializeField]
     List<MatchStage> stageList;
@@ -50,6 +50,7 @@ public class MatchGameManager : MonoBehaviour
     [SerializeField]
     Phase phase;
     Vector3 cameraOffset;
+    Quaternion cameraRotation;
     float timer, resetTimer;
     int stageCount;
     int score;
@@ -104,7 +105,8 @@ public class MatchGameManager : MonoBehaviour
         }
 
         cameraOffset = new Vector3(-0.3f, 0, 0.4f);
-        GameManager.Instance.ResetTimer(gameObject, cameraOffset);
+        cameraRotation = new Quaternion(0, 0, 0, 0);
+        GameManager.Instance.ResetTimer(gameObject, cameraOffset, cameraRotation);
         objResualtCanvas.SetActive(false);
 
     }
@@ -130,6 +132,7 @@ public class MatchGameManager : MonoBehaviour
                         progressBar.Set(timer, resetTimer);
                         if (timer < 0)
                         {
+                            subManager.seManager.PlaySE(6);
                             txtRight.gameObject.SetActive(false);
                             txtTimeOver.gameObject.SetActive(true);
                             ChangeState(State.EndGame, Phase.Ready);
@@ -201,10 +204,22 @@ public class MatchGameManager : MonoBehaviour
         stageCount--;
 
 
-        if (stageCount > 0) 
-        ChangeState(State.GameStart, Phase.Ready);
-        
-
+        if (stageCount > 0)
+        {
+            ChangeState(State.GameStart, Phase.Ready);
+        }
+        else
+        {
+            subManager.correctNum = score;
+            if (score == 5)
+            {
+                subManager.levelControl.clearStage = true;
+                subManager.clearBonus = 1000;
+                subManager.levelControl.CompleteGame();
+            }
+            else
+                subManager.levelControl.CompleteGame();
+        }
     }
 
     public void SetStage()

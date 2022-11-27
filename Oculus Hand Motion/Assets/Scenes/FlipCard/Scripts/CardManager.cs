@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public SubManager subManager;
     public FlipCardManager flipCardManager;
     public GameObject thisCard;
     public Animator flipCardAnim;
@@ -16,8 +15,7 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
-        subManager = GameObject.FindGameObjectWithTag("SubManager").GetComponent<SubManager>();
-        flipCardManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<FlipCardManager>();
+        flipCardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<FlipCardManager>();
 
         checkPair = false;
     }
@@ -41,7 +39,7 @@ public class CardManager : MonoBehaviour
             }
             else
             {
-                subManager.seManager.PlaySE(6);
+                flipCardManager.subManager.seManager.PlaySE(6);
                 StartCoroutine(WaitAndFlip(1.5f));
             }
 
